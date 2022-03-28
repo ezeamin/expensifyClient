@@ -1,0 +1,34 @@
+.newExpense__optionsBox{
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+}
+
+.newExpense__optionsBox__group{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.newExpense__optionsBox__button{
+    width: 75px;
+    height: 75px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 1.5rem;
+}
+
+.newExpense__optionsBox__button--ingreso{
+    background: linear-gradient(45deg, rgb(63, 141, 89) 0%, rgb(54, 255, 104) 100%);
+    box-shadow: 0 0.2rem 10px rgba(54, 255, 104,0.3);
+}
+
+.newExpense__optionsBox__button--gasto{
+    background: linear-gradient(45deg, rgb(134, 53, 53) 0%, rgb(255, 95, 95) 100%);
+    box-shadow: 0 0.2rem 10px rgba(255, 95, 95,0.3);
+}

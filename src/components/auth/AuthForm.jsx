@@ -3,15 +3,15 @@ import { TextField, Checkbox, FormControlLabel } from "@mui/material";
 import { Button } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-const theme = createTheme({
-  status: {
-    mainColor: "#4EA7A1",
-  },
+const themeButton = createTheme({
   palette: {
     mainColor: {
       main: "#4EA7A1",
       contrastText: "#fff",
     },
+  },
+  typography: {
+    fontFamily: "Nunito",
   },
 });
 
@@ -27,15 +27,20 @@ class AuthForm extends Component {
     };
   }
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    this.props.redirectSuccess();
+  }
+
   render() {
     return (
       <form
-        onSubmit={() => this.handleSubmit(this.state.dni, this.state.password)}
+        onSubmit={(e) => this.handleSubmit(e)}
       >
         <TextField
           error={this.state.errorDNI}
           className="w-100"
-          id="outlined-basic"
           label="DNI"
           variant="outlined"
           size="small"
@@ -47,7 +52,6 @@ class AuthForm extends Component {
           error={this.state.errorPassword}
           type="password"
           className="w-100 mt-3"
-          id="outlined-basic"
           label="Contraseña"
           variant="outlined"
           size="small"
@@ -56,11 +60,19 @@ class AuthForm extends Component {
           onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
         />
         <div className="d-flex flex-column mt-1">
-          <FormControlLabel
-            control={<Checkbox value={this.state.rememberMe} onChange={(e) => this.setState({ rememberMe: !this.state.rememberMe })} />}
-            label="Recordarme"
-          />
-          <ThemeProvider theme={theme}>
+          <ThemeProvider theme={themeButton}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  value={this.state.rememberMe}
+                  onChange={(e) =>
+                    this.setState({ rememberMe: !this.state.rememberMe })
+                  }
+                />
+              }
+              label="Recordarme"
+              fontFamily="custom"
+            />
             <Button variant="contained" color="mainColor" type="submit">
               Continuar
             </Button>

@@ -28,6 +28,10 @@
     font-weight: 600;
 }
 
+.MuiFormControlLabel-label{
+    font-size: 10rem;
+}
+
 .auth__box__mensajeRegistro{
     font-size: 19px;
     line-height: 10px;

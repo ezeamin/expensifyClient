@@ -2,13 +2,13 @@
     display: flex;
     justify-content: space-evenly;
     text-align: center;
-    padding: 1.5rem 0;
     position: fixed;
     width: 100vw;
     bottom: 0;
     left: 0;
     background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    z-index: 9999;
 }
 
 .navegation__box__newButton{
@@ -23,10 +23,11 @@
 
 .navegation__box__newButton__a{
     text-decoration: none;
+    color: #ffffff;
 }
 
 .navegation__box__newButton__circle{
-    background: linear-gradient(36deg, rgb(78,167,161) 0%, rgb(54,230,255) 100%);
+    background: linear-gradient(45deg, rgb(78,167,161) 0%, rgb(54,230,255) 100%);
     box-shadow: 0 0.2rem 10px rgba(96, 187, 181, 0.4);
     width: 60px;
     height: 60px;
