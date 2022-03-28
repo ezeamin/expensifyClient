@@ -1,0 +1,10 @@
+.navegation__box__navItem{
+    text-decoration: none;
+    color: #000;
+    margin: 0 1.75rem;
+}
+
+.navegation__box__navItem__logo i{
+    color: #000;
+    font-size: 18px;
+}

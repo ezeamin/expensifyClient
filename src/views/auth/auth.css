@@ -1,0 +1,45 @@
+.auth{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.auth__logo{
+    width: 60vw;
+    position: absolute;
+    top: 2rem;
+}
+
+.auth__logo img{
+    width: 100%;
+}
+
+.auth__box{
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 20px;
+    width: 85%;
+    text-align: center;
+}
+
+.auth__box h1{
+    font-weight: 600;
+}
+
+.auth__box__mensajeRegistro{
+    font-size: 19px;
+    line-height: 10px;
+}
+
+.auth__box__mensajeRegistro__a{
+    color: #2f2f2f;
+}
+
+@media screen and (max-height: 690px){
+    .auth__logo{
+        position: relative;
+        margin-bottom: 3rem;
+    }
+}
