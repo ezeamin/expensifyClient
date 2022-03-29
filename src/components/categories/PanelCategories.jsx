@@ -23,6 +23,7 @@ const PanelCategories = (props) => {
       {props.categories.map((category, index) => {
         return (
           <CategoryItem
+            key={index}
             title={category.title}
             icon={category.icon}
             color={category.color}

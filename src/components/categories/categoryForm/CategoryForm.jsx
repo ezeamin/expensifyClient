@@ -6,38 +6,38 @@ import "./categoryForm.css";
 
 const icons = [
   "fa-solid fa-utensils",
+  "fa-solid fa-candy-cane",
+  "fa-solid fa-ice-cream",
   "fa-solid fa-tshirt",
   "fa-solid fa-car",
   "fa-solid fa-bus",
   "fa-solid fa-bicycle",
-  "fa-solid fa-briefcase",
   "fa-solid fa-plane",
+  "fa-solid fa-briefcase",
+  "fa-solid fa-file-invoice-dollar",
+  "fa-solid fa-building-columns",
   "fa-solid fa-dumbbell",
   "fa-solid fa-home",
   "fa-solid fa-hotel",
   "fa-solid fa-shopping-cart",
   "fa-solid fa-shopping-basket",
   "fa-solid fa-champagne-glasses",
-  "fa-solid fa-paw",
-  "fa-solid fa-staff-aesculapius",
-  "fa-solid fa-pills",
-  "fa-solid fa-ice-cream",
-  "fa-solid fa-book",
+  "fa-solid fa-dice",
   "fa-solid fa-gift",
   "fa-solid fa-film",
+  "fa-solid fa-music",
+  "fa-solid fa-cannabis",
+  "fa-solid fa-paw",
+  "fa-solid fa-staff-aesculapius",
+  "fa-solid fa-hand-holding-heart",
+  "fa-solid fa-pills",
+  "fa-solid fa-book",
   "fa-solid fa-cross",
   "fa-solid fa-globe",
-  "fa-solid fa-file-invoice-dollar",
-  "fa-solid fa-music",
   "fa-solid fa-user-group",
-  "fa-solid fa-candy-cane",
-  "fa-solid fa-building-columns",
-  "fa-solid fa-hand-holding-heart",
-  "fa-solid fa-cannabis",
   "fa-solid fa-child",
   "fa-solid fa-baby",
   "fa-solid fa-circle-question",
-  "fa-solid fa-dice",
 ];
 
 class CategoryForm extends Component {
@@ -50,7 +50,6 @@ class CategoryForm extends Component {
       description: "",
       errores: {
         title: false,
-        icon: false,
         limit: false,
       },
     };
@@ -100,11 +99,10 @@ class CategoryForm extends Component {
 
     let errorGeneral = false;
 
-    let error = [false, false, false];
+    let error = [false, false];
 
     error[0] = this.verificar("title", this.state.title);
-    error[1] = this.verificar("icon", this.state.icon);
-    error[2] = this.verificar("limit", this.state.limit);
+    error[1] = this.verificar("limit", this.state.limit);
 
     error.forEach((element) => {
       if (element) {

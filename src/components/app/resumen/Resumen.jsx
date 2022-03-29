@@ -38,8 +38,6 @@ const theme = createTheme({
 });
 
 const Resumen = () => {
-  let progress = React.useRef();
-
   let cuentas = [
     {
       cuenta: "Cuenta 1",
