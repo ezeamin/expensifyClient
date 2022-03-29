@@ -21,14 +21,20 @@
     align-items: center;
     justify-content: center;
     margin: 0 1.5rem;
+    text-decoration: none;
+    color: #fff;
+}
+
+.newExpense__optionsBox__button:focus, .newExpense__optionsBox__button:active{
+    color: rgb(209, 209, 209);
 }
 
 .newExpense__optionsBox__button--ingreso{
     background: linear-gradient(45deg, rgb(63, 141, 89) 0%, rgb(54, 255, 104) 100%);
-    box-shadow: 0 0.2rem 10px rgba(54, 255, 104,0.3);
+    box-shadow: 0 0.2rem 10px rgba(54, 255, 104,0.2);
 }
 
 .newExpense__optionsBox__button--gasto{
-    background: linear-gradient(45deg, rgb(134, 53, 53) 0%, rgb(255, 95, 95) 100%);
-    box-shadow: 0 0.2rem 10px rgba(255, 95, 95,0.3);
+    background: linear-gradient(45deg, rgb(165, 64, 64) 0%, rgb(255, 95, 95) 100%);
+    box-shadow: 0 0.2rem 10px rgba(255, 95, 95,0.2);
 }

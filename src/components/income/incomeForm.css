@@ -1,0 +1,5 @@
+.income__priceBox{
+    /*background-color: var(--color-success);*/
+    background: linear-gradient(45deg, var(--color-success-dark) 0%, var(--color-success-light) 100%);
+    box-shadow: 0 0.2rem 10px rgba(50, 150, 80, 0.4);
+}

@@ -1,0 +1,52 @@
+.expense__title{
+    text-align: center;
+    margin-top: 2rem;
+    color: #fff;
+}
+
+.expense__title h1{
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.expense__priceBox{
+    margin: 1rem 0;
+    padding: 2rem 1rem;
+    border-radius: 20px;
+    background: linear-gradient(45deg, var(--color-danger-dark) 0%, var(--color-danger-light) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0.2rem 10px rgba(197, 78, 78, 0.4);
+}
+
+.expense__priceBox__dollarSign{
+    font-size: 2rem;
+    color: #fff;
+    margin: 0 0.5rem 0 0;
+}
+
+.expense__priceBox__input{
+    background-color: transparent;
+    border: none;
+    width: 25%;
+    font-size: 30px;
+    color: #fff;
+    font-weight: 600;
+    transition: all 0.25s ease-out;
+}
+
+.expense__priceBox__input:active, .expense__priceBox__input:focus{
+    border-bottom: 1px solid #fff;
+    outline: none;
+}
+
+.expense__priceBox__input::placeholder{
+    color: rgb(230, 230, 230);
+}
+
+.expense__dataBox{
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 5px;
+}

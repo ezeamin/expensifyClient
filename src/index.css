@@ -1,7 +1,24 @@
 /*Fonts*/
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
 
-/*General configuration*/
+/* Variables */
+
+:root{
+    --color-primary: #4E57A1; /*4EA7A1*/
+    --color-primary-light: #36e6ff;
+    --color-primary-disabled: #484b5a;
+    --color-primary-light-disabled: #5dadb8;
+    
+    --color-danger: #FF5A5F;
+    --color-danger-dark: rgb(165, 64, 64);
+    --color-danger-light: rgb(255, 95, 95);
+
+    --color-success: #2dd470;
+    --color-success-dark: rgb(63, 141, 89);
+    --color-success-light:rgb(54, 255, 104);
+}
+
+/* General configuration */
 *{
     margin: 0;
     padding: 0;

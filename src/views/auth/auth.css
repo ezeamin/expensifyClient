@@ -7,7 +7,7 @@
 }
 
 .auth__logo{
-    width: 60vw;
+    width: 50vw;
     position: absolute;
     top: 2rem;
 }
@@ -38,6 +38,11 @@
 }
 
 .auth__box__mensajeRegistro__a{
+    color: #2f2f2f;
+}
+
+.auth__box__volver{
+    margin-top: 1rem;
     color: #2f2f2f;
 }
 

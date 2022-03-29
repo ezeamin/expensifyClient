@@ -2,7 +2,7 @@ import React from "react";
 import NavItem from "./navItem/NavItem";
 import "./navegation.css";
 
-const Navegation = () => {
+const Navegation = (props) => {
   const opcionesNav = [
     {
       titulo: "Categorias",
@@ -15,7 +15,8 @@ const Navegation = () => {
       icono: "fa-brands fa-cc-visa",
       enlace: "/accounts",
       active: window.location.pathname.includes("/accounts"),
-    },{},
+    },
+    {},
     {
       titulo: "Gastos",
       icono: "fa-solid fa-money-bill-1-wave",
@@ -33,16 +34,26 @@ const Navegation = () => {
   return (
     <div className="navegation">
       <div className="navegation__box">
-          {opcionesNav.map((opcion,index) => {
-            return <NavItem key={index} {...opcion} />;
-          })}
-        <div className="navegation__box__newButton">
-          <a href="/newExpense" className="navegation__box__newButton__a">
-            <div className="navegation__box__newButton__circle">
-              <i className="fa-solid fa-plus fa-2x"></i>
+        {opcionesNav.map((opcion, index) => {
+          return <NavItem key={index} {...opcion} />;
+        })}
+        {props.disabled ? (
+          <div className="navegation__box__newButton">
+            <div className="navegation__box__newButton__a">
+              <div className="navegation__box__newButton__circle navegation__box__newButton__circle--disabled">
+                <i className="fa-solid fa-plus fa-2x"></i>
+              </div>
             </div>
-          </a>
-        </div>
+          </div>
+        ) : (
+          <div className="navegation__box__newButton">
+            <a href="/newExpense" className="navegation__box__newButton__a">
+              <div className="navegation__box__newButton__circle">
+                <i className="fa-solid fa-plus fa-2x"></i>
+              </div>
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );

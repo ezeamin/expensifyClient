@@ -9,5 +9,5 @@
 }
 
 .navegation__box__navItem--activo i{
-    color: #4EA7A1;
+    color: var(--color-primary);
 }
