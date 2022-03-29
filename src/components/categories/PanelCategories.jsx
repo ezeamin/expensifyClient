@@ -3,17 +3,21 @@ import React from "react";
 import Title from "../titles/Title";
 import CategoryItem from "./categoryItem/CategoryItem";
 import "./panelCategories.css";
-import { IconPicker } from 'react-fa-icon-picker'
+import { useNavigate } from "react-router-dom";
 
 const PanelCategories = (props) => {
-  const nuevaCategoria = () => {};
-
-  const [value, setValue] = useState("")
+  const navigate = useNavigate();
 
   return (
     <div className="container">
       <Title text="Categorias" />
-      <Button variant="contained" color="mainColor" onClick={() => nuevaCategoria()} className="mb-3" fullWidth>
+      <Button
+        variant="contained"
+        color="mainColor"
+        onClick={() => navigate("/categories/new")}
+        className="mb-3"
+        fullWidth
+      >
         Nueva categoria
       </Button>
       {props.categories.map((category, index) => {
@@ -25,8 +29,6 @@ const PanelCategories = (props) => {
           />
         );
       })}
-          <IconPicker value={value} onChange={(v) => setValue(v)} />
-
     </div>
   );
 };
