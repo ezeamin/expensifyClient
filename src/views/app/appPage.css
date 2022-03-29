@@ -1,0 +1,35 @@
+.profile__heading{
+    margin: 1.5rem 0 0 0;
+    color: #fff;
+    font-size: 40px;
+}
+
+.profile__totalBox--success{
+    background: linear-gradient(45deg, var(--color-success-dark) 0%, var(--color-success-light) 100%) !important;
+    box-shadow: 0 0.2rem 10px rgba(50, 150, 80, 0.4) !important;
+}
+
+.profile__totalBox--warning{
+    background: linear-gradient(45deg, var(--color-warning-dark) 0%, var(--color-warning-light) 100%) !important;
+    box-shadow: 0 0.2rem 10px rgba(150, 132, 50, 0.4) !important;
+}
+
+.profile__totalBox__meme{
+    width: 100px;
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    z-index: 100;
+}
+
+.profile__totalBox__meme img{
+    width: 100%;
+}
+
+.css-18md96b-MuiButtonBase-root-MuiTab-root{
+    color: rgb(177, 177, 177) !important;
+}
+
+.css-18md96b-MuiButtonBase-root-MuiTab-root.Mui-selected{
+    color: rgb(255, 255, 255) !important;
+}

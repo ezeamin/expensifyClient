@@ -12,6 +12,10 @@
     --color-danger: #FF5A5F;
     --color-danger-dark: rgb(165, 64, 64);
     --color-danger-light: rgb(255, 95, 95);
+    
+    --color-warning: #FFB400;
+    --color-warning-dark: #bd8400;
+    --color-warning-light: #ffcc53;
 
     --color-success: #2dd470;
     --color-success-dark: rgb(63, 141, 89);

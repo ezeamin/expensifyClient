@@ -1,0 +1,17 @@
+.profile__resumen__box{
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 20px;
+    color: black;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.13);
+}
+
+.profile__resumen__detalle{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile__resumen__items{
+    margin-left: 1.5rem;
+}
