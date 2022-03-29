@@ -5,31 +5,10 @@ import {
   FormControl,
   InputLabel,
   FormHelperText,
-  MenuItem
+  MenuItem,
 } from "@mui/material";
 import { Button } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./incomeForm.css";
-
-let estilo = window.getComputedStyle(document.body);
-let primaryColor = estilo.getPropertyValue("--color-primary");
-let successColor = estilo.getPropertyValue("--color-success");
-
-const themeButton = createTheme({
-  palette: {
-    mainColor: {
-      main: primaryColor,
-      contrastText: "#fff",
-    },
-    successColor: {
-      main: successColor,
-      contrastText: "#fff",
-    },
-  },
-  typography: {
-    fontFamily: "Nunito",
-  },
-});
 
 class IncomeForm extends Component {
   constructor(props) {
@@ -101,7 +80,7 @@ class IncomeForm extends Component {
 
     error[0] = this.verificar("price", this.state.price);
     error[1] = this.verificar("title", this.state.title);
-    error[3] = this.verificar("account", this.state.account);
+    error[2] = this.verificar("account", this.state.account);
 
     error.forEach((element) => {
       if (element) {
@@ -117,7 +96,7 @@ class IncomeForm extends Component {
   render() {
     return (
       <form className="container px-4" onSubmit={(e) => this.handleSubmit(e)}>
-        <div className="expense__priceBox income__priceBox">
+        <div className="expense__priceBox successBox">
           <p className="expense__priceBox__dollarSign">$</p>
           <input
             className="expense__priceBox__input"
@@ -160,7 +139,10 @@ class IncomeForm extends Component {
               {this.props.accountsList.map((account, index) => {
                 return (
                   <MenuItem key={index} value={account.name}>
-                    {account.name}
+                    <div>
+                      <p className="mb-0 fw-bold">{account.name}</p>
+                      <p className="mb-0">$ {account.saldo}</p>
+                    </div>
                   </MenuItem>
                 );
               })}
@@ -185,18 +167,16 @@ class IncomeForm extends Component {
             <li className="mb-0 mt-3 text-danger fw-bold">Importe no valido</li>
           ) : null}
         </div>
-        <ThemeProvider theme={themeButton}>
-          <Button
-            variant="contained"
-            className="mt-3"
-            size="large"
-            color="successColor"
-            type="submit"
-            fullWidth
-          >
-            Guardar
-          </Button>
-        </ThemeProvider>
+        <Button
+          variant="contained"
+          className="mt-3"
+          size="large"
+          color="successColor"
+          type="submit"
+          fullWidth
+        >
+          Guardar
+        </Button>
       </form>
     );
   }

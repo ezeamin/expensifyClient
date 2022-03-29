@@ -13,11 +13,9 @@
     margin: 1rem 0;
     padding: 2rem 1rem;
     border-radius: 20px;
-    background: linear-gradient(45deg, var(--color-danger-dark) 0%, var(--color-danger-light) 100%);
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0.2rem 10px rgba(197, 78, 78, 0.4);
     position: relative;
 }
 

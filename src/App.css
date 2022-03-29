@@ -1,6 +1,6 @@
 .App{
     min-height: 100vh;
-    background-color:  #2f2f2f;
+    background-color:  var(--color-bg);
     position: absolute;
     padding-bottom: 100px;
     width: 100vw;

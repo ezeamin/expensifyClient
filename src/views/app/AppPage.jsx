@@ -1,7 +1,6 @@
 import React from "react";
 import PanelProfile from "../../components/app/PanelProfile";
 import Navegation from "../../components/navegation/Navegation";
-import "./appPage.css";
 
 const AppPage = () => {
   const user = {
@@ -9,7 +8,7 @@ const AppPage = () => {
   };
 
   const info = {
-    saldo: 5000,
+    saldo: 25000,
   };
 
   return (

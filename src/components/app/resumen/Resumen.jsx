@@ -1,6 +1,7 @@
 import { LinearProgress, Box } from "@mui/material";
 import React from "react";
 import "./resumen.css";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function LinearProgressWithLabel(props) {
   return (
@@ -17,7 +18,28 @@ function LinearProgressWithLabel(props) {
   );
 }
 
+let estilo = window.getComputedStyle(document.body);
+let warningColor = estilo.getPropertyValue("--color-warning");
+let successColor = estilo.getPropertyValue("--color-success");
+let dangerColor = estilo.getPropertyValue("--color-danger");
+
+const theme = createTheme({
+  palette: {
+    successColor: {
+      main: successColor,
+    },
+    warningColor: {
+      main: warningColor,
+    },
+    dangerColor: {
+      main: dangerColor,
+    },
+  },
+});
+
 const Resumen = () => {
+  let progress = React.useRef();
+
   let cuentas = [
     {
       cuenta: "Cuenta 1",
@@ -36,6 +58,17 @@ const Resumen = () => {
     },
   ];
 
+  let [stateValue, setStateValue] = React.useState(50);
+  let [progressColor, setProgressColor] = React.useState("successColor");
+
+  React.useEffect(() => {
+    if (stateValue >= 80) {
+      setProgressColor("dangerColor");
+    } else if (stateValue >= 70) {
+      setProgressColor("warningColor");
+    } else setProgressColor("successColor");
+  }, [stateValue]);
+
   return (
     <div className="text-light">
       <div className="profile__resumen__box">
@@ -44,11 +77,23 @@ const Resumen = () => {
           <p className="mb-0">Limite mensual</p>
           <p className="mb-0 fw-bold">$ 0</p>
         </div>
-        <LinearProgressWithLabel
-          variant="determinate"
-          value={50}
-          color="success"
-        />
+        <ThemeProvider theme={theme}>
+          <LinearProgressWithLabel
+            variant="determinate"
+            value={stateValue}
+            color={progressColor}
+          />
+        </ThemeProvider>
+      </div>
+      <div className="profile__resumen__box mt-3">
+        <div className="profile__resumen__detalle">
+          <p className="mb-0">Dias transcurridos</p>
+          <p className="mb-0 fw-bold">0 / 31</p>
+        </div>
+        <div className="profile__resumen__detalle">
+          <p className="mb-0">Dias restantes</p>
+          <p className="mb-0 fw-bold">0</p>
+        </div>
       </div>
       <div className="profile__resumen__box mt-3">
         <div className="profile__resumen__detalle">
@@ -56,6 +101,7 @@ const Resumen = () => {
           <p className="mb-0 fw-bold">$ 0</p>
         </div>
         <div className="profile__resumen__items">
+          {/*ORDENAR CUENTAS POR GASTO */}
           {cuentas.map((cuenta, index) => {
             return (
               <div key={index} className="profile__resumen__detalle">
@@ -68,10 +114,6 @@ const Resumen = () => {
         </div>
       </div>
       <div className="profile__resumen__box mt-3">
-        <div className="profile__resumen__detalle">
-          <p className="mb-0">Dias transcurridos</p>
-          <p className="mb-0 fw-bold">0 / 31</p>
-        </div>
         <div className="profile__resumen__detalle">
           <p className="mb-0">Promedio diario</p>
           <p className="mb-0 fw-bold">$ 0</p>

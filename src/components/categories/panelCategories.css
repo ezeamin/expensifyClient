@@ -1,0 +1,25 @@
+.categorias__box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.categorias__box__leftGroup{
+    display: flex;
+    align-items: center;
+}
+
+.categorias__box__leftGroup__icon{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.categorias__box:last-child{
+    margin-bottom: 0 !important;
+}

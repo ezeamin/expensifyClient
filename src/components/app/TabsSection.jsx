@@ -2,6 +2,8 @@ import React from "react";
 import { Tabs, Tab } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Resumen from "./resumen/Resumen";
+import Settings from "./settings/Settings";
+import './tabsSection.css'
 
 /*let estilo = window.getComputedStyle(document.body);
 let primaryColor = estilo.getPropertyValue("--color-primary");*/
@@ -45,17 +47,22 @@ const TabsSection = () => {
         onChange={handleChange}
         aria-label="tabs"
         textColor="primary"
+        className="profile__tabs"
         centered
       >
         <Tab label="Resumen" />
         <Tab label="Graficos" />
         <Tab label="Ajustes" />
       </Tabs>
+      <div className="container">
       <TabPanel index={0}>
         <Resumen />
       </TabPanel>
       <TabPanel index={1}>Item Two</TabPanel>
-      <TabPanel index={2}>Item Three</TabPanel>
+      <TabPanel index={2}>
+        <Settings />
+      </TabPanel>
+      </div>
     </ThemeProvider>
   );
 };

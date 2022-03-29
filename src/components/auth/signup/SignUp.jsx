@@ -1,23 +1,7 @@
 import React, { Component } from "react";
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Swal from "sweetalert2";
-
-let estilo = window.getComputedStyle(document.body);
-let primaryColor = estilo.getPropertyValue("--color-primary");
-
-const themeButton = createTheme({
-  palette: {
-    mainColor: {
-      main: primaryColor,
-      contrastText: "#fff",
-    },
-  },
-  typography: {
-    fontFamily: "Nunito",
-  },
-});
 
 class SignUp extends Component {
   constructor(props) {
@@ -201,11 +185,9 @@ class SignUp extends Component {
           onBlur={(e) => this.handleBlur(e)}
         />
         <div className="d-flex flex-column mt-3">
-          <ThemeProvider theme={themeButton}>
             <Button variant="contained" color="mainColor" type="submit">
               Registrarse
             </Button>
-          </ThemeProvider>
         </div>
       </form>
     );

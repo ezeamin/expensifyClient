@@ -8,7 +8,7 @@ const Navegation = (props) => {
       titulo: "Categorias",
       icono: "fa-solid fa-utensils",
       enlace: "/categories",
-      active: window.location.pathname === "/categories",
+      active: window.location.pathname.includes("/categories"),
     },
     {
       titulo: "Cuentas",
@@ -19,7 +19,7 @@ const Navegation = (props) => {
     {},
     {
       titulo: "Gastos",
-      icono: "fa-solid fa-money-bill-1-wave",
+      icono: "fa-solid fa-list",
       enlace: "/expenses",
       active: window.location.pathname.includes("/expenses"),
     },

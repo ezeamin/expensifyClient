@@ -9,10 +9,14 @@ import Categories from "./views/categories/Categories";
 import NewExpense from "./views/newExpense/NewExpense";
 import Expense from "./views/newExpense/expense/Expense";
 import Income from "./views/newExpense/income/Income";
+import Transfer from "./views/newExpense/transfer/Transfer";
+import { ThemeProvider } from "@mui/material/styles";
+import customTheme from "./helpers/theme";
 
 function App() {
   return (
     <div className="App">
+      <ThemeProvider theme={customTheme}>
       <Router>
         <Routes>
           <Route path="/" element={<Auth />} />
@@ -24,8 +28,10 @@ function App() {
           <Route path="/newExpense" element={<NewExpense />} />
           <Route path="/newExpense/expense" element={<Expense />} />
           <Route path="/newExpense/income" element={<Income />} />
+          <Route path="/newExpense/transfer" element={<Transfer />} />
         </Routes>
       </Router>
+      </ThemeProvider>
     </div>
   );
 }

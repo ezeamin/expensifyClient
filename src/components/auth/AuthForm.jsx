@@ -1,23 +1,7 @@
 import React, { Component } from "react";
 import { TextField, Checkbox, FormControlLabel } from "@mui/material";
 import { Button } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Swal from "sweetalert2";
-
-let estilo = window.getComputedStyle(document.body);
-let primaryColor = estilo.getPropertyValue("--color-primary");
-
-const themeButton = createTheme({
-  palette: {
-    mainColor: {
-      main: primaryColor,
-      contrastText: "#fff",
-    },
-  },
-  typography: {
-    fontFamily: "Nunito",
-  },
-});
 
 class AuthForm extends Component {
   constructor(props) {
@@ -131,7 +115,6 @@ class AuthForm extends Component {
           onBlur={(e) => this.handleBlur(e)}
         />
         <div className="d-flex flex-column mt-1">
-          <ThemeProvider theme={themeButton}>
             <FormControlLabel
               control={
                 <Checkbox
@@ -147,7 +130,6 @@ class AuthForm extends Component {
             <Button variant="contained" color="mainColor" type="submit">
               Continuar
             </Button>
-          </ThemeProvider>
         </div>
       </form>
     );

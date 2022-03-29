@@ -8,22 +8,21 @@ import {
   MenuItem,
 } from "@mui/material";
 import { Button } from "@mui/material";
-import "./expenseForm.css";
 
-class ExpenseForm extends Component {
+class TransferForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       price: "",
-      category: "",
       description: "",
       title: "",
-      account: "",
+      originAccount: "",
+      destinationAccount: "",
       errores: {
         price: false,
-        category: false,
         title: false,
-        account: false,
+        originAccount: false,
+        destinationAccount: false,
       },
     };
   }
@@ -59,11 +58,23 @@ class ExpenseForm extends Component {
 
     if (value.trim() === "" || value.length < 2) {
       return this.error(errores, name);
-    } else if (
-      name === "price" &&
-      (isNaN(value) || Number.parseFloat(value) <= 0)
-    )
-      return this.error(errores, name);
+    } else {
+      switch (name) {
+        case "price":
+          if (isNaN(value) || Number.parseFloat(value) <= 0)
+            return this.error(errores, name);
+          break;
+        case "originAccount":
+          //verificar saldo disponible
+          break;
+        case "destinationAccount":
+          if (value === this.state.originAccount)
+            return this.error(errores, name);
+          break;
+        default:
+          break;
+      }
+    }
 
     return this.success(errores, name);
   }
@@ -82,8 +93,11 @@ class ExpenseForm extends Component {
 
     error[0] = this.verificar("price", this.state.price);
     error[1] = this.verificar("title", this.state.title);
-    error[2] = this.verificar("category", this.state.category);
-    error[3] = this.verificar("account", this.state.account);
+    error[2] = this.verificar("originAccount", this.state.originAccount);
+    error[3] = this.verificar(
+      "destinationAccount",
+      this.state.destinationAccount
+    );
 
     error.forEach((element) => {
       if (element) {
@@ -91,15 +105,15 @@ class ExpenseForm extends Component {
       }
     });
 
-    if (!errorGeneral) this.loadExpense();
+    if (!errorGeneral) this.loadTransfer();
   };
 
-  loadExpense = () => {};
+  loadTransfer = () => {};
 
   render() {
     return (
       <form className="container px-4" onSubmit={(e) => this.handleSubmit(e)}>
-        <div className="expense__priceBox dangerBox">
+        <div className="expense__priceBox warningBox">
           <p className="expense__priceBox__dollarSign">$</p>
           <input
             className="expense__priceBox__input"
@@ -128,40 +142,14 @@ class ExpenseForm extends Component {
           <FormControl
             fullWidth
             className="mt-2"
-            error={this.state.errores.category}
+            error={this.state.errores.originAccount}
           >
-            <InputLabel id="demo-simple-select-label">Categoria</InputLabel>
+            <InputLabel id="demo-simple-select-label">Cuenta origen</InputLabel>
             <Select
-              error={this.state.errores.category}
-              label="Categoria"
-              value={this.state.category}
-              name="category"
-              onChange={(e) => this.handleChange(e)}
-              onBlur={(e) => this.handleBlur(e)}
-            >
-              {this.props.categoriesList.map((category, index) => {
-                return (
-                  <MenuItem key={index} value={category.name}>
-                    {category.name}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-            {this.state.errores.category ? (
-              <FormHelperText>Seleccione una categoria</FormHelperText>
-            ) : null}
-          </FormControl>
-          <FormControl
-            fullWidth
-            className="mt-2"
-            error={this.state.errores.account}
-          >
-            <InputLabel id="demo-simple-select-label">Cuenta</InputLabel>
-            <Select
-              error={this.state.errores.account}
-              label="Cuenta"
-              value={this.state.account}
-              name="account"
+              error={this.state.errores.originAccount}
+              label="Cuenta origen"
+              value={this.state.originAccount}
+              name="originAccount"
               onChange={(e) => this.handleChange(e)}
               onBlur={(e) => this.handleBlur(e)}
             >
@@ -176,8 +164,39 @@ class ExpenseForm extends Component {
                 );
               })}
             </Select>
-            {this.state.errores.account ? (
+            {this.state.errores.originAccount ? (
               <FormHelperText>Seleccione una cuenta</FormHelperText>
+            ) : null}
+          </FormControl>
+          <FormControl
+            fullWidth
+            className="mt-2"
+            error={this.state.errores.destinationAccount}
+          >
+            <InputLabel id="demo-simple-select-label">
+              Cuenta destino
+            </InputLabel>
+            <Select
+              error={this.state.errores.destinationAccount}
+              label="Cuenta destino"
+              value={this.state.destinationAccount}
+              name="destinationAccount"
+              onChange={(e) => this.handleChange(e)}
+              onBlur={(e) => this.handleBlur(e)}
+            >
+              {this.props.accountsList.map((account, index) => {
+                return (
+                  <MenuItem key={index} value={account.name}>
+                    <div>
+                      <p className="mb-0 fw-bold">{account.name}</p>
+                      <p className="mb-0">$ {account.saldo}</p>
+                    </div>
+                  </MenuItem>
+                );
+              })}
+            </Select>
+            {this.state.errores.destinationAccount ? (
+              <FormHelperText>Seleccione una cuenta valida</FormHelperText>
             ) : null}
           </FormControl>
           <TextField
@@ -200,7 +219,7 @@ class ExpenseForm extends Component {
           variant="contained"
           className="mt-3"
           size="large"
-          color="dangerColor"
+          color="warningColor"
           type="submit"
           fullWidth
         >
@@ -211,4 +230,4 @@ class ExpenseForm extends Component {
   }
 }
 
-export default ExpenseForm;
+export default TransferForm;

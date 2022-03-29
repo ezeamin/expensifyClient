@@ -7,9 +7,15 @@
 }
 
 .auth__logo{
-    width: 50vw;
-    position: absolute;
-    top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 160px;
+    height: 160px;
+    padding: 2rem;
+    border-radius: 50%;
+    margin-bottom: 2rem;
+    background-color: #fff;
 }
 
 .auth__logo img{

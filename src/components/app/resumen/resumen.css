@@ -1,3 +1,29 @@
+.profile__heading{
+    margin: 1.5rem 0 0 0;
+    color: #fff;
+    font-size: 40px;
+}
+
+.profile__totalBox__meme{
+    width: 100px;
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    z-index: 100;
+}
+
+.profile__totalBox__meme img{
+    width: 100%;
+}
+
+.css-18md96b-MuiButtonBase-root-MuiTab-root{
+    color: rgb(177, 177, 177) !important;
+}
+
+.css-18md96b-MuiButtonBase-root-MuiTab-root.Mui-selected{
+    color: rgb(255, 255, 255) !important;
+}
+
 .profile__resumen__box{
     padding: 1rem;
     background-color: #fff;

@@ -1,0 +1,7 @@
+.profile__tabs{
+    position: sticky;
+    top: 0;
+    background-color: var(--color-bg);
+    z-index: 900;
+    width: 100%;
+}

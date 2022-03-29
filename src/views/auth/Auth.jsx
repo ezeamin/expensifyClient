@@ -15,7 +15,7 @@ const Auth = () => {
     return (
       <div className="auth">
         <div className="auth__logo">
-          <img src="/img/logo.png" alt="Expensify logo" />
+          <img src="/img/favicon.png" alt="Expensify logo" />
         </div>
         <div className="auth__box">
           <h1 className="mb-0">Bienvenido</h1>

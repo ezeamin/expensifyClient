@@ -1,0 +1,28 @@
+.profile__settingGroup{
+    border: 1px solid #e6e6e6;
+    padding: 1rem;
+    border-radius: 20px;
+    text-decoration: none;
+    color: #000;
+    transition: all 0.25s ease-out;
+    margin-bottom: 1rem;
+    background-color: #fff;
+    width: 100%;
+}
+
+.profile__settingGroup:hover{
+    background-color: #f0f0f0;
+    color: #000;
+}
+
+.profile__settingGroup:last-child{
+    margin-bottom: 0;
+    background-color: rgb(255, 181, 181);
+}
+
+.profile__backButton{
+    border: none;
+    background-color: transparent;
+    text-decoration: underline;
+    outline: none;
+}
