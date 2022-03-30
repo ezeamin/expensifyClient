@@ -6,7 +6,7 @@
 :root{
     --color-bg:#2f2f2f;
 
-    --color-primary:#4E57A1; /*4EA7A1*/
+    --color-primary:#5263dd;  /*#4E57A1*/
     --color-primary-light:#36e6ff;
     --color-primary-disabled:#484b5a;
     --color-primary-light-disabled:#5dadb8;
@@ -22,6 +22,8 @@
     --color-success:#2dd470;
     --color-success-dark:rgb(63, 141, 89);
     --color-success-light:rgb(54, 255, 104);
+
+    --font: 'Nunito', sans-serif;
 }
 
 /* General configuration */
@@ -29,7 +31,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Nunito', sans-serif;
+    font-family: var(--font);
 }
 
 .descripciones{
@@ -49,4 +51,12 @@
 .successBox{
     background: linear-gradient(45deg, var(--color-success-dark) 0%, var(--color-success-light) 100%);
     box-shadow: 0 0.2rem 10px rgba(50, 150, 80, 0.4);
+}
+
+.panel{
+    height: calc(100vh - 100px);
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

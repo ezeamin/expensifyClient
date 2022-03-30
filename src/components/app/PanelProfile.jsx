@@ -31,7 +31,7 @@ const PanelProfile = (props) => {
           ) : null}
         </div>
       </div>
-      <TabsSection />
+      <TabsSection page="profile"/>
     </>
   );
 };

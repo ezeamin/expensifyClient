@@ -1,13 +1,5 @@
-.category__nameNIcon{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 10px;
-}
-
 .sc-EHOje, .kogmaU{
     height: 50px !important;
-    margin-bottom: 1rem;
 }
 
 .sc-EHOje span{

@@ -1,56 +1,29 @@
 import React, { Component } from "react";
-import { TextField, FormControl, FormHelperText } from "@mui/material";
+import {
+  TextField,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import { Button } from "@mui/material";
 import IconPicker from "react-icon-picker";
 import "./categoryForm.css";
-
-const icons = [
-  "fa-solid fa-utensils",
-  "fa-solid fa-candy-cane",
-  "fa-solid fa-ice-cream",
-  "fa-solid fa-tshirt",
-  "fa-solid fa-car",
-  "fa-solid fa-bus",
-  "fa-solid fa-bicycle",
-  "fa-solid fa-plane",
-  "fa-solid fa-briefcase",
-  "fa-solid fa-file-invoice-dollar",
-  "fa-solid fa-building-columns",
-  "fa-solid fa-dumbbell",
-  "fa-solid fa-home",
-  "fa-solid fa-hotel",
-  "fa-solid fa-shopping-cart",
-  "fa-solid fa-shopping-basket",
-  "fa-solid fa-champagne-glasses",
-  "fa-solid fa-dice",
-  "fa-solid fa-gift",
-  "fa-solid fa-film",
-  "fa-solid fa-music",
-  "fa-solid fa-cannabis",
-  "fa-solid fa-paw",
-  "fa-solid fa-staff-aesculapius",
-  "fa-solid fa-hand-holding-heart",
-  "fa-solid fa-pills",
-  "fa-solid fa-book",
-  "fa-solid fa-cross",
-  "fa-solid fa-globe",
-  "fa-solid fa-user-group",
-  "fa-solid fa-child",
-  "fa-solid fa-baby",
-  "fa-solid fa-circle-question",
-];
 
 class CategoryForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       title: "",
-      icon: "",
+      icon: this.props.defaultIcon,
+      accountType: "",
       limit: "",
       description: "",
       errores: {
         title: false,
         limit: false,
+        accountType: false,
       },
     };
   }
@@ -99,20 +72,39 @@ class CategoryForm extends Component {
 
     let errorGeneral = false;
 
-    let error = [false, false];
+    if (this.props.type === "category") {
+      let error = [false, false];
 
-    error[0] = this.verificar("title", this.state.title);
-    error[1] = this.verificar("limit", this.state.limit);
+      error[0] = this.verificar("title", this.state.title);
+      error[1] = this.verificar("limit", this.state.limit);
 
-    error.forEach((element) => {
-      if (element) {
-        errorGeneral = true;
-      }
-    });
+      error.forEach((element) => {
+        if (element) {
+          errorGeneral = true;
+        }
+      });
+    } else {
+      let error = [false, false, false];
+
+      error[0] = this.verificar("title", this.state.title);
+      error[1] = this.verificar("accountType", this.state.accountType);
+      error[2] = this.verificar("limit", this.state.limit);
+
+      error.forEach((element) => {
+        if (element) {
+          errorGeneral = true;
+        }
+      });
+    }
 
     if (!errorGeneral) {
-      if (this.props.type === "new") this.loadCategory();
-      else this.updateCategory();
+      if (this.props.type === "category") {
+        if (this.props.isNew) this.loadCategory();
+        else this.updateCategory();
+      } else {
+        if (this.props.isNew) this.loadAccount();
+        else this.updateAccount();
+      }
     }
   };
 
@@ -120,16 +112,24 @@ class CategoryForm extends Component {
 
   updateCategory = () => {};
 
+  loadAccount = () => {}; //cambiar "limit" por "balance"
+
+  updateAccount = () => {};
+
   render() {
     return (
       <form className="container px-4" onSubmit={(e) => this.handleSubmit(e)}>
         <div className="expense__dataBox text-center">
           <IconPicker
-            icons={icons}
-            defaultValue="fas fa-utensils"
+            icons={this.props.icons}
+            defaultValue={this.props.defaultIcon}
             onChange={(icon) => this.setState({ ...this.state, icon })}
           />
-          <FormControl error={this.state.errores.title} fullWidth>
+          <FormControl
+            error={this.state.errores.title}
+            fullWidth
+            className="mt-3"
+          >
             <TextField
               error={this.state.errores.title}
               label="Nombre"
@@ -143,6 +143,37 @@ class CategoryForm extends Component {
               <FormHelperText>Nombre no valido</FormHelperText>
             ) : null}
           </FormControl>
+          {this.props.type === "account" ? (
+            <FormControl
+              fullWidth
+              className="mt-2"
+              error={this.state.errores.accountType}
+            >
+              <InputLabel id="demo-simple-select-label">
+                Tipo de cuenta
+              </InputLabel>
+              <Select
+                error={this.state.errores.accountType}
+                label="Tipo de cuenta"
+                value={this.state.accountType}
+                name="accountType"
+                onChange={(e) => this.handleChange(e)}
+                onBlur={(e) => this.handleBlur(e)}
+              >
+                {this.props.accountList &&
+                  this.props.accountList.map((accountType, index) => {
+                    return (
+                      <MenuItem value={accountType} key={index}>
+                        <p className="mb-0">{accountType}</p>
+                      </MenuItem>
+                    );
+                  })}
+              </Select>
+              {this.state.errores.account ? (
+                <FormHelperText>Seleccione un tipo de cuenta</FormHelperText>
+              ) : null}
+            </FormControl>
+          ) : null}
           <FormControl
             error={this.state.errores.limit}
             fullWidth
@@ -150,7 +181,11 @@ class CategoryForm extends Component {
           >
             <TextField
               error={this.state.errores.limit}
-              label="Limite mensual"
+              label={
+                this.props.type === "category"
+                  ? "Limite mensual"
+                  : "Saldo actual"
+              }
               variant="outlined"
               type="number"
               value={this.state.limit}
@@ -159,7 +194,11 @@ class CategoryForm extends Component {
               onBlur={(e) => this.handleBlur(e)}
             />
             {this.state.errores.limit ? (
-              <FormHelperText>Limite no valido</FormHelperText>
+              <FormHelperText>
+                {this.props.type === "category"
+                  ? "Limite no valido"
+                  : "Saldo no valido"}
+              </FormHelperText>
             ) : null}
           </FormControl>
           <TextField

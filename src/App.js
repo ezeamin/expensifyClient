@@ -13,6 +13,8 @@ import Transfer from "./views/newExpense/transfer/Transfer";
 import { ThemeProvider } from "@mui/material/styles";
 import customTheme from "./helpers/theme";
 import NewCategory from "./views/categories/newCategory/NewCategory";
+import NewAccount from "./views/accounts/newAccount/NewAccount";
+import InfoList from "./views/infoList/InfoList";
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
           <Route path="/accounts" element={<Accounts />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/categories/new" element={<NewCategory />} />
+          <Route path="/accounts/new" element={<NewAccount />} />
+          <Route path="/info/:id" element={<InfoList />} />
           <Route path="/newExpense" element={<NewExpense />} />
           <Route path="/newExpense/expense" element={<Expense />} />
           <Route path="/newExpense/income" element={<Income />} />

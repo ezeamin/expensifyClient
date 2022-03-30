@@ -3,10 +3,15 @@ import { Tabs, Tab } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Resumen from "./resumen/Resumen";
 import Settings from "./settings/Settings";
-import './tabsSection.css'
+import "./tabsSection.css";
+import PanelExpensesTable from "../expensesList/expensesTable/PanelExpensesTable";
+import PanelIncomesTable from "../expensesList/incomesTable/PanelIncomesTable";
+import PanelTransfersTable from "../expensesList/transfersTable/PanelTransfersTable";
 
-/*let estilo = window.getComputedStyle(document.body);
-let primaryColor = estilo.getPropertyValue("--color-primary");*/
+let estilo = window.getComputedStyle(document.body);
+let warningColor = estilo.getPropertyValue("--color-warning");
+let successColor = estilo.getPropertyValue("--color-success");
+let dangerColor = estilo.getPropertyValue("--color-danger");
 
 const theme = createTheme({
   palette: {
@@ -14,10 +19,22 @@ const theme = createTheme({
       main: "#fff",
       disabled: "#fff",
     },
+    successColor: {
+      main: successColor,
+      contrastText: "#fff",
+    },
+    warningColor: {
+      main: warningColor,
+      contrastText: "#fff",
+    },
+    dangerColor: {
+      main: dangerColor,
+      contrastText: "#fff",
+    },
   },
 });
 
-const TabsSection = () => {
+const TabsSection = (props) => {
   const [selectedTab, setSelectedTab] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -50,18 +67,20 @@ const TabsSection = () => {
         className="profile__tabs"
         centered
       >
-        <Tab label="Resumen" />
-        <Tab label="Graficos" />
-        <Tab label="Ajustes" />
+        <Tab label={props.page === "profile" ? "Resumen" : "Gastos"} />
+        <Tab label={props.page === "profile" ? "Graficos" : "Ingresos"} />
+        <Tab label={props.page === "profile" ? "Ajustes" : "Transfers"} />
       </Tabs>
       <div className="container">
-      <TabPanel index={0}>
-        <Resumen />
-      </TabPanel>
-      <TabPanel index={1}>Item Two</TabPanel>
-      <TabPanel index={2}>
-        <Settings />
-      </TabPanel>
+        <TabPanel index={0}>
+          {props.page === "profile" ? <Resumen /> : <PanelExpensesTable />}
+        </TabPanel>
+        <TabPanel index={1}>
+          {props.page === "profile" ? <p>AGREGAR</p> : <PanelIncomesTable />}
+        </TabPanel>
+        <TabPanel index={2}>
+        {props.page === "profile" ? <Settings /> : <PanelTransfersTable />}
+        </TabPanel>
       </div>
     </ThemeProvider>
   );

@@ -5,6 +5,7 @@ let primaryColor = estilo.getPropertyValue("--color-primary");
 let warningColor = estilo.getPropertyValue("--color-warning");
 let successColor = estilo.getPropertyValue("--color-success");
 let dangerColor = estilo.getPropertyValue("--color-danger");
+let defaultFont = estilo.getPropertyValue("--font");
 
 const customTheme = createTheme({
   palette: {
@@ -24,9 +25,14 @@ const customTheme = createTheme({
       main: dangerColor,
       contrastText: "#fff",
     },
+    lightColor: {
+      main: "#fff",
+      disabled: "#fff",
+      contrastText: "#fff",
+    }
   },
   typography: {
-    fontFamily: "Nunito",
+    fontFamily: defaultFont ,
   },
 });
 

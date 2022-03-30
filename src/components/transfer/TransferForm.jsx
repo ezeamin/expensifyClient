@@ -158,7 +158,7 @@ class TransferForm extends Component {
                   <MenuItem key={index} value={account.name}>
                     <div>
                       <p className="mb-0 fw-bold">{account.name}</p>
-                      <p className="mb-0">$ {account.saldo}</p>
+                      <p className="mb-0">$ {account.balance}</p>
                     </div>
                   </MenuItem>
                 );
@@ -189,7 +189,7 @@ class TransferForm extends Component {
                   <MenuItem key={index} value={account.name}>
                     <div>
                       <p className="mb-0 fw-bold">{account.name}</p>
-                      <p className="mb-0">$ {account.saldo}</p>
+                      <p className="mb-0">$ {account.balance}</p>
                     </div>
                   </MenuItem>
                 );

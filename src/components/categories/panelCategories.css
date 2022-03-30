@@ -6,6 +6,10 @@
     text-decoration: none;
 }
 
+.categorias__box:hover{
+    color: #000;
+}
+
 .categorias__box__leftGroup{
     display: flex;
     align-items: center;
@@ -19,6 +23,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+}
+
+.categorias__box__leftGroup__icon__progress{
+    position: absolute;
+    width: 3rem;
 }
 
 .categorias__box:last-child{

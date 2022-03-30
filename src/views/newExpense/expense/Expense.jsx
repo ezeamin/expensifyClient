@@ -9,10 +9,12 @@ const Expense = () => {
     return (
         <div>
             <Navegation disabled={false}/>
+            <div className="panel">
             <div className="expense__title">
                 <h1>Nuevo gasto</h1>
             </div>
             <ExpenseForm categoriesList={categoriesList} accountsList={accountsList}/>
+            </div>
         </div>
     );
 };
