@@ -15,12 +15,10 @@ class TransferForm extends Component {
     this.state = {
       price: "",
       description: "",
-      title: "",
       originAccount: "",
       destinationAccount: "",
       errores: {
         price: false,
-        title: false,
         originAccount: false,
         destinationAccount: false,
       },
@@ -89,12 +87,11 @@ class TransferForm extends Component {
 
     let errorGeneral = false;
 
-    let error = [false, false, false, false];
+    let error = [false, false, false];
 
     error[0] = this.verificar("price", this.state.price);
-    error[1] = this.verificar("title", this.state.title);
-    error[2] = this.verificar("originAccount", this.state.originAccount);
-    error[3] = this.verificar(
+    error[1] = this.verificar("originAccount", this.state.originAccount);
+    error[2] = this.verificar(
       "destinationAccount",
       this.state.destinationAccount
     );
@@ -105,10 +102,15 @@ class TransferForm extends Component {
       }
     });
 
-    if (!errorGeneral) this.loadTransfer();
+    if (!errorGeneral){
+      if(this.props.isNew) this.loadTransfer();
+      else this.updateTransfer();
+    }
   };
 
   loadTransfer = () => {};
+
+  updateTransfer = () => {};
 
   render() {
     return (
@@ -125,20 +127,6 @@ class TransferForm extends Component {
           />
         </div>
         <div className="expense__dataBox">
-          <FormControl error={this.state.errores.title} fullWidth>
-            <TextField
-              error={this.state.errores.title}
-              label="Concepto"
-              variant="outlined"
-              value={this.state.title}
-              name="title"
-              onChange={(e) => this.handleChange(e)}
-              onBlur={(e) => this.handleBlur(e)}
-            />
-            {this.state.errores.title ? (
-              <FormHelperText>Concepto no valido</FormHelperText>
-            ) : null}
-          </FormControl>
           <FormControl
             fullWidth
             className="mt-2"

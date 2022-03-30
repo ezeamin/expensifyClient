@@ -76,7 +76,7 @@ const TabsSection = (props) => {
           {props.page === "profile" ? <Resumen /> : <PanelExpensesTable />}
         </TabPanel>
         <TabPanel index={1}>
-          {props.page === "profile" ? <p>AGREGAR</p> : <PanelIncomesTable />}
+          {props.page === "profile" ? <p className="text-light">AGREGAR</p> : <PanelIncomesTable />}
         </TabPanel>
         <TabPanel index={2}>
         {props.page === "profile" ? <Settings /> : <PanelTransfersTable />}

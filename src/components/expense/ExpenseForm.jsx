@@ -91,10 +91,15 @@ class ExpenseForm extends Component {
       }
     });
 
-    if (!errorGeneral) this.loadExpense();
+    if (!errorGeneral){
+      if(this.props.isNew) this.loadExpense();
+      else this.updateExpense();
+    }
   };
 
   loadExpense = () => {};
+
+  updateExpense = () => {};
 
   render() {
     return (

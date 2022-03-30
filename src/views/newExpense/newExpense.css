@@ -31,7 +31,7 @@
     color: #fff;
 }
 
-.newExpense__optionsBox__button:focus, .newExpense__optionsBox__button:active{
+.newExpense__optionsBox__button:focus, .newExpense__optionsBox__button:active, .newExpense__optionsBox__button:hover{
     color: rgb(209, 209, 209);
 }
 

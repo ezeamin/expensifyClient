@@ -6,11 +6,12 @@ const rows = [
     id: 1,
     date: "01/01/2020",
     time: "12:00",
-    title: "Extraccion",
     originAccount: "Tarjeta BBVA 0659",
     originAccountColor: "#84b6f4",
+    originAccountId: 123,
     destinationAccount: "Efectivo",
     destinationAccountColor: "#77dd77",
+    destinationAccountId: 456,
     description: "Descripción de la transferencia",
     price: "1000",
   },
@@ -18,11 +19,12 @@ const rows = [
     id: 2,
     date: "23/03/2022",
     time: "15:45",
-    title: "Carga en tarjeta",
     originAccount: "Efectivo",
     originAccountColor: "#77dd77",
+    originAccountId: 456,
     destinationAccount: "Tarjeta BBVA 0659",
     destinationAccountColor: "#84b6f4",
+    destinationAccountId: 123,
     description: "",
     price: "10000",
   },
@@ -45,9 +47,6 @@ const TransfersTable = () => {
         <thead>
           <tr>
             <td></td>
-            <th scope="col" style={{ minWidth: "120px" }}>
-              Concepto
-            </th>
             <th>Fecha</th>
             <th style={{ minWidth: "80px" }}>Hora</th>
             <td></td>
@@ -64,8 +63,7 @@ const TransfersTable = () => {
             return (
               <tr key={index}>
                 <td style={{ backgroundColor: "#FFB400" }}> </td>
-                <th>{row.title}</th>
-                <td>{row.date}</td>
+                <th>{row.date}</th>
                 <td>{row.time}</td>
                 <td style={{ backgroundColor: row.originAccountColor }}> </td>
                 <td>{row.originAccount}</td>

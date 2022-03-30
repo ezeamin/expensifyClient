@@ -88,10 +88,15 @@ class IncomeForm extends Component {
       }
     });
 
-    if (!errorGeneral) this.loadIncome();
+    if (!errorGeneral){
+      if(this.props.isNew) this.loadIncome();
+      else this.updateIncome();
+    };
   };
 
   loadIncome = () => {};
+
+  updateIncome = () => {};
 
   render() {
     return (
