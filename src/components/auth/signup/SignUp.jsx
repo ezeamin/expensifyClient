@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
+import { postLogin } from "../../../fetching/fetchingFunctions";
 import Swal from "sweetalert2";
 
 class SignUp extends Component {
@@ -108,18 +109,53 @@ class SignUp extends Component {
   };
 
   signup = async () => {
-    // fetching data
-
-    this.props.redirectSuccess();
-
-    //else
-    Swal.fire({
-      title: "Error",
-      text: " ",
-      icon: "error",
-      showConfirmButton: false,
-      timer: 1500,
+    const res = await fetch("/api/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: this.state.nombre,
+        dni: this.state.dni,
+        email: this.state.email,
+        password: this.state.password,
+      }),
     });
+
+    if (res.status !== 200) {
+      let msg = " ";
+
+      try {
+        const data = await res.json();
+        msg = data.message;
+
+        if (msg === "Usuario ya autenticado") {
+          return this.props.redirectSuccess();
+        }
+      } catch (e) {
+        const data = await res.text();
+        msg = data;
+      }
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: msg,
+      });
+    } else {
+      Swal.fire({
+        title: "Exito",
+        text: "Bienvenido a Expensify",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 2000,
+      }).then(() => {
+        postLogin({
+          dni: this.state.dni,
+          password: this.state.password,
+        });
+        this.props.redirectSuccess();
+      });
+    }
   };
 
   render() {
@@ -185,9 +221,9 @@ class SignUp extends Component {
           onBlur={(e) => this.handleBlur(e)}
         />
         <div className="d-flex flex-column mt-3">
-            <Button variant="contained" color="mainColor" type="submit">
-              Registrarse
-            </Button>
+          <Button variant="contained" color="mainColor" type="submit">
+            Registrarse
+          </Button>
         </div>
       </form>
     );

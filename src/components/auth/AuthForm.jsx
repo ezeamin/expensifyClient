@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { TextField, Checkbox, FormControlLabel } from "@mui/material";
+import { TextField, Checkbox, FormControlLabel, Alert } from "@mui/material";
 import { Button } from "@mui/material";
 import Swal from "sweetalert2";
+import { postLogin } from "../../fetching/fetchingFunctions";
 
 class AuthForm extends Component {
   constructor(props) {
@@ -13,6 +14,10 @@ class AuthForm extends Component {
       errores: {
         dni: false,
         password: false,
+      },
+      loginError: {
+        error: false,
+        msg: "",
       },
     };
   }
@@ -57,7 +62,7 @@ class AuthForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    /*let errorGeneral = false;
+    let errorGeneral = false;
 
     let error = [false, false];
 
@@ -70,51 +75,98 @@ class AuthForm extends Component {
       }
     });
 
-    if (!errorGeneral)*/ this.login();
+    if (!errorGeneral) this.login();
   };
 
   login = async () => {
-    // fetching data
+    this.setState({
+      loginError: {
+        error: false,
+        msg: "",
+      },
+    });
 
-    this.props.redirectSuccess();
+    postLogin({
+      dni: this.state.dni,
+      password: this.state.password,
+      rememberMe: this.state.rememberMe,
+    }).then(async (res) => {
+      if (res.status === 200) {
+        Swal.fire({
+          title: "Bienvenido",
+          timer: 1500,
+          showCancelButton: false,
+          showConfirmButton: false,
+        }).then(()=>{
+          this.props.redirectSuccess();
+        })
+      } else {
+        let msg = " ";
 
-    /*else
-    Swal.fire({
-      title: "Datos incorrectos",
-      text: " ",
-      icon: "error",
-      showConfirmButton: false,
-      timer: 1500,
-    })*/
-  }
+        try {
+          const data = await res.json();
+          msg = data.message;
+
+          if (msg === "Usuario ya autenticado") {
+            Swal.fire({
+              title: "Usuario ya autenticado",
+              text: " ",
+              icon: "info",
+              timer: 1500,
+              showCancelButton: false,
+              showConfirmButton: false,
+            }).then(() => {
+              this.props.redirectSuccess();
+            });
+            return;
+          }
+        } catch (e) {
+          const data = await res.text();
+          msg = data;
+        }
+        this.setState({
+          loginError: {
+            error: true,
+            msg: msg,
+          },
+        });
+      }
+    });
+  };
 
   render() {
     return (
-      <form onSubmit={(e) => this.handleSubmit(e)}>
-        <TextField
-          error={this.state.errores.dni}
-          className="w-100"
-          label="DNI"
-          variant="outlined"
-          size="small"
-          value={this.state.dni}
-          name="dni"
-          onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
-          onBlur={(e) => this.handleBlur(e)}
-        />
-        <TextField
-          error={this.state.errores.password}
-          type="password"
-          className="w-100 mt-3"
-          label="Contraseña"
-          variant="outlined"
-          size="small"
-          value={this.state.password}
-          name="password"
-          onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
-          onBlur={(e) => this.handleBlur(e)}
-        />
-        <div className="d-flex flex-column mt-1">
+      <>
+        {this.state.loginError.error && (
+          <Alert severity="error" className="mb-3">
+            {this.state.loginError.msg}
+          </Alert>
+        )}
+        <form onSubmit={(e) => this.handleSubmit(e)}>
+          <TextField
+            error={this.state.errores.dni}
+            className="w-100"
+            label="DNI"
+            variant="outlined"
+            size="small"
+            value={this.state.dni}
+            name="dni"
+            onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
+            onBlur={(e) => this.handleBlur(e)}
+          />
+          <TextField
+            error={this.state.errores.password}
+            type="password"
+            className="w-100 mt-3"
+            label="Contraseña"
+            variant="outlined"
+            size="small"
+            value={this.state.password}
+            name="password"
+            onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
+            onBlur={(e) => this.handleBlur(e)}
+          />
+          <div className="d-flex flex-column mt-1">
             <FormControlLabel
               control={
                 <Checkbox
@@ -130,8 +182,9 @@ class AuthForm extends Component {
             <Button variant="contained" color="mainColor" type="submit">
               Continuar
             </Button>
-        </div>
-      </form>
+          </div>
+        </form>
+      </>
     );
   }
 }
