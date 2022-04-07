@@ -1,9 +1,12 @@
 import React from "react";
+import { useQuery } from "react-query";
 import PanelCategoriesNAccounts from "../../components/categories/PanelCategoriesNAccounts";
 import Navegation from "../../components/navegation/Navegation";
+import { getCategories } from "../../api/fetchingFunctions";
 
 const Categories = () => {
-  const categories = [
+  const { data: categories=[], error, isLoading } = useQuery(["categories"], getCategories);
+  /*const categories = [
     {
       title: "Alimentos",
       icon: "fa-solid fa-utensils",
@@ -20,7 +23,7 @@ const Categories = () => {
       spent: 200,
       limit: 1000,
     },
-  ];
+  ];*/
 
   return (
     <div>

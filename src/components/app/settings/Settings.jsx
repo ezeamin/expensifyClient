@@ -5,10 +5,12 @@ import ChangePasswordForm from "./changePasswordForm/ChangePasswordForm";
 import ChangeDataForm from "./changeDataForm/ChangeDataForm";
 import EraseDataNLogOut from "./eraseDataNLogOut/EraseDataNLogOut";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+import { deleteLogout } from "../../../api/fetchingFunctions";
 
 const Settings = () => {
   const [selectedOption, setSelectedOption] = React.useState(null);
+
+  const navigate = useNavigate();
 
   const opciones = [
     {
@@ -28,38 +30,6 @@ const Settings = () => {
       link: "/app/settings/reset",
     },
   ];
-
-  const navigate = useNavigate();
-
-  let estilo = window.getComputedStyle(document.body);
-  let successColor = estilo.getPropertyValue("--color-success");
-  let dangerColor = estilo.getPropertyValue("--color-danger");
-
-  const logout = () => {
-    Swal.fire({
-      title: "¿Estás seguro?",
-      text: "Cerrarás tu sesión",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: successColor,
-      cancelButtonColor: dangerColor,
-      confirmButtonText: "Si",
-      cancelButtonText: "No",
-    }).then((result) => {
-      if (result.value) {
-        Swal.fire({
-          title: "Adios",
-          showConfirmButton: false,
-          timer: 1500,
-        }).then(async () => {
-          await fetch("/api/logout",{
-            method: "DELETE",
-          });
-          navigate("/");
-        });
-      }
-    });
-  };
 
   switch (selectedOption) {
     case 0:
@@ -88,7 +58,7 @@ const Settings = () => {
           <EraseDataNLogOut action="logout" />
         </div>
       );*/
-      logout();
+      deleteLogout(navigate)
       break;
     case 3:
       return (

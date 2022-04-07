@@ -108,7 +108,14 @@ class CategoryForm extends Component {
     }
   };
 
-  loadCategory = () => {};
+  loadCategory = () => {
+    this.props.newCategory({
+      title: this.state.title,
+      icon: this.state.icon,
+      limit: this.state.limit,
+      description: this.state.description,
+    });
+  };
 
   updateCategory = () => {};
 

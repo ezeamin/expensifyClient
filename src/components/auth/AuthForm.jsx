@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { TextField, Checkbox, FormControlLabel, Alert } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { Button } from "@mui/material";
 import Swal from "sweetalert2";
-import { postLogin } from "../../fetching/fetchingFunctions";
+import { postLogin } from "../../api/fetchingFunctions";
+import "./authForm.css";
 
 class AuthForm extends Component {
   constructor(props) {
@@ -19,6 +21,7 @@ class AuthForm extends Component {
         error: false,
         msg: "",
       },
+      loading: false,
     };
   }
 
@@ -62,6 +65,9 @@ class AuthForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
+    this.setState({
+      loading: true,
+    });
     let errorGeneral = false;
 
     let error = [false, false];
@@ -86,7 +92,9 @@ class AuthForm extends Component {
       },
     });
 
-    postLogin({
+    this.props.login();
+
+    /*postLogin({
       dni: this.state.dni,
       password: this.state.password,
       rememberMe: this.state.rememberMe,
@@ -97,41 +105,34 @@ class AuthForm extends Component {
           timer: 1500,
           showCancelButton: false,
           showConfirmButton: false,
-        }).then(()=>{
-          this.props.redirectSuccess();
-        })
+        }).then(() => {
+          this.props.setInfo(res.data);
+        });
       } else {
-        let msg = " ";
+        let msg = res.data.message;
 
-        try {
-          const data = await res.json();
-          msg = data.message;
-
-          if (msg === "Usuario ya autenticado") {
-            Swal.fire({
-              title: "Usuario ya autenticado",
-              text: " ",
-              icon: "info",
-              timer: 1500,
-              showCancelButton: false,
-              showConfirmButton: false,
-            }).then(() => {
-              this.props.redirectSuccess();
-            });
-            return;
-          }
-        } catch (e) {
-          const data = await res.text();
-          msg = data;
+        if(msg === "Usuario ya autenticado"){
+          Swal.fire({
+            title: "Ya estás autenticado",
+            timer: 1500,
+            icon: "info",
+            showCancelButton: false,
+            showConfirmButton: false,
+          }).then(() => {
+            this.props.redirectSuccess();
+          });
+          return;
         }
+
         this.setState({
           loginError: {
             error: true,
             msg: msg,
           },
+          loading: false,
         });
       }
-    });
+    });*/
   };
 
   render() {
@@ -167,21 +168,33 @@ class AuthForm extends Component {
             onBlur={(e) => this.handleBlur(e)}
           />
           <div className="d-flex flex-column mt-1">
-            <FormControlLabel
-              control={
-                <Checkbox
+            <label
+              htmlFor="myToggle"
+              className="toggle my-3 d-flex align-items-center"
+            >
+              <div>
+                <input
+                  type="checkbox"
                   value={this.state.rememberMe}
                   onChange={(e) =>
                     this.setState({ rememberMe: !this.state.rememberMe })
                   }
+                  className="toggle__input"
+                  id="myToggle"
                 />
-              }
-              label="Recordarme"
-              fontFamily="custom"
-            />
-            <Button variant="contained" color="mainColor" type="submit">
-              Continuar
-            </Button>
+                <div className="toggle__fill"></div>
+              </div>
+              <div className="ms-2">Recordarme</div>
+            </label>
+            {!this.state.loading ? (
+              <Button variant="contained" color="mainColor" type="submit">
+                Continuar
+              </Button>
+            ) : (
+              <LoadingButton loading loadingPosition="start" variant="outlined">
+                Continuar
+              </LoadingButton>
+            )}
           </div>
         </form>
       </>

@@ -1,57 +1,67 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import AuthForm from "../../components/auth/AuthForm";
 import SignUp from "../../components/auth/signup/SignUp";
+import useAuth from "../../hooks/useAuth";
+import useFetch from "../../api/fetchingFunctions";
 import "./auth.css";
 
 const Auth = () => {
   const navigate = useNavigate();
+  const { setAuth } = useAuth();
+  const [info, setInfo] = React.useState(null);
 
   const redirectSuccess = () => {
     navigate("/app");
   };
 
-  /*const { mutate, isSuccess, data } = useMutation(postSignUp, {
-    onSuccess: () => {
-      console.log(data);
-      Swal.fire({
-        title: "Exito",
-        text: "Bienvenido a Expensify",
-        icon: "success",
-        showConfirmButton: false,
-        timer: 2000,
-      });
-    },
-    onError: () => {
-      console.log(data);
-      Swal.fire({
-        title: "Error",
-        text: " ",
-        icon: "error",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    },
-  });
+  const login = async (body) => {
+    const { data: res } = useFetch("login", body);
 
-  const signup = async (data) => {
-    mutate({
-      name: data.name,
-      dni: data.dni,
-      email: data.email,
-      password: data.password,
-    });
+    if (res) {
+      if (res.status === 200) {
+        Swal.fire({
+          title: "Bienvenido",
+          timer: 1500,
+          showCancelButton: false,
+          showConfirmButton: false,
+        }).then(() => {
+          this.props.setInfo(res.data);
+        });
+      } else {
+        let msg = res.data.message;
+
+        if (msg === "Usuario ya autenticado") {
+          Swal.fire({
+            title: "Ya estás autenticado",
+            timer: 1500,
+            icon: "info",
+            showCancelButton: false,
+            showConfirmButton: false,
+          }).then(() => {
+            this.props.redirectSuccess();
+          });
+          return;
+        }
+
+        /*this.setState({
+          loginError: {
+            error: true,
+            msg: msg,
+          },
+          loading: false,
+        });*/
+      }
+    }
   };
 
   React.useEffect(() => {
-    if (isSuccess) {
-      postLogin({
-        /*dni: data.dni,
-        password: data.password,
-      });
+    if (info) {
+      setAuth(info);
       redirectSuccess();
     }
-  }, [isSuccess]);*/
+  }, [info]);
 
   if (window.location.pathname === "/")
     return (
@@ -63,7 +73,11 @@ const Auth = () => {
           <h1 className="mb-0">Bienvenido</h1>
           <p className="my-0">Por favor, ingresa tus datos</p>
           <hr className="mt-1 text-dark" />
-          <AuthForm redirectSuccess={redirectSuccess} />
+          <AuthForm
+            redirectSuccess={redirectSuccess}
+            setInfo={setInfo}
+            login={login}
+          />
         </div>
         <div className="auth__box mt-2">
           <p className="mb-0 auth__box__mensajeRegistro">
@@ -81,7 +95,7 @@ const Auth = () => {
         <h1 className="mb-0">Bienvenido</h1>
         <p className="my-0">Por favor, ingresa tus datos</p>
         <hr className="mt-1 text-dark" />
-        <SignUp redirectSuccess={redirectSuccess}/>
+        <SignUp redirectSuccess={redirectSuccess} />
         <a href="/" className="auth__box__volver">
           <p className="mt-3 mb-0">Volver</p>
         </a>

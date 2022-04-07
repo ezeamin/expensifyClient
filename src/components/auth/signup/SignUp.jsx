@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { TextField } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { Button } from "@mui/material";
-import { postLogin } from "../../../fetching/fetchingFunctions";
+import { postLogin } from "../../../api/fetchingFunctions";
 import Swal from "sweetalert2";
 
 class SignUp extends Component {
@@ -20,6 +21,7 @@ class SignUp extends Component {
         password: false,
         password2: false,
       },
+      loading: false
     };
   }
 
@@ -89,6 +91,10 @@ class SignUp extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
+    this.setState({
+      loading: true,
+    })
+
     let errorGeneral = false;
 
     let error = [false, false, false, false, false];
@@ -125,15 +131,24 @@ class SignUp extends Component {
     if (res.status !== 200) {
       let msg = " ";
 
+      const data = await res.text();
       try {
-        const data = await res.json();
-        msg = data.message;
+        let obj = JSON.parse(data);
+        msg = obj.message;
 
         if (msg === "Usuario ya autenticado") {
-          return this.props.redirectSuccess();
+          Swal.fire({
+            title: "Usuario ya autenticado",
+            icon: "info",
+            timer: 1500,
+            showCancelButton: false,
+            showConfirmButton: false,
+          }).then(() => {
+            this.props.redirectSuccess();
+          });
+          return;
         }
       } catch (e) {
-        const data = await res.text();
         msg = data;
       }
       Swal.fire({
@@ -141,6 +156,10 @@ class SignUp extends Component {
         title: "Error",
         text: msg,
       });
+
+      this.setState({
+        loading: false
+      })
     } else {
       Swal.fire({
         title: "Exito",
@@ -221,9 +240,15 @@ class SignUp extends Component {
           onBlur={(e) => this.handleBlur(e)}
         />
         <div className="d-flex flex-column mt-3">
-          <Button variant="contained" color="mainColor" type="submit">
-            Registrarse
-          </Button>
+          {!this.state.loading ? (
+            <Button variant="contained" color="mainColor" type="submit">
+              Registrarse
+            </Button>
+          ) : (
+            <LoadingButton loading loadingPosition="start" variant="outlined">
+              Registrarse
+            </LoadingButton>
+          )}
         </div>
       </form>
     );
