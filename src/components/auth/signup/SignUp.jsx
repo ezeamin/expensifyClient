@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { TextField } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Button } from "@mui/material";
-import { postLogin } from "../../../api/fetchingFunctions";
+import { postLogin, postSignup } from "../../../api/fetchingFunctions";
 import Swal from "sweetalert2";
 
 class SignUp extends Component {
@@ -21,7 +21,7 @@ class SignUp extends Component {
         password: false,
         password2: false,
       },
-      loading: false
+      loading: false,
     };
   }
 
@@ -93,7 +93,7 @@ class SignUp extends Component {
 
     this.setState({
       loading: true,
-    })
+    });
 
     let errorGeneral = false;
 
@@ -115,7 +115,7 @@ class SignUp extends Component {
   };
 
   signup = async () => {
-    const res = await fetch("/api/signup", {
+    /*const res = await fetch("/api/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -174,7 +174,58 @@ class SignUp extends Component {
         });
         this.props.redirectSuccess();
       });
-    }
+    }*/
+
+    postSignup({
+      dni: this.state.dni,
+      password: this.state.password,
+      email: this.state.email,
+      name: this.state.nombre,
+    }).then(async (res) => {
+      if (res.status === 200) {
+        this.setState({
+          loading: false,
+        });
+
+        Swal.fire({
+          title: "Bienvenido a Expensify",
+          timer: 2000,
+          showCancelButton: false,
+          showConfirmButton: false,
+        }).then(() => {
+          postLogin({
+            dni: this.state.dni,
+            password: this.state.password,
+          });
+          this.props.setInfo(res.data);
+        });
+      } else {
+        this.setState({
+          loading: false,
+        });
+
+        let msg = res.data.message;
+
+        if (msg === "Usuario ya autenticado") {
+          Swal.fire({
+            title: "Ya estás autenticado",
+            timer: 1500,
+            icon: "info",
+            showCancelButton: false,
+            showConfirmButton: false,
+          }).then(() => {
+            this.props.redirectSuccess();
+          });
+          return;
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: msg,
+          });
+        }
+      }
+    });
   };
 
   render() {

@@ -49,7 +49,7 @@ const Auth = () => {
         <h1 className="mb-0">Bienvenido</h1>
         <p className="my-0">Por favor, ingresa tus datos</p>
         <hr className="mt-1 text-dark" />
-        <SignUp redirectSuccess={redirectSuccess} />
+        <SignUp redirectSuccess={redirectSuccess} setInfo={setInfo} />
         <a href="/" className="auth__box__volver">
           <p className="mt-3 mb-0">Volver</p>
         </a>

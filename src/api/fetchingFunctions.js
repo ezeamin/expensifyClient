@@ -7,6 +7,35 @@ let dangerColor = estilo.getPropertyValue("--color-danger");
 
 // auth
 
+export const postSignup = async (user) => {
+  let res, data;
+  let accessToken = localStorage.getItem("accessToken");
+  let refreshToken = localStorage.getItem("refreshToken");
+
+  try {
+    res = await axios.post(`/api/signup`, user, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+        refresh: refreshToken,
+      },
+    });
+    data = {
+      status: res.status,
+      data: res.data,
+    };
+  } catch (err) {
+    let msg = err.response ? err.response.data : err;
+    let status = err.response ? err.response.status : err;
+
+    data = {
+      status: status,
+      data: msg,
+    };
+  }
+  return data;
+};
+
 export const postLogin = async (user) => {
   let res, data;
   let accessToken = localStorage.getItem("accessToken");
