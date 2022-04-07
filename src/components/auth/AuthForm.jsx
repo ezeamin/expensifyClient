@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { TextField, Checkbox, FormControlLabel, Alert } from "@mui/material";
+import { TextField, Alert } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Button } from "@mui/material";
 import Swal from "sweetalert2";
@@ -92,14 +92,16 @@ class AuthForm extends Component {
       },
     });
 
-    this.props.login();
-
-    /*postLogin({
+    postLogin({
       dni: this.state.dni,
       password: this.state.password,
       rememberMe: this.state.rememberMe,
     }).then(async (res) => {
       if (res.status === 200) {
+        this.setState({
+          loading: false,
+        });
+
         Swal.fire({
           title: "Bienvenido",
           timer: 1500,
@@ -132,7 +134,7 @@ class AuthForm extends Component {
           loading: false,
         });
       }
-    });*/
+    });
   };
 
   render() {

@@ -10,6 +10,7 @@ import {
 import { Button } from "@mui/material";
 import IconPicker from "react-icon-picker";
 import "./categoryForm.css";
+import { LoadingButton } from "@mui/lab";
 
 class CategoryForm extends Component {
   constructor(props) {
@@ -25,7 +26,14 @@ class CategoryForm extends Component {
         limit: false,
         accountType: false,
       },
+      loading: false,
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.loading !== this.props.loading) {
+      this.setState({ loading: this.props.loading });
+    }
   }
 
   handleChange = (e) => {
@@ -98,6 +106,8 @@ class CategoryForm extends Component {
     }
 
     if (!errorGeneral) {
+      this.props.setLoadingPost(true);
+
       if (this.props.type === "category") {
         if (this.props.isNew) this.loadCategory();
         else this.updateCategory();
@@ -108,7 +118,7 @@ class CategoryForm extends Component {
     }
   };
 
-  loadCategory = () => {
+  loadCategory = async () => {
     this.props.newCategory({
       title: this.state.title,
       icon: this.state.icon,
@@ -119,7 +129,15 @@ class CategoryForm extends Component {
 
   updateCategory = () => {};
 
-  loadAccount = () => {}; //cambiar "limit" por "balance"
+  loadAccount = () => {
+    this.props.newAccount({
+      title: this.state.title,
+      icon: this.state.icon,
+      accountType: this.state.accountType,
+      balance: this.state.limit,
+      description: this.state.description,
+    });
+  };
 
   updateAccount = () => {};
 
@@ -224,16 +242,24 @@ class CategoryForm extends Component {
             <li className="mb-0 mt-3 text-danger fw-bold">Importe no valido</li>
           ) : null}
         </div>
-        <Button
-          variant="contained"
-          className="mt-3"
-          size="large"
-          color="successColor"
-          type="submit"
-          fullWidth
-        >
-          Guardar
-        </Button>
+        {!this.state.loading ? (
+          <Button
+            variant="contained"
+            className="mt-3"
+            size="large"
+            color="successColor"
+            type="submit"
+            fullWidth
+          >
+            Guardar
+          </Button>
+        ) : (
+          <div className="forms__loadingButton mt-3">
+          <LoadingButton size="large" fullWidth loading loadingPosition="start" variant="outlined">
+             Guardar
+          </LoadingButton>
+          </div>
+        )}
       </form>
     );
   }

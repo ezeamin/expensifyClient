@@ -4,9 +4,14 @@ import Title from "../titles/Title";
 import CategoryItem from "./categoryItem/CategoryItem";
 import "./panelCategories.css";
 import { useNavigate } from "react-router-dom";
+import Empty from "../error and loading/Empty";
 
 const PanelCategoriesNAccounts = (props) => {
   const navigate = useNavigate();
+
+  const name = props.type === "category" ? "categorias" : "cuentas";
+
+  const cargarPack = () => {};
 
   return (
     <div className="container">
@@ -20,7 +25,7 @@ const PanelCategoriesNAccounts = (props) => {
       >
         {props.type === "category" ? "Nueva categoria" : "Nueva cuenta"}
       </Button>
-      {props.list.map((item, index) => {
+      {props.list.length !== 0 ? props.list.map((item, index) => {
         return (
           <CategoryItem
             key={index}
@@ -35,7 +40,7 @@ const PanelCategoriesNAccounts = (props) => {
             }
           />
         );
-      })}
+      }) : <Empty name={name} cargarPack={cargarPack}/>}
     </div>
   );
 };
