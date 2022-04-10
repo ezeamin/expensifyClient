@@ -20,7 +20,7 @@
     color: rgb(177, 177, 177) !important;
 }
 
-.css-18md96b-MuiButtonBase-root-MuiTab-root.Mui-selected{
+.css-18md96b-MuiButtonBase-root-MuiTab-root.Mui-selected,.css-1cb0ktb.Mui-selected{
     color: rgb(255, 255, 255) !important;
 }
 
