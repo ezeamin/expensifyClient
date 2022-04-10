@@ -13,8 +13,6 @@
 
 .navegation__box__newButton{
     position: absolute;
-    left: 0;
-    right: 0;
     margin: auto;
     bottom: 2rem;
     display: flex;

@@ -59,7 +59,7 @@ const Resumen = () => {
   }, []);
 
   return (
-    <div className="text-light">
+    <div className="text-light paddingBottom">
       <div className="profile__resumen__box">
         <h2 className="mb-0">Estado</h2>
         <div className="profile__resumen__detalle mb-3">

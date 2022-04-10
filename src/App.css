@@ -2,6 +2,9 @@
     min-height: 100vh;
     background-color:  var(--color-bg);
     position: absolute;
-    padding-bottom: 100px;
     width: 100vw;
+}
+
+.paddingBottom{
+    padding-bottom: 100px;
 }

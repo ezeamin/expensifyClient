@@ -38,6 +38,10 @@ class CategoryForm extends Component {
 
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
+
+    if (e.target.name === "accountType" && e.target.value === "Credito") {
+      this.setState({ limit: "0" });
+    }
   };
 
   error = (errores, name) => {
@@ -63,7 +67,8 @@ class CategoryForm extends Component {
       return this.error(errores, name);
     } else if (
       name === "limit" &&
-      (isNaN(value) || Number.parseFloat(value) <= 0)
+      this.state.accountType !== "Credito" &&
+      (isNaN(value) || Number.parseFloat(value) < 0)
     )
       return this.error(errores, name);
 
@@ -144,12 +149,14 @@ class CategoryForm extends Component {
   render() {
     return (
       <form className="container px-4" onSubmit={(e) => this.handleSubmit(e)}>
-        <div className="expense__dataBox text-center">
-          <IconPicker
-            icons={this.props.icons}
-            defaultValue={this.props.defaultIcon}
-            onChange={(icon) => this.setState({ ...this.state, icon })}
-          />
+        <div className="expense__dataBox">
+          <div className="w-100 text-center">
+            <IconPicker
+              icons={this.props.icons}
+              defaultValue={this.props.defaultIcon}
+              onChange={(icon) => this.setState({ ...this.state, icon })}
+            />
+          </div>
           <FormControl
             error={this.state.errores.title}
             fullWidth
@@ -194,38 +201,42 @@ class CategoryForm extends Component {
                     );
                   })}
               </Select>
-              {this.state.errores.account ? (
+              {this.state.errores.accountType ? (
                 <FormHelperText>Seleccione un tipo de cuenta</FormHelperText>
               ) : null}
             </FormControl>
           ) : null}
-          <FormControl
-            error={this.state.errores.limit}
-            fullWidth
-            className="mt-2"
-          >
-            <TextField
+          {this.state.accountType !== "Credito" ? (
+            <FormControl
               error={this.state.errores.limit}
-              label={
-                this.props.type === "category"
-                  ? "Limite mensual"
-                  : "Saldo actual"
-              }
-              variant="outlined"
-              type="number"
-              value={this.state.limit}
-              name="limit"
-              onChange={(e) => this.handleChange(e)}
-              onBlur={(e) => this.handleBlur(e)}
-            />
-            {this.state.errores.limit ? (
+              fullWidth
+              className="mt-2"
+            >
+              <TextField
+                error={this.state.errores.limit}
+                label={
+                  this.props.type === "category"
+                    ? "Limite mensual"
+                    : "Saldo actual"
+                }
+                variant="outlined"
+                type="number"
+                value={this.state.limit}
+                name="limit"
+                onChange={(e) => this.handleChange(e)}
+                onBlur={(e) => this.handleBlur(e)}
+              />
               <FormHelperText>
                 {this.props.type === "category"
-                  ? "Limite no valido"
-                  : "Saldo no valido"}
+                  ? this.state.errores.limit
+                    ? "Limite no valido. Colocar '0' para no establecer"
+                    : "Colocar '0' para no establecer"
+                  : this.state.errores.limit
+                  ? "Saldo no valido. Colocar '0' para no establecer"
+                  : "Colocar '0' para no establecer"}
               </FormHelperText>
-            ) : null}
-          </FormControl>
+            </FormControl>
+          ) : null}
           <TextField
             error={this.state.errores.description}
             className="w-100 mt-2"
@@ -238,9 +249,6 @@ class CategoryForm extends Component {
             name="description"
             onChange={(e) => this.handleChange(e)}
           />
-          {this.state.errores.price ? (
-            <li className="mb-0 mt-3 text-danger fw-bold">Importe no valido</li>
-          ) : null}
         </div>
         {!this.state.loading ? (
           <Button
@@ -255,9 +263,15 @@ class CategoryForm extends Component {
           </Button>
         ) : (
           <div className="forms__loadingButton mt-3">
-          <LoadingButton size="large" fullWidth loading loadingPosition="start" variant="outlined">
-             Guardar
-          </LoadingButton>
+            <LoadingButton
+              size="large"
+              fullWidth
+              loading
+              loadingPosition="start"
+              variant="outlined"
+            >
+              Guardar
+            </LoadingButton>
           </div>
         )}
       </form>

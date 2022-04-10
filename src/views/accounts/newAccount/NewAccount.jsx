@@ -20,6 +20,7 @@ const icons = [
     "fa-brands fa-cc-apple-pay",
     "fa-brands fa-bitcoin",
     "fa-solid fa-wallet",
+    "fa-solid fa-building-columns",
     "fa-solid fa-circle-question",
   ];
 

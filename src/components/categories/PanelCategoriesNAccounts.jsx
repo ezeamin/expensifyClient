@@ -8,13 +8,23 @@ import Empty from "../error and loading/Empty";
 
 const PanelCategoriesNAccounts = (props) => {
   const navigate = useNavigate();
+  const container = React.useRef();
+
+  React.useEffect(() => {
+    if(props.list.length >= 5){
+      container.current.className = "container paddingBottom";
+    }
+    else if(props.list.length < 5){
+      container.current.className = "container";
+    }
+  }, [props.list]);
 
   const name = props.type === "category" ? "categorias" : "cuentas";
 
   const cargarPack = () => {};
 
   return (
-    <div className="container">
+    <div className="container" ref={container}>
       <Title text={props.type === "category" ? "Categorias" : "Cuentas"} />
       <Button
         variant="contained"

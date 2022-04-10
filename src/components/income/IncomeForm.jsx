@@ -107,6 +107,7 @@ class IncomeForm extends Component {
             className="expense__priceBox__input"
             placeholder="xx.xx"
             value={this.state.price}
+            type="number"
             name="price"
             onChange={(e) => this.handleChange(e)}
             onBlur={(e) => this.handleBlur(e)}

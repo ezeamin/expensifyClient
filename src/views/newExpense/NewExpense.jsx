@@ -15,7 +15,7 @@ const NewExpense = () => {
             >
               <i className="fa-solid fa-arrow-up fa-2x"></i>
             </a>
-            <p className="mb-0 mt-3 descripciones">Ingreso</p>
+            <p className="mb-0 mt-1 descripciones">Ingreso</p>
           </div>
           <div className="newExpense__optionsBox__group">
             <a
@@ -24,17 +24,17 @@ const NewExpense = () => {
             >
               <i className="fa-solid fa-arrow-down fa-2x"></i>
             </a>
-            <p className="mb-0 mt-3 descripciones">Gasto</p>
+            <p className="mb-0 mt-1 descripciones">Gasto</p>
           </div>
         </div>
-        <div className="newExpense__optionsBox__group">
+        <div className="newExpense__optionsBox__group mt-3">
           <a
             href="/newExpense/transfer"
             className="newExpense__optionsBox__button newExpense__optionsBox__button--transferencia"
           >
             <i className="fa-solid fa-right-left fa-2x"></i>
           </a>
-          <p className="mb-0 mt-3 descripciones">Transferir</p>
+          <p className="mb-0 mt-1 descripciones">Transferir</p>
         </div>
       </div>
     </div>

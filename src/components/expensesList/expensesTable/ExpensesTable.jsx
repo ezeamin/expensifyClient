@@ -9,6 +9,7 @@ const rows = [
     date: "01/01/2020",
     time: "12:00",
     title: "Comida",
+    icon: "fas fa-utensils",
     account: "Tarjeta BBVA 0659",
     accountColor: "#84b6f4",
     description: "Descripción del gasto",
@@ -39,16 +40,20 @@ const ExpensesTable = () => {
 
   return (
     <div className="table-responsive">
-      <table className="table bg-light mt-3" style={{ borderRadius: "20px", maxHeight: "60vh" }}>
+      <table
+        className="table bg-light mt-3"
+        style={{ borderRadius: "20px", maxHeight: "60vh" }}
+      >
         <thead>
           <tr>
+            <td></td>
             <td></td>
             <th scope="col" style={{ minWidth: "120px" }}>
               Categoria
             </th>
-            <th>Fecha</th>
-            <th style={{ minWidth: "60px" }}>Hora</th>
             <th style={{ minWidth: "120px" }}>Concepto</th>
+            <th>Fecha</th>
+            <th style={{ minWidth: "80px" }}>Hora</th>
             <th></th>
             <th style={{ minWidth: "120px" }}>Cuenta</th>
             <th style={{ minWidth: "150px" }}>Notas</th>
@@ -61,10 +66,14 @@ const ExpensesTable = () => {
             return (
               <tr key={index}>
                 <td style={{ backgroundColor: row.color }}> </td>
+                <td>
+                  {" "}
+                  <i className={row.icon}></i>
+                </td>
                 <th>{row.category}</th>
+                <td>{row.title}</td>
                 <td>{row.date}</td>
                 <td>{row.time}</td>
-                <td>{row.title}</td>
                 <td style={{ backgroundColor: row.accountColor }}> </td>
                 <td>{row.account}</td>
                 <td>{row.description ? row.description : "N/A"}</td>

@@ -112,6 +112,9 @@ class SignUp extends Component {
     });
 
     if (!errorGeneral) this.signup();
+    else this.setState({
+      loading: false,
+    });
   };
 
   signup = async () => {

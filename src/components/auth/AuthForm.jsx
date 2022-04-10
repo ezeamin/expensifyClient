@@ -82,6 +82,9 @@ class AuthForm extends Component {
     });
 
     if (!errorGeneral) this.login();
+    else this.setState({
+      loading: false,
+    });
   };
 
   login = async () => {

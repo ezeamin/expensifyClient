@@ -111,6 +111,7 @@ class ExpenseForm extends Component {
             placeholder="xx.xx"
             value={this.state.price}
             name="price"
+            type="number"
             onChange={(e) => this.handleChange(e)}
             onBlur={(e) => this.handleBlur(e)}
           />
