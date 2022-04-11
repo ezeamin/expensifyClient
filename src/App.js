@@ -11,7 +11,6 @@ import Expense from "./views/newExpense/expense/Expense";
 import Income from "./views/newExpense/income/Income";
 import Transfer from "./views/newExpense/transfer/Transfer";
 import { ThemeProvider } from "@mui/material/styles";
-import customTheme from "./hooks/useTheme";
 import NewCategory from "./views/categories/newCategory/NewCategory";
 import NewAccount from "./views/accounts/newAccount/NewAccount";
 import InfoList from "./views/infoList/InfoList";

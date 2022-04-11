@@ -15,7 +15,7 @@ const Error = (props) => {
 
   const sendMail = () => {
     setLoading(true);
-    //init("kXceS724E8xWo8ddP");
+    init("kXceS724E8xWo8ddP");
 
     let templateParams = {
       message: JSON.stringify(props.data),
