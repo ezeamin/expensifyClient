@@ -172,7 +172,10 @@ class AuthForm extends Component {
             onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
             onBlur={(e) => this.handleBlur(e)}
           />
-          <div className="d-flex flex-column mt-1">
+          <div className="text-start mt-1">
+            <a href="/recPassword" className="auth__box__mensajeRegistro__a">¿Olvidaste tu contraseña?</a>
+          </div>
+          <div className="d-flex flex-column">
             <label
               htmlFor="myToggle"
               className="toggle my-3 d-flex align-items-center"

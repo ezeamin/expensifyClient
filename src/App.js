@@ -24,6 +24,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Auth />} />
             <Route path="/signup" element={<Auth />} />
+            <Route path="/recPassword" element={<Auth />} />
             <Route path="/app" element={<AppPage />} />
             <Route path="/expenses" element={<Expenses />} />
             <Route path="/accounts" element={<Accounts />} />
