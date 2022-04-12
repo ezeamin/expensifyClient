@@ -6,10 +6,12 @@ import InfoHeaderIcons from "./infoHeaderIcons/InfoHeaderIcons";
 const PanelInfoList = (props) => {
   let [stateValue, setStateValue] = React.useState(0);
   let [progressColor, setProgressColor] = React.useState("successColor");
+  let [limitText, setLimitText] = React.useState(props.limit);
 
   React.useEffect(() => {
     if (props.limit)
       setStateValue(Math.round((props.spent * 100) / props.limit));
+      else setLimitText("-");
   }, [props.balance, props.limit]);
 
   React.useEffect(() => {
@@ -41,12 +43,12 @@ const PanelInfoList = (props) => {
         </div>
         {props.type === "category" ? (
           <div className="listItem__saldos__box">
-            <h3 className="mb-0 fw-bold">$ {props.limit}</h3>
+            <h3 className="mb-0 fw-bold">$ {limitText}</h3>
             <p className="mb-0">Limite</p>
           </div>
         ) : null}
       </div>
-      {props.type === "category" ? (
+      {props.type === "category" && props.limit ? (
         <div className="profile__resumen__box mt-2">
           <h3>Estado</h3>
           <div className="profile__resumen__detalle">

@@ -4,7 +4,7 @@ import { CircularProgress } from "@mui/material";
 const CategoryItem = (props) => {
   let id;
 
-  if(props.type === "category") id="cat="+props.id;
+  if(props.type === "categories") id="cat="+props.id;
   else id="acc="+props.id;
 
   return (

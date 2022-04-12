@@ -59,6 +59,11 @@ export const postLogin = async (user) => {
     let msg = err.response ? err.response.data : err;
     let status = err.response ? err.response.status : err;
 
+    if (msg.accessToken) {
+      localStorage.setItem("accessToken", msg.accessToken);
+      localStorage.setItem("refreshToken", msg.refreshToken);
+    }
+
     data = {
       status: status,
       data: msg,
@@ -102,8 +107,7 @@ export const deleteLogout = (home) => {
             }).then(() => {
               home("/");
             });
-          }
-          else{
+          } else {
             Swal.fire({
               title: "Error",
               text: "No se pudo cerrar la sesión",
@@ -162,6 +166,37 @@ export const postCategory = async (category) => {
 
   try {
     res = await axios.put(`/api/category`, category, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+        refresh: refreshToken,
+      },
+    });
+    data = {
+      status: res.status,
+      data: res.data,
+    };
+  } catch (err) {
+    let msg = err.response ? err.response.data : err;
+    let status = err.response ? err.response.status : err;
+
+    data = {
+      status: status,
+      data: msg,
+    };
+  }
+  return data;
+};
+
+export const getAccountAndCategoryData = async (type, id) => {
+  let res, data;
+  let accessToken = localStorage.getItem("accessToken");
+  let refreshToken = localStorage.getItem("refreshToken");
+
+  const url = type === "account" ? `/api/account/${id}` : `/api/category/${id}`;
+
+  try {
+    res = await axios.get(url, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,

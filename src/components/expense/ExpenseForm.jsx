@@ -147,7 +147,7 @@ class ExpenseForm extends Component {
             >
               {this.props.categoriesList.map((category, index) => {
                 return (
-                  <MenuItem key={index} value={category.name}>
+                  <MenuItem key={index} value={category.id}>
                     {category.name}
                   </MenuItem>
                 );
@@ -173,7 +173,7 @@ class ExpenseForm extends Component {
             >
               {this.props.accountsList.map((account, index) => {
                 return (
-                  <MenuItem key={index} value={account.name}>
+                  <MenuItem key={index} value={account.id}>
                     <div>
                       <p className="mb-0 fw-bold">{account.name}</p>
                       <p className="mb-0">$ {account.balance}</p>

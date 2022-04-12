@@ -49,7 +49,7 @@ const Error = (props) => {
       <p className="mt-3">No mentira, mira:</p>
       <div className="errorPage__errorCode">
         <p className="my-0">
-          ✨ {props.data.data.message} ✨<br />{" "}
+          ✨ {props.data.data.message ? props.data.data.message : props.data.data } ✨<br />{" "}
           <span className="errorPage__siteSpan">Site: {site}</span>
         </p>
       </div>

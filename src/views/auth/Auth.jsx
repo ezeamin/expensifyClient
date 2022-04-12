@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AuthForm from "../../components/auth/AuthForm";
 import SignUp from "../../components/auth/signup/SignUp";
 import useAuth from "../../hooks/useAuth";
+import GithubCorner from "react-github-corner";
 import "./auth.css";
 
 const Auth = () => {
@@ -24,6 +25,12 @@ const Auth = () => {
   if (window.location.pathname === "/")
     return (
       <div className="auth">
+        <GithubCorner
+          octoColor="#2f2f2f"
+          bannerColor="#fff"
+          href="https://github.com/ezeamin/expensifyClient"
+          target={"_blank"}
+        />
         <div className="auth__logo">
           <img src="/img/favicon.png" alt="Expensify logo" />
         </div>
@@ -45,6 +52,13 @@ const Auth = () => {
     );
   return (
     <div className="auth">
+      <GithubCorner
+        octoColor="#2f2f2f"
+        bannerColor="#fff"
+        href="https://github.com/ezeamin/expensifyClient"
+        target={"_blank"}
+      />
+
       <div className="auth__box">
         <h1 className="mb-0">Bienvenido</h1>
         <p className="my-0">Por favor, ingresa tus datos</p>

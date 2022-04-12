@@ -118,67 +118,6 @@ class SignUp extends Component {
   };
 
   signup = async () => {
-    /*const res = await fetch("/api/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: this.state.nombre,
-        dni: this.state.dni,
-        email: this.state.email,
-        password: this.state.password,
-      }),
-    });
-
-    if (res.status !== 200) {
-      let msg = " ";
-
-      const data = await res.text();
-      try {
-        let obj = JSON.parse(data);
-        msg = obj.message;
-
-        if (msg === "Usuario ya autenticado") {
-          Swal.fire({
-            title: "Usuario ya autenticado",
-            icon: "info",
-            timer: 1500,
-            showCancelButton: false,
-            showConfirmButton: false,
-          }).then(() => {
-            this.props.redirectSuccess();
-          });
-          return;
-        }
-      } catch (e) {
-        msg = data;
-      }
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: msg,
-      });
-
-      this.setState({
-        loading: false
-      })
-    } else {
-      Swal.fire({
-        title: "Exito",
-        text: "Bienvenido a Expensify",
-        icon: "success",
-        showConfirmButton: false,
-        timer: 2000,
-      }).then(() => {
-        postLogin({
-          dni: this.state.dni,
-          password: this.state.password,
-        });
-        this.props.redirectSuccess();
-      });
-    }*/
-
     postSignup({
       dni: this.state.dni,
       password: this.state.password,
@@ -237,7 +176,7 @@ class SignUp extends Component {
         <TextField
           error={this.state.errores.nombre}
           className="w-100"
-          label="Nombre"
+          label="Nombre o apodo"
           variant="outlined"
           size="small"
           value={this.state.nombre}

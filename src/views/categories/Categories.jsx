@@ -1,16 +1,13 @@
 import React from "react";
-import { isError, useQuery } from "react-query";
-import PanelCategoriesNAccounts from "../../components/categories/PanelCategoriesNAccounts";
+import { useQuery } from "react-query";
+import PanelCategories from "../../components/categories/PanelCategories";
 import Navegation from "../../components/navegation/Navegation";
 import { getCategories } from "../../api/fetchingFunctions";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
 import Loading from "../../components/error and loading/Loading";
 import Error from "../../components/error and loading/Error";
 
 const Categories = () => {
   const [categories, setCategories] = React.useState([]);
-  const navigate = useNavigate();
 
   const { isLoading, isFetching, isError, isSuccess, data } = useQuery(
     ["categories"],
@@ -41,9 +38,8 @@ const Categories = () => {
   return (
     <div>
       <Navegation />
-      <PanelCategoriesNAccounts
+      <PanelCategories
         list={categories}
-        type="category"
         link="/categories/new"
       />
     </div>
