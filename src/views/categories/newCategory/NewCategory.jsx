@@ -99,7 +99,7 @@ const NewCategory = (props) => {
         <CategoryForm
           isNew={true}
           type="category"
-          defaultIcon={"fas fa-utensils"}
+          defaultIcon={"fa-solid fa-utensils"}
           icons={icons}
           newCategory={newCategory}
           loading={loadingPost}

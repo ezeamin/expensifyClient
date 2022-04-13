@@ -39,7 +39,7 @@ const CategoryAndAccountList = (props) => {
         })
       ) : (
         <Empty
-          name={props.type === "category" ? "categorias" : "cuentas"}
+          name={props.type === "categories" ? "categorias" : "cuentas"}
           cargarPack={cargarPack}
         />
       )}

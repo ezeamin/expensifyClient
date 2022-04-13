@@ -72,6 +72,7 @@ const TabsSection = (props) => {
         value={selectedTab}
         onChange={handleChange}
         aria-label="tabs"
+        variant={props.page === "accounts" ? "scrollable" : null}
         textColor="primary"
         className="profile__tabs"
         centered={props.page !== "accounts"}
