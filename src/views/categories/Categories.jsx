@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import PanelCategories from "../../components/categories/PanelCategories";
 import Navegation from "../../components/navegation/Navegation";
-import { getCategories } from "../../api/fetchingFunctions";
+import { getData } from "../../api/fetchingFunctions";
 import Loading from "../../components/error and loading/Loading";
 import Error from "../../components/error and loading/Error";
 
@@ -11,7 +11,7 @@ const Categories = () => {
 
   const { isLoading, isFetching, isError, isSuccess, data } = useQuery(
     ["categories"],
-    getCategories,
+    () => getData("/api/categories"),
     {
       onSuccess: (data) => {
         if (data.status === 200) {
@@ -21,7 +21,7 @@ const Categories = () => {
     }
   );
 
-  if (isLoading || (isFetching && categories.length===0))
+  if (isLoading || (isFetching && categories.length === 0))
     return (
       <div>
         <Navegation />
@@ -38,10 +38,7 @@ const Categories = () => {
   return (
     <div>
       <Navegation />
-      <PanelCategories
-        list={categories}
-        link="/categories/new"
-      />
+      <PanelCategories list={categories} link="/categories/new" />
     </div>
   );
 };

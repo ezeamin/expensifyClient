@@ -1,7 +1,7 @@
 import { LoadingButton } from "@mui/lab";
 import { Alert, Button, TextField } from "@mui/material";
 import React, { Component } from "react";
-import { getEmailFromDNI } from "../../../api/fetchingFunctions";
+import { getData } from "../../../api/fetchingFunctions";
 
 class RecPassword extends Component {
   constructor(props) {
@@ -81,7 +81,7 @@ class RecPassword extends Component {
       },
     });
 
-    getEmailFromDNI(this.state.dni).then(async (res) => {
+    getData(`/api/email/${this.state.dni}`).then(async (res) => {
       if (res.status === 200) {
         this.setState({
           loading: false,

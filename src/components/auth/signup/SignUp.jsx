@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { TextField } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Button } from "@mui/material";
-import { postLogin, postSignup } from "../../../api/fetchingFunctions";
+import { postData, postLogin } from "../../../api/fetchingFunctions";
 import Swal from "sweetalert2";
 
 class SignUp extends Component {
@@ -118,7 +118,7 @@ class SignUp extends Component {
   };
 
   signup = async () => {
-    postSignup({
+    postData(`/api/signup`,{
       dni: this.state.dni,
       password: this.state.password,
       email: this.state.email,

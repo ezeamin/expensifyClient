@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { Button } from "@mui/material";
 import "./expenseForm.css";
+import ItemList from "./itemList/ItemList";
 
 class ExpenseForm extends Component {
   constructor(props) {
@@ -91,13 +92,21 @@ class ExpenseForm extends Component {
       }
     });
 
-    if (!errorGeneral){
-      if(this.props.isNew) this.loadExpense();
+    if (!errorGeneral) {
+      if (this.props.isNew) this.loadExpense();
       else this.updateExpense();
     }
   };
 
-  loadExpense = () => {};
+  loadExpense = () => {
+    this.props.newExpense({
+      title: this.state.title,
+      description: this.state.description,
+      categoryId: this.state.category,
+      accountId: this.state.account,
+      price: this.state.price,
+    });
+  };
 
   updateExpense = () => {};
 
@@ -148,7 +157,7 @@ class ExpenseForm extends Component {
               {this.props.categoriesList.map((category, index) => {
                 return (
                   <MenuItem key={index} value={category.id}>
-                    {category.name}
+                    <ItemList {...category} type="category" />
                   </MenuItem>
                 );
               })}
@@ -174,10 +183,7 @@ class ExpenseForm extends Component {
               {this.props.accountsList.map((account, index) => {
                 return (
                   <MenuItem key={index} value={account.id}>
-                    <div>
-                      <p className="mb-0 fw-bold">{account.name}</p>
-                      <p className="mb-0">$ {account.balance}</p>
-                    </div>
+                    <ItemList {...account} type="account" />
                   </MenuItem>
                 );
               })}

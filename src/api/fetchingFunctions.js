@@ -7,35 +7,6 @@ let dangerColor = estilo.getPropertyValue("--color-danger");
 
 // auth
 
-export const postSignup = async (user) => {
-  let res, data;
-  let accessToken = localStorage.getItem("accessToken");
-  let refreshToken = localStorage.getItem("refreshToken");
-
-  try {
-    res = await axios.post(`/api/signup`, user, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-        refresh: refreshToken,
-      },
-    });
-    data = {
-      status: res.status,
-      data: res.data,
-    };
-  } catch (err) {
-    let msg = err.response ? err.response.data : err;
-    let status = err.response ? err.response.status : err;
-
-    data = {
-      status: status,
-      data: msg,
-    };
-  }
-  return data;
-};
-
 export const postLogin = async (user) => {
   let res, data;
   let accessToken = localStorage.getItem("accessToken");
@@ -128,13 +99,15 @@ export const deleteLogout = (home) => {
   });
 };
 
-export const getEmailFromDNI = async (dni) => {
+//setters
+
+export const postData = async (link,info) => {
   let res, data;
   let accessToken = localStorage.getItem("accessToken");
   let refreshToken = localStorage.getItem("refreshToken");
 
   try {
-    res = await axios.get(`/api/email/${dni}`, {
+    res = await axios.post(link, info, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
@@ -157,15 +130,13 @@ export const getEmailFromDNI = async (dni) => {
   return data;
 };
 
-// categories
-
-export const getCategories = async () => {
+export const putData = async (link, info) => {
   let res, data;
   let accessToken = localStorage.getItem("accessToken");
   let refreshToken = localStorage.getItem("refreshToken");
 
   try {
-    res = await axios.get(`/api/categories`, {
+    res = await axios.put(link, info, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
@@ -186,15 +157,17 @@ export const getCategories = async () => {
     };
   }
   return data;
-};
+}
 
-export const postCategory = async (category) => {
+//getters
+
+export const getData = async (link) => {
   let res, data;
   let accessToken = localStorage.getItem("accessToken");
   let refreshToken = localStorage.getItem("refreshToken");
 
   try {
-    res = await axios.put(`/api/category`, category, {
+    res = await axios.get(link, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
@@ -215,95 +188,4 @@ export const postCategory = async (category) => {
     };
   }
   return data;
-};
-
-export const getAccountAndCategoryData = async (type, id) => {
-  let res, data;
-  let accessToken = localStorage.getItem("accessToken");
-  let refreshToken = localStorage.getItem("refreshToken");
-
-  const url = type === "account" ? `/api/account/${id}` : `/api/category/${id}`;
-
-  try {
-    res = await axios.get(url, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-        refresh: refreshToken,
-      },
-    });
-    data = {
-      status: res.status,
-      data: res.data,
-    };
-  } catch (err) {
-    let msg = err.response ? err.response.data : err;
-    let status = err.response ? err.response.status : err;
-
-    data = {
-      status: status,
-      data: msg,
-    };
-  }
-  return data;
-};
-
-// accounts
-
-export const getAccounts = async () => {
-  let res, data;
-  let accessToken = localStorage.getItem("accessToken");
-  let refreshToken = localStorage.getItem("refreshToken");
-
-  try {
-    res = await axios.get(`/api/accounts`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-        refresh: refreshToken,
-      },
-    });
-    data = {
-      status: res.status,
-      data: res.data,
-    };
-  } catch (err) {
-    let msg = err.response ? err.response.data : err;
-    let status = err.response ? err.response.status : err;
-
-    data = {
-      status: status,
-      data: msg,
-    };
-  }
-  return data;
-};
-
-export const postAccount = async (account) => {
-  let res, data;
-  let accessToken = localStorage.getItem("accessToken");
-  let refreshToken = localStorage.getItem("refreshToken");
-
-  try {
-    res = await axios.put(`/api/account`, account, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-        refresh: refreshToken,
-      },
-    });
-    data = {
-      status: res.status,
-      data: res.data,
-    };
-  } catch (err) {
-    let msg = err.response ? err.response.data : err;
-    let status = err.response ? err.response.status : err;
-
-    data = {
-      status: status,
-      data: msg,
-    };
-  }
-  return data;
-};
+}

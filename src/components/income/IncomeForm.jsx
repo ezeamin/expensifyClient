@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { Button } from "@mui/material";
 import "./incomeForm.css";
+import ItemList from "../expense/itemList/ItemList";
 
 class IncomeForm extends Component {
   constructor(props) {
@@ -94,7 +95,14 @@ class IncomeForm extends Component {
     };
   };
 
-  loadIncome = () => {};
+  loadIncome = () => {
+    this.props.newIncome({
+      price: this.state.price,
+      description: this.state.description,
+      title: this.state.title,
+      accountId: this.state.account,
+    })
+  };
 
   updateIncome = () => {};
 
@@ -144,11 +152,8 @@ class IncomeForm extends Component {
             >
               {this.props.accountsList.map((account, index) => {
                 return (
-                  <MenuItem key={index} value={account.name}>
-                    <div>
-                      <p className="mb-0 fw-bold">{account.name}</p>
-                      <p className="mb-0">$ {account.balance}</p>
-                    </div>
+                  <MenuItem key={index} value={account.id}>
+                    <ItemList {...account} type="account" />
                   </MenuItem>
                 );
               })}

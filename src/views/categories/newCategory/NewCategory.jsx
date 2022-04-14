@@ -3,7 +3,7 @@ import { useMutation } from "react-query";
 import Swal from "sweetalert2";
 import CategoryForm from "../../../components/categories/categoryForm/CategoryForm";
 import Navegation from "../../../components/navegation/Navegation";
-import { postCategory } from "../../../api/fetchingFunctions";
+import { putData } from "../../../api/fetchingFunctions";
 import { useNavigate } from "react-router-dom";
 
 const icons = [
@@ -24,6 +24,7 @@ const icons = [
   "fa-solid fa-shopping-cart",
   "fa-solid fa-shopping-basket",
   "fa-solid fa-champagne-glasses",
+  "fa-solid fa-ticket",
   "fa-solid fa-dice",
   "fa-solid fa-gift",
   "fa-solid fa-film",
@@ -46,7 +47,7 @@ const NewCategory = (props) => {
   const navigate = useNavigate();
   const [loadingPost, setLoadingPost] = React.useState(false);
 
-  const { mutate } = useMutation(postCategory, {
+  const { mutate } = useMutation((info) => putData("/api/category", info), {
     onSuccess: (data) => {
       setLoadingPost(false);
       if (!data || data.status !== 200) {

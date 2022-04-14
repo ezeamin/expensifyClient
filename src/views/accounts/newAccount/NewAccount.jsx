@@ -4,7 +4,7 @@ import CategoryForm from "../../../components/categories/categoryForm/CategoryFo
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
-import { postAccount } from "../../../api/fetchingFunctions";
+import { putData } from "../../../api/fetchingFunctions";
 
 const icons = [
   "fa-solid fa-money-bill-wave",
@@ -37,7 +37,7 @@ const NewAccount = (props) => {
   const navigate = useNavigate();
   const [loadingPost, setLoadingPost] = React.useState(false);
 
-  const { mutate } = useMutation(postAccount, {
+  const { mutate } = useMutation((info) => putData("/api/account", info), {
     onSuccess: (data) => {
       setLoadingPost(false);
       if (!data || data.status !== 200) {

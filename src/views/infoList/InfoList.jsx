@@ -1,5 +1,5 @@
 import React from "react";
-import { getAccountAndCategoryData } from "../../api/fetchingFunctions";
+import { getData } from "../../api/fetchingFunctions";
 import Navegation from "../../components/navegation/Navegation";
 import PanelInfoList from "../../components/panelInfoList/PanelInfoList";
 import Loading from "../../components/error and loading/Loading";
@@ -20,7 +20,7 @@ const InfoList = () => {
 
   const { isLoading, isFetching, isError, isSuccess, data } = useQuery(
     ["info", type, id],
-    () => getAccountAndCategoryData(type, id),
+    () => getData(`/api/${type}/${id}`),
     {
       onSuccess: (data) => {
         if (data.status === 200) {
