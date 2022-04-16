@@ -8,7 +8,7 @@ const AppPage = () => {
   };
 
   const info = {
-    saldo: 5000,
+    saldo: 25000,
   };
 
   return (

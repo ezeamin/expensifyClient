@@ -34,11 +34,11 @@ const ExpensesTable = () => {
     console.log("delete" + id);
   };
 
-  if (error && !isLoading) {
+  if (error && !(isLoading || isFetching)) {
     return <ErrorMsg errorMsg={errorMsg} />;
   }
-  if(rows.length === 0 && !isLoading){
-    <EmptyMsg type="expense" />
+  if (rows.length === 0 && !(isLoading || isFetching)) {
+    return <EmptyMsg type="expense" />;
   }
   return (
     <div className="table-responsive">
@@ -59,13 +59,13 @@ const ExpensesTable = () => {
             <th></th>
             <th style={{ minWidth: "120px" }}>Cuenta</th>
             <th style={{ minWidth: "150px" }}>Notas</th>
-            <th style={{ minWidth: "100px" }}>Importe</th>
+            <th style={{ minWidth: "120px" }}>Importe</th>
             <th style={{ minWidth: "260px" }}>Acciones</th>
           </tr>
         </thead>
         <tbody>
           {isLoading || (isFetching && rows.length === 0) ? (
-            <LoadingList type="expense"/>
+            <LoadingList type="expense" />
           ) : (
             rows.map((row, index) => {
               return (

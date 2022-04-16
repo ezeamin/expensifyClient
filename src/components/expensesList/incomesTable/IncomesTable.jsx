@@ -34,10 +34,10 @@ const IncomesTable = () => {
     console.log("delete" + id);
   };
 
-  if (error && !isLoading) {
+  if (error && !(isLoading || isFetching)) {
     return <ErrorMsg errorMsg={errorMsg} />;
   }
-  if (rows.length === 0 && !isLoading) {
+  if (rows.length === 0 && !(isLoading || isFetching)) {
     return <EmptyMsg type="income" />;
   }
   return (
@@ -57,7 +57,7 @@ const IncomesTable = () => {
             <td></td>
             <th style={{ minWidth: "120px" }}>Cuenta</th>
             <th style={{ minWidth: "150px" }}>Notas</th>
-            <th style={{ minWidth: "100px" }}>Importe</th>
+            <th style={{ minWidth: "120px" }}>Importe</th>
             <th style={{ minWidth: "260px" }}>Acciones</th>
           </tr>
         </thead>

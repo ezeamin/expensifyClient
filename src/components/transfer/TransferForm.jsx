@@ -8,6 +8,8 @@ import {
   MenuItem,
 } from "@mui/material";
 import { Button } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+import ItemList from "../expense/itemList/ItemList";
 
 class TransferForm extends Component {
   constructor(props) {
@@ -22,7 +24,14 @@ class TransferForm extends Component {
         originAccount: false,
         destinationAccount: false,
       },
+      loading: false,
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.loading !== this.props.loading) {
+      this.setState({ loading: this.props.loading });
+    }
   }
 
   handleChange = (e) => {
@@ -103,12 +112,21 @@ class TransferForm extends Component {
     });
 
     if (!errorGeneral){
+      this.props.setLoadingPost(true);
+
       if(this.props.isNew) this.loadTransfer();
       else this.updateTransfer();
     }
   };
 
-  loadTransfer = () => {};
+  loadTransfer = () => {
+    this.props.newTransfer({
+      price: this.state.price,
+      description: this.state.description,
+      originAccountId: this.state.originAccount,
+      destinationAccountId: this.state.destinationAccount,
+    })
+  };
 
   updateTransfer = () => {};
 
@@ -122,6 +140,7 @@ class TransferForm extends Component {
             placeholder="xx.xx"
             value={this.state.price}
             type="number"
+            step="0.01"
             name="price"
             onChange={(e) => this.handleChange(e)}
             onBlur={(e) => this.handleBlur(e)}
@@ -144,11 +163,8 @@ class TransferForm extends Component {
             >
               {this.props.accountsList.map((account, index) => {
                 return (
-                  <MenuItem key={index} value={account.name}>
-                    <div>
-                      <p className="mb-0 fw-bold">{account.name}</p>
-                      <p className="mb-0">$ {account.balance}</p>
-                    </div>
+                  <MenuItem key={index} value={account.id}>
+                     <ItemList {...account} type="account" />
                   </MenuItem>
                 );
               })}
@@ -175,11 +191,8 @@ class TransferForm extends Component {
             >
               {this.props.accountsList.map((account, index) => {
                 return (
-                  <MenuItem key={index} value={account.name}>
-                    <div>
-                      <p className="mb-0 fw-bold">{account.name}</p>
-                      <p className="mb-0">$ {account.balance}</p>
-                    </div>
+                  <MenuItem key={index} value={account.id}>
+                    <ItemList {...account} type="account" />
                   </MenuItem>
                 );
               })}
@@ -204,16 +217,30 @@ class TransferForm extends Component {
             <li className="mb-0 mt-3 text-danger fw-bold">Importe no valido</li>
           ) : null}
         </div>
-        <Button
-          variant="contained"
-          className="mt-3"
-          size="large"
-          color="warningColor"
-          type="submit"
-          fullWidth
-        >
-          Guardar
-        </Button>
+        {!this.state.loading ? (
+          <Button
+            variant="contained"
+            className="mt-3"
+            size="large"
+            color="warningColor"
+            type="submit"
+            fullWidth
+          >
+            Guardar
+          </Button>
+        ) : (
+          <div className="forms__loadingButton mt-3">
+            <LoadingButton
+              size="large"
+              fullWidth
+              loading
+              loadingPosition="start"
+              variant="outlined"
+            >
+              Guardar
+            </LoadingButton>
+          </div>
+        )}
       </form>
     );
   }

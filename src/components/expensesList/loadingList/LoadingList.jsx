@@ -77,6 +77,38 @@ const LoadingList = (props) => {
           </td>
         </tr>
       );
+    case "transfer":
+      return (
+        <tr>
+          <td style={{ backgroundColor: "#ccc" }}> </td>
+          <td>
+            <Skeleton width={80} height={20} />
+          </td>
+          <td>
+            <Skeleton width={80} height={20} />
+          </td>
+          <td style={{ backgroundColor: "#ccc" }}> </td>
+          <td>
+            <Skeleton width={100} height={20} />
+          </td>
+          <td style={{ backgroundColor: "#ccc" }}> </td>
+          <td>
+            <Skeleton width={100} height={20} />
+          </td>
+          <td>
+            <Skeleton width={100} height={20} />
+            <Skeleton width={70} height={20} />
+          </td>
+          <td>
+            <div className="d-flex h-100 align-items-center">
+              $ <Skeleton width={40} height={20} className="ms-2" />
+            </div>
+          </td>
+          <td>
+            <Skeleton width={150} height={20} />
+          </td>
+        </tr>
+      );
     default:
       return null;
   }

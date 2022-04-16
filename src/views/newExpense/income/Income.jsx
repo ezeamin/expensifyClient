@@ -8,13 +8,12 @@ import Swal from "sweetalert2";
 import Loading from "../../../components/error and loading/Loading";
 
 const Income = () => {
-  let [accountsList, setAccountsList] = React.useState([]);
+  const [accountsList, setAccountsList] = React.useState([]);
+  const [loadingPost, setLoadingPost] = React.useState(false);
 
   const navigate = useNavigate();
 
-  const {
-    isLoading,
-  } = useQuery(["accounts"], () => getData("/api/accounts"), {
+  const { isLoading } = useQuery(["accounts"], () => getData("/api/accounts"), {
     onSuccess: (data) => {
       if (data.status === 200) {
         setAccountsList(data.data.accounts);
@@ -22,8 +21,9 @@ const Income = () => {
     },
   });
 
-  const { mutate } = useMutation((info) => putData("/api/income",info), {
+  const { mutate } = useMutation((info) => putData("/api/income", info), {
     onSuccess: (data) => {
+      setLoadingPost(false);
       if (!data || data.status !== 200) {
         Swal.fire({
           icon: "error",
@@ -45,6 +45,7 @@ const Income = () => {
       }
     },
     onError: (data) => {
+      setLoadingPost(false);
       let msg = data.text();
       Swal.fire({
         title: "Error",
@@ -72,7 +73,13 @@ const Income = () => {
         <div className="expense__title">
           <h1>Nuevo ingreso</h1>
         </div>
-        <IncomeForm isNew={true} accountsList={accountsList} newIncome={newIncome}/>
+        <IncomeForm
+          isNew={true}
+          accountsList={accountsList}
+          newIncome={newIncome}
+          loading={loadingPost}
+          setLoadingPost={setLoadingPost}
+        />
       </div>
     </div>
   );

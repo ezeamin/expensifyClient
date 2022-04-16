@@ -10,6 +10,7 @@ import {
 import { Button } from "@mui/material";
 import "./incomeForm.css";
 import ItemList from "../expense/itemList/ItemList";
+import { LoadingButton } from "@mui/lab";
 
 class IncomeForm extends Component {
   constructor(props) {
@@ -24,7 +25,14 @@ class IncomeForm extends Component {
         title: false,
         account: false,
       },
+      loading: false,
     };
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.loading !== this.props.loading) {
+      this.setState({ loading: this.props.loading });
+    }
   }
 
   handleChange = (e) => {
@@ -90,6 +98,8 @@ class IncomeForm extends Component {
     });
 
     if (!errorGeneral){
+      this.props.setLoadingPost(true);
+
       if(this.props.isNew) this.loadIncome();
       else this.updateIncome();
     };
@@ -116,6 +126,7 @@ class IncomeForm extends Component {
             placeholder="xx.xx"
             value={this.state.price}
             type="number"
+            step="0.01"
             name="price"
             onChange={(e) => this.handleChange(e)}
             onBlur={(e) => this.handleBlur(e)}
@@ -178,16 +189,30 @@ class IncomeForm extends Component {
             <li className="mb-0 mt-3 text-danger fw-bold">Importe no valido</li>
           ) : null}
         </div>
-        <Button
-          variant="contained"
-          className="mt-3"
-          size="large"
-          color="successColor"
-          type="submit"
-          fullWidth
-        >
-          Guardar
-        </Button>
+        {!this.state.loading ? (
+          <Button
+            variant="contained"
+            className="mt-3"
+            size="large"
+            color="successColor"
+            type="submit"
+            fullWidth
+          >
+            Guardar
+          </Button>
+        ) : (
+          <div className="forms__loadingButton mt-3">
+            <LoadingButton
+              size="large"
+              fullWidth
+              loading
+              loadingPosition="start"
+              variant="outlined"
+            >
+              Guardar
+            </LoadingButton>
+          </div>
+        )}
       </form>
     );
   }

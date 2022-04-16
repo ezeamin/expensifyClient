@@ -8,8 +8,9 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../../../components/error and loading/Loading";
 
 const Expense = () => {
-  let [categoriesList, setCategoriesList] = React.useState([]);
-  let [accountsList, setAccountsList] = React.useState([]);
+  const [categoriesList, setCategoriesList] = React.useState([]);
+  const [accountsList, setAccountsList] = React.useState([]);
+  const [loadingPost, setLoadingPost] = React.useState(false);
 
   const navigate = useNavigate();
 
@@ -39,6 +40,7 @@ const Expense = () => {
 
   const { mutate } = useMutation((info) => putData("/api/expense", info), {
     onSuccess: (data) => {
+      setLoadingPost(false);
       if (!data || data.status !== 200) {
         Swal.fire({
           icon: "error",
@@ -60,6 +62,7 @@ const Expense = () => {
       }
     },
     onError: (data) => {
+      setLoadingPost(false)
       let msg = data.text();
       Swal.fire({
         title: "Error",
@@ -102,6 +105,8 @@ const Expense = () => {
           categoriesList={categoriesList}
           accountsList={accountsList}
           isNew={true}
+          loading={loadingPost}
+          setLoadingPost={setLoadingPost}
         />
       </div>
     </div>

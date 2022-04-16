@@ -4,8 +4,6 @@ import "./style.css";
 const Loading = () => {
   return (
     <div className="loadingScreen">
-      {/*<div className="spinner mb-4"></div>
-      <p className="text-light mb-0">Cargando boludeces...</p>*/}
       <div id="wifi-loader">
         <svg className="circle-outer" viewBox="0 0 86 86">
           <circle className="back" cx="43" cy="43" r="40"></circle>
@@ -20,7 +18,7 @@ const Loading = () => {
           <circle className="back" cx="17" cy="17" r="14"></circle>
           <circle className="front" cx="17" cy="17" r="14"></circle>
         </svg>
-        <div className="text" data-text="Cargando boludeces"></div>
+        <div className="text" data-text="Contando enanos..."></div>
       </div>
     </div>
   );

@@ -10,6 +10,7 @@ import {
 import { Button } from "@mui/material";
 import "./expenseForm.css";
 import ItemList from "./itemList/ItemList";
+import { LoadingButton } from "@mui/lab";
 
 class ExpenseForm extends Component {
   constructor(props) {
@@ -26,7 +27,14 @@ class ExpenseForm extends Component {
         title: false,
         account: false,
       },
+      loading: false,
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.loading !== this.props.loading) {
+      this.setState({ loading: this.props.loading });
+    }
   }
 
   handleChange = (e) => {
@@ -93,6 +101,8 @@ class ExpenseForm extends Component {
     });
 
     if (!errorGeneral) {
+      this.props.setLoadingPost(true);
+
       if (this.props.isNew) this.loadExpense();
       else this.updateExpense();
     }
@@ -121,6 +131,7 @@ class ExpenseForm extends Component {
             value={this.state.price}
             name="price"
             type="number"
+            step="0.01"
             onChange={(e) => this.handleChange(e)}
             onBlur={(e) => this.handleBlur(e)}
           />
@@ -208,16 +219,30 @@ class ExpenseForm extends Component {
             <li className="mb-0 mt-3 text-danger fw-bold">Importe no valido</li>
           ) : null}
         </div>
-        <Button
-          variant="contained"
-          className="mt-3"
-          size="large"
-          color="dangerColor"
-          type="submit"
-          fullWidth
-        >
-          Guardar
-        </Button>
+        {!this.state.loading ? (
+          <Button
+            variant="contained"
+            className="mt-3"
+            size="large"
+            color="dangerColor"
+            type="submit"
+            fullWidth
+          >
+            Guardar
+          </Button>
+        ) : (
+          <div className="forms__loadingButton mt-3">
+            <LoadingButton
+              size="large"
+              fullWidth
+              loading
+              loadingPosition="start"
+              variant="outlined"
+            >
+              Guardar
+            </LoadingButton>
+          </div>
+        )}
       </form>
     );
   }

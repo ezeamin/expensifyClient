@@ -16,7 +16,7 @@ const ItemList = (props) => {
         <i className={props.icon} style={{ color: props.color }}></i>
         <div className="ms-3">
           <p className="mb-0 fw-bold">{props.title}</p>
-          <p className="mb-0">$ {props.balance}</p>
+          {!props.noBalance ? <p className="mb-0">$ {props.balance}</p> : <p className="mb-0">{props.accountType}</p>}
         </div>
       </div>
     </div>
