@@ -5,6 +5,12 @@ let estilo = window.getComputedStyle(document.body);
 let successColor = estilo.getPropertyValue("--color-success");
 let dangerColor = estilo.getPropertyValue("--color-danger");
 
+// initiate server
+
+export const pingServer = async () => {
+  await axios.get('/api/ping');
+};
+
 // auth
 
 export const postLogin = async (user) => {

@@ -6,6 +6,8 @@ import useAuth from "../../hooks/useAuth";
 import GithubCorner from "react-github-corner";
 import "./auth.css";
 import RecPassword from "../../components/auth/recPassword/RecPassword";
+import { pingServer } from "../../api/fetchingFunctions";
+import RecPasswordCode from "../../components/auth/recPasswordCode/RecPasswordCode";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -15,6 +17,10 @@ const Auth = () => {
   const redirectSuccess = () => {
     navigate("/app");
   };
+
+  React.useEffect(() => {
+    pingServer();
+  }, []);
 
   React.useEffect(() => {
     if (info) {
@@ -71,6 +77,31 @@ const Auth = () => {
         </div>
       </div>
     );
+  else if (window.location.pathname === "/recPassword")
+    return (
+      <div className="auth">
+        <GithubCorner
+          octoColor="#2f2f2f"
+          bannerColor="#fff"
+          href="https://github.com/ezeamin/expensifyClient"
+          target={"_blank"}
+        />
+        <div className="auth__box">
+          <h1 className="mb-0">Recuperar contraseña</h1>
+          <hr className="mt-1 text-dark" />
+          <div>
+            <p>
+              Enviaremos un correo de recuperacion a la casilla que corresponda
+              con tu DNI
+            </p>
+            <RecPassword />
+          </div>
+          <a href="/" className="auth__box__volver">
+            <p className="mt-3 mb-0">Volver</p>
+          </a>
+        </div>
+      </div>
+    );
   return (
     <div className="auth">
       <GithubCorner
@@ -83,12 +114,11 @@ const Auth = () => {
         <h1 className="mb-0">Recuperar contraseña</h1>
         <hr className="mt-1 text-dark" />
         <div>
-          <p>Enviaremos un correo de recuperacion a la casilla que corresponda con tu DNI</p>
-          <RecPassword />
+          <p>
+            Por favor, ingresa tu nueva contraseña
+          </p>
+          <RecPasswordCode />
         </div>
-        <a href="/" className="auth__box__volver">
-          <p className="mt-3 mb-0">Volver</p>
-        </a>
       </div>
     </div>
   );
