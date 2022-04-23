@@ -34,3 +34,9 @@
 .categorias__box:last-child{
     margin-bottom: 0 !important;
 }
+
+.listContainer{
+    max-height: calc(100vh - 325px);
+    overflow-y: scroll;
+    border-radius: 10px;
+}

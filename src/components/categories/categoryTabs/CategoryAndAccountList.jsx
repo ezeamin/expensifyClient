@@ -20,29 +20,33 @@ const CategoryAndAccountList = (props) => {
       >
         {props.type === "categories" ? "Nueva categoría" : "Nueva cuenta"}
       </Button>
-      {props.data.list.length !== 0 ? (
-        props.data.list.map((item, index) => {
-          return (
-            <CategoryItem
-              key={index}
-              title={item.title}
-              icon={item.icon}
-              color={item.color}
-              accountType={item.accountType}
-              type={props.type}
-              id={item.id}
-              progress={
-                item.spent ? Math.round((item.spent * 100) / item.limit) : null
-              }
-            />
-          );
-        })
-      ) : (
-        <Empty
-          name={props.type === "categories" ? "categorias" : "cuentas"}
-          cargarPack={cargarPack}
-        />
-      )}
+      <div className="listContainer">
+        {props.data.list.length !== 0 ? (
+          props.data.list.map((item, index) => {
+            return (
+              <CategoryItem
+                key={index}
+                title={item.title}
+                icon={item.icon}
+                color={item.color}
+                accountType={item.accountType}
+                type={props.type}
+                id={item.id}
+                progress={
+                  item.spent
+                    ? Math.round((item.spent * 100) / item.limit)
+                    : null
+                }
+              />
+            );
+          })
+        ) : (
+          <Empty
+            name={props.type === "categories" ? "categorias" : "cuentas"}
+            cargarPack={cargarPack}
+          />
+        )}
+      </div>
     </div>
   );
 };

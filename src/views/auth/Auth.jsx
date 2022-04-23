@@ -8,6 +8,7 @@ import "./auth.css";
 import RecPassword from "../../components/auth/recPassword/RecPassword";
 import { pingServer } from "../../api/fetchingFunctions";
 import RecPasswordCode from "../../components/auth/recPasswordCode/RecPasswordCode";
+import AuthTitle from "../../components/auth/authTitle/AuthTitle";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -42,9 +43,7 @@ const Auth = () => {
           <img src="/img/favicon.png" alt="Expensify logo" />
         </div>
         <div className="auth__box">
-          <h1 className="mb-0">Bienvenido</h1>
-          <p className="my-0">Por favor, ingresa tus datos</p>
-          <hr className="mt-1 text-dark" />
+          <AuthTitle title="Bienvenido" showDescription={true} />
           <AuthForm redirectSuccess={redirectSuccess} setInfo={setInfo} />
         </div>
         <div className="auth__box mt-2">
@@ -67,9 +66,7 @@ const Auth = () => {
           target={"_blank"}
         />
         <div className="auth__box">
-          <h1 className="mb-0">Bienvenido</h1>
-          <p className="my-0">Por favor, ingresa tus datos</p>
-          <hr className="mt-1 text-dark" />
+          <AuthTitle title="Bienvenido" showDescription={true} />
           <SignUp redirectSuccess={redirectSuccess} setInfo={setInfo} />
           <a href="/" className="auth__box__volver">
             <p className="mt-3 mb-0">Volver</p>
@@ -87,8 +84,7 @@ const Auth = () => {
           target={"_blank"}
         />
         <div className="auth__box">
-          <h1 className="mb-0">Recuperar contraseña</h1>
-          <hr className="mt-1 text-dark" />
+          <AuthTitle title="Recuperar contraseña" showDescription={false} />
           <div>
             <p>
               Enviaremos un correo de recuperacion a la casilla que corresponda
@@ -111,8 +107,7 @@ const Auth = () => {
         target={"_blank"}
       />
       <div className="auth__box">
-        <h1 className="mb-0">Recuperar contraseña</h1>
-        <hr className="mt-1 text-dark" />
+        <AuthTitle title="Recuperar contraseña" showDescription={false} />
         <div>
           <p>
             Por favor, ingresa tu nueva contraseña

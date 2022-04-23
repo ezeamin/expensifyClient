@@ -28,7 +28,7 @@ const PanelInfoList = (props) => {
     <div className="container panel">
       <InfoHeaderIcons {...props} />
       <div className="profile__resumen__box listItem__saldos">
-        {props.type === "account" ? (
+        {(props.type === "account" && props.accountType !== "Credito") && (
           <>
             <div className="listItem__saldos__box listItem__saldos__box--main">
               <h3 className="mb-0 fw-bold">$ {props.balance}</h3>
@@ -36,7 +36,7 @@ const PanelInfoList = (props) => {
             </div>
             <p className="mb-0">/</p>
           </>
-        ) : null}
+        )}
         <div className="listItem__saldos__box">
           <h3 className="mb-0 fw-bold">$ {props.spent}</h3>
           <p className="mb-0">Gastado</p>

@@ -38,3 +38,9 @@
     max-height: 200px;
     overflow: hidden;
 }
+
+.list__table__container{
+    max-height: calc(100vh - 375px);
+    border-radius: 10px;
+    overflow-y: scroll;
+}

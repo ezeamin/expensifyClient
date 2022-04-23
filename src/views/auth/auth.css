@@ -22,16 +22,18 @@
     width: 100%;
 }
 
+.auth__welcomeText{
+    background: linear-gradient(45deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .auth__box{
     background-color: white;
     padding: 1.5rem;
     border-radius: 20px;
     width: 85%;
     text-align: center;
-}
-
-.auth__box h1{
-    font-weight: 600;
 }
 
 .MuiFormControlLabel-label{
@@ -43,8 +45,15 @@
     line-height: 10px;
 }
 
-.auth__box__mensajeRegistro__a{
+.auth__box__olvidasteContraseña{
     color: #2f2f2f;
+}
+
+.auth__box__mensajeRegistro__a{
+    font-weight: 600;
+    background: linear-gradient(45deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .auth__box__volver{

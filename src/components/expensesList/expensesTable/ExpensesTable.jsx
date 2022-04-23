@@ -41,9 +41,9 @@ const ExpensesTable = () => {
     return <EmptyMsg type="expense" />;
   }
   return (
-    <div className="table-responsive">
+    <div className="table-responsive list__table__container mt-3">
       <table
-        className="table bg-light mt-3"
+        className="table bg-light mb-0"
         style={{ borderRadius: "20px", maxHeight: "60vh" }}
       >
         <thead>
