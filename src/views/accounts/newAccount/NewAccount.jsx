@@ -5,37 +5,15 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { putData } from "../../../api/fetchingFunctions";
-
-const icons = [
-  "fa-solid fa-money-bill-wave",
-  "fa-regular fa-credit-card",
-  "fa-brands fa-cc-visa",
-  "fa-brands fa-cc-mastercard",
-  "fa-brands fa-cc-paypal",
-  "fa-brands fa-cc-discover",
-  "fa-brands fa-cc-amex",
-  "fa-brands fa-cc-stripe",
-  "fa-brands fa-cc-jcb",
-  "fa-brands fa-cc-diners-club",
-  "fa-brands fa-cc-apple-pay",
-  "fa-brands fa-bitcoin",
-  "fa-solid fa-wallet",
-  "fa-solid fa-building-columns",
-  "fa-solid fa-circle-question",
-];
-
-const accountList = [
-  "Efectivo",
-  "Credito",
-  "Debito",
-  "Billetera electronica",
-  "Criptomoneda",
-  "Otro",
-];
+import { icons } from "../../../data/accountIcons";
+import { accountList } from "../../../data/accountList";
+import useRoundedBorder from "../../../hooks/useRoundedBorder";
 
 const NewAccount = (props) => {
   const navigate = useNavigate();
   const [loadingPost, setLoadingPost] = React.useState(false);
+
+  const rounded = useRoundedBorder(); //for style
 
   const { mutate } = useMutation((info) => putData("/api/account", info), {
     onSuccess: (data) => {
@@ -97,6 +75,7 @@ const NewAccount = (props) => {
           loading={loadingPost}
           setLoadingPost={setLoadingPost}
           newAccount={newAccount}
+          rounded={rounded}
         />
       </div>
     </div>

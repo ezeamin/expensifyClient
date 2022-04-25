@@ -6,12 +6,15 @@ import { getData, putData } from "../../../api/fetchingFunctions";
 import Loading from "../../../components/error and loading/Loading";
 import Navegation from "../../../components/navegation/Navegation";
 import TransferForm from "../../../components/transfer/TransferForm";
+import useRoundedBorder from "../../../hooks/useRoundedBorder";
 
 const Transfer = () => {
   const [accountsList, setAccountsList] = React.useState([]);
   const [loadingPost, setLoadingPost] = React.useState(false);
 
   const navigate = useNavigate();
+  
+  const rounded = useRoundedBorder(); //for style
 
   const { isLoading } = useQuery(["accounts"], () => getData("/api/accounts"), {
     onSuccess: (data) => {
@@ -79,6 +82,7 @@ const Transfer = () => {
           newTransfer={newTransfer}
           setLoadingPost={setLoadingPost}
           loading={loadingPost}
+          rounded={rounded}
         />
       </div>
     </div>

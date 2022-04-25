@@ -27,7 +27,7 @@ class IncomeForm extends Component {
       },
       loading: false,
     };
-  };
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.loading !== this.props.loading) {
@@ -97,12 +97,12 @@ class IncomeForm extends Component {
       }
     });
 
-    if (!errorGeneral){
+    if (!errorGeneral) {
       this.props.setLoadingPost(true);
 
-      if(this.props.isNew) this.loadIncome();
+      if (this.props.isNew) this.loadIncome();
       else this.updateIncome();
-    };
+    }
   };
 
   loadIncome = () => {
@@ -111,7 +111,7 @@ class IncomeForm extends Component {
       description: this.state.description,
       title: this.state.title,
       accountId: this.state.account,
-    })
+    });
   };
 
   updateIncome = () => {};
@@ -142,6 +142,7 @@ class IncomeForm extends Component {
               name="title"
               onChange={(e) => this.handleChange(e)}
               onBlur={(e) => this.handleBlur(e)}
+              className={this.props.rounded.round}
             />
             {this.state.errores.title ? (
               <FormHelperText>Concepto no valido</FormHelperText>
@@ -149,7 +150,7 @@ class IncomeForm extends Component {
           </FormControl>
           <FormControl
             fullWidth
-            className="mt-2"
+            className="my-2"
             error={this.state.errores.account}
           >
             <InputLabel id="demo-simple-select-label">Cuenta</InputLabel>
@@ -160,6 +161,7 @@ class IncomeForm extends Component {
               name="account"
               onChange={(e) => this.handleChange(e)}
               onBlur={(e) => this.handleBlur(e)}
+              className={this.props.rounded.round}
             >
               {this.props.accountsList.map((account, index) => {
                 return (
@@ -175,8 +177,8 @@ class IncomeForm extends Component {
           </FormControl>
           <TextField
             error={this.state.errores.description}
-            className="w-100 mt-2"
             multiline
+            fullWidth
             rows={3}
             label="Notas"
             placeholder="Boludeces seguro"
@@ -184,6 +186,7 @@ class IncomeForm extends Component {
             value={this.state.description}
             name="description"
             onChange={(e) => this.handleChange(e)}
+            className={this.props.rounded.round}
           />
           {this.state.errores.price ? (
             <li className="mb-0 mt-3 text-danger fw-bold">Importe no valido</li>

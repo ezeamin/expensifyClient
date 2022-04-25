@@ -6,12 +6,15 @@ import { useNavigate } from "react-router-dom";
 import { getData, putData } from "../../../api/fetchingFunctions";
 import Swal from "sweetalert2";
 import Loading from "../../../components/error and loading/Loading";
+import useRoundedBorder from "../../../hooks/useRoundedBorder";
 
 const Income = () => {
   const [accountsList, setAccountsList] = React.useState([]);
   const [loadingPost, setLoadingPost] = React.useState(false);
 
   const navigate = useNavigate();
+
+  const rounded = useRoundedBorder(); //for style
 
   const { isLoading } = useQuery(["accounts"], () => getData("/api/accounts"), {
     onSuccess: (data) => {
@@ -79,6 +82,7 @@ const Income = () => {
           newIncome={newIncome}
           loading={loadingPost}
           setLoadingPost={setLoadingPost}
+          rounded={rounded}
         />
       </div>
     </div>

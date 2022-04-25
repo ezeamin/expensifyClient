@@ -6,11 +6,14 @@ import { getData, putData } from "../../../api/fetchingFunctions";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../../components/error and loading/Loading";
+import useRoundedBorder from "../../../hooks/useRoundedBorder";
 
 const Expense = () => {
   const [categoriesList, setCategoriesList] = React.useState([]);
   const [accountsList, setAccountsList] = React.useState([]);
   const [loadingPost, setLoadingPost] = React.useState(false);
+
+  const rounded = useRoundedBorder(); //for style
 
   const navigate = useNavigate();
 
@@ -62,7 +65,7 @@ const Expense = () => {
       }
     },
     onError: (data) => {
-      setLoadingPost(false)
+      setLoadingPost(false);
       let msg = data.text();
       Swal.fire({
         title: "Error",
@@ -107,6 +110,7 @@ const Expense = () => {
           isNew={true}
           loading={loadingPost}
           setLoadingPost={setLoadingPost}
+          rounded={rounded}
         />
       </div>
     </div>

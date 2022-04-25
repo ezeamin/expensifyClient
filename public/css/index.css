@@ -56,6 +56,7 @@
 .panel{
     height: calc(100vh - 100px);
     padding: 1rem 0;
+    /* padding: 1rem 0 120px 0; */
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -170,6 +170,7 @@ class CategoryForm extends Component {
               name="title"
               onChange={(e) => this.handleChange(e)}
               onBlur={(e) => this.handleBlur(e)}
+              className={this.props.rounded.round}
             />
             {this.state.errores.title ? (
               <FormHelperText>Nombre no valido</FormHelperText>
@@ -191,6 +192,7 @@ class CategoryForm extends Component {
                 name="accountType"
                 onChange={(e) => this.handleChange(e)}
                 onBlur={(e) => this.handleBlur(e)}
+                className={this.props.rounded.round}
               >
                 {this.props.accountList &&
                   this.props.accountList.map((accountType, index) => {
@@ -210,7 +212,7 @@ class CategoryForm extends Component {
             <FormControl
               error={this.state.errores.limit}
               fullWidth
-              className="mt-2"
+              className="my-2"
             >
               <TextField
                 error={this.state.errores.limit}
@@ -225,6 +227,7 @@ class CategoryForm extends Component {
                 name="limit"
                 onChange={(e) => this.handleChange(e)}
                 onBlur={(e) => this.handleBlur(e)}
+                className={this.props.rounded.round}
               />
               <FormHelperText>
                 {this.props.type === "category"
@@ -239,7 +242,7 @@ class CategoryForm extends Component {
           ) : null}
           <TextField
             error={this.state.errores.description}
-            className="w-100 mt-2"
+            fullWidth
             multiline
             rows={3}
             label="Notas"
@@ -248,6 +251,7 @@ class CategoryForm extends Component {
             value={this.state.description}
             name="description"
             onChange={(e) => this.handleChange(e)}
+            className={this.props.rounded.round}
           />
         </div>
         {!this.state.loading ? (

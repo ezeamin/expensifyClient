@@ -149,7 +149,6 @@ class TransferForm extends Component {
         <div className="expense__dataBox">
           <FormControl
             fullWidth
-            className="mt-2"
             error={this.state.errores.originAccount}
           >
             <InputLabel id="demo-simple-select-label">Cuenta origen</InputLabel>
@@ -160,6 +159,7 @@ class TransferForm extends Component {
               name="originAccount"
               onChange={(e) => this.handleChange(e)}
               onBlur={(e) => this.handleBlur(e)}
+              className={this.props.rounded.round}
             >
               {this.props.accountsList.map((account, index) => {
                 return (
@@ -175,7 +175,7 @@ class TransferForm extends Component {
           </FormControl>
           <FormControl
             fullWidth
-            className="mt-2"
+            className="my-2"
             error={this.state.errores.destinationAccount}
           >
             <InputLabel id="demo-simple-select-label">
@@ -188,6 +188,7 @@ class TransferForm extends Component {
               name="destinationAccount"
               onChange={(e) => this.handleChange(e)}
               onBlur={(e) => this.handleBlur(e)}
+              className={this.props.rounded.round}
             >
               {this.props.accountsList.map((account, index) => {
                 return (
@@ -203,7 +204,7 @@ class TransferForm extends Component {
           </FormControl>
           <TextField
             error={this.state.errores.description}
-            className="w-100 mt-2"
+            fullWidth
             multiline
             rows={3}
             label="Notas"
@@ -212,6 +213,7 @@ class TransferForm extends Component {
             value={this.state.description}
             name="description"
             onChange={(e) => this.handleChange(e)}
+            className={this.props.rounded.round}
           />
           {this.state.errores.price ? (
             <li className="mb-0 mt-3 text-danger fw-bold">Importe no valido</li>

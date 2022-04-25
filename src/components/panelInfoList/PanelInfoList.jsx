@@ -12,7 +12,7 @@ const PanelInfoList = (props) => {
     if (props.limit)
       setStateValue(Math.round((props.spent * 100) / props.limit));
       else setLimitText("-");
-  }, [props.balance, props.limit]);
+  }, [props.balance, props.limit, props.spent]);
 
   React.useEffect(() => {
     if (props.limit) {
@@ -22,7 +22,7 @@ const PanelInfoList = (props) => {
         setProgressColor("warningColor");
       } else setProgressColor("successColor");
     }
-  }, [stateValue]);
+  }, [stateValue, props.limit]);
 
   return (
     <div className="container panel">

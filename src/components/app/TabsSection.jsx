@@ -66,84 +66,120 @@ const TabsSection = (props) => {
     );
   };
 
-  return (
-    <ThemeProvider theme={theme}>
-      <Tabs
-        value={selectedTab}
-        onChange={handleChange}
-        aria-label="tabs"
-        variant={props.page === "accounts" ? "scrollable" : null}
-        textColor="primary"
-        className="profile__tabs"
-        centered={props.page !== "accounts"}
-      >
-        <Tab
-          label={
-            props.page === "profile"
-              ? "Resumen"
-              : props.page === "lists"
-              ? "Gastos"
-              : props.page === "accounts"
-              ? "Cuentas"
-              : "Categorias"
-          }
-        />
-        <Tab
-          label={
-            props.page === "profile"
-              ? "Graficos"
-              : props.page === "lists"
-              ? "Ingresos"
-              : props.page === "accounts"
-              ? "Deudas propias"
-              : "Pagos"
-          }
-        />
-        {props.page !== "categories" ? (
-          <Tab
-            label={
-              props.page === "profile"
-                ? "Ajustes"
-                : props.page === "lists"
-                ? "Transfers"
-                : "Deudas ajenas"
-            }
-          />
-        ) : null}
-      </Tabs>
-      <div className={(props.page !== "accounts" && props.page !== "categories") ? "container" : null}>
-        <TabPanel index={0}>
-          {props.page === "profile" ? (
+  if (props.page === "profile")
+    return (
+      <ThemeProvider theme={theme}>
+        <Tabs
+          value={selectedTab}
+          onChange={handleChange}
+          aria-label="tabs"
+          textColor="primary"
+          className="profile__tabs"
+          centered
+        >
+          <Tab label="Resumen" />
+          <Tab label="Graficos" />
+          <Tab label="Ajustes" />
+        </Tabs>
+        <div className="container">
+          <TabPanel index={0}>
             <Resumen />
-          ) : props.page === "lists" ? (
-            <PanelExpensesTable />
-          ) : (
-            <CategoryAndAccountList {...props} type={props.page} />
-          )}
-        </TabPanel>
-        <TabPanel index={1}>
-          {props.page === "profile" ? (
+          </TabPanel>
+          <TabPanel index={1}>
             <p className="text-light">AGREGAR</p>
-          ) : props.page === "lists" ? (
-            <PanelIncomesTable />
-          ) : props.page === "accounts" ? (
-            <OwnDebtsList />
-          ) : (
-            <PagosList />
-          )}
-        </TabPanel>
-        <TabPanel index={2}>
-          {props.page === "profile" ? (
+          </TabPanel>
+          <TabPanel index={2}>
             <Settings />
-          ) : props.page === "lists" ? (
-            <PanelTransfersTable />
-          ) : (
+          </TabPanel>
+        </div>
+      </ThemeProvider>
+    );
+
+  if (props.page === "accounts")
+    return (
+      <ThemeProvider theme={theme}>
+        <Tabs
+          value={selectedTab}
+          onChange={handleChange}
+          aria-label="tabs"
+          variant="scrollable"
+          textColor="primary"
+          className="profile__tabs"
+          centered={false}
+        >
+          <Tab label="Cuentas" />
+          <Tab label="Deudas propias" />
+          <Tab label="Deudas ajenas" />
+        </Tabs>
+        <div>
+          <TabPanel index={0}>
+            <CategoryAndAccountList {...props} type={props.page} />
+          </TabPanel>
+          <TabPanel index={1}>
+            <OwnDebtsList />
+          </TabPanel>
+          <TabPanel index={2}>
             <OtherDebtsList />
-          )}
-        </TabPanel>
-      </div>
-    </ThemeProvider>
-  );
+          </TabPanel>
+        </div>
+      </ThemeProvider>
+    );
+
+  if (props.page === "categories")
+    return (
+      <ThemeProvider theme={theme}>
+        <Tabs
+          value={selectedTab}
+          onChange={handleChange}
+          aria-label="tabs"
+          textColor="primary"
+          className="profile__tabs"
+          centered
+        >
+          <Tab label="Categorias" />
+          <Tab label="Pagos" />
+        </Tabs>
+        <div>
+          <TabPanel index={0}>
+            <CategoryAndAccountList {...props} type={props.page} />
+          </TabPanel>
+          <TabPanel index={1}>
+            <PagosList />
+          </TabPanel>
+        </div>
+      </ThemeProvider>
+    );
+
+  if (props.page === "lists")
+    return (
+      <ThemeProvider theme={theme}>
+        <Tabs
+          value={selectedTab}
+          onChange={handleChange}
+          aria-label="tabs"
+          textColor="primary"
+          className="profile__tabs"
+          centered
+        >
+          <Tab label="Gastos" />
+          <Tab label="Ingresos" />
+          <Tab label="Transfers" />
+        </Tabs>
+        <div className="container">
+          <TabPanel index={0}>
+            <PanelExpensesTable />
+          </TabPanel>
+          <TabPanel index={1}>
+            <PanelIncomesTable />
+          </TabPanel>
+          <TabPanel index={2}>
+            <PanelTransfersTable />
+          </TabPanel>
+        </div>
+      </ThemeProvider>
+    );
+
+    return null;
 };
 
 export default TabsSection;

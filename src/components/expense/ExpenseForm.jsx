@@ -146,6 +146,7 @@ class ExpenseForm extends Component {
               name="title"
               onChange={(e) => this.handleChange(e)}
               onBlur={(e) => this.handleBlur(e)}
+              className={this.props.rounded.round}
             />
             {this.state.errores.title ? (
               <FormHelperText>Concepto no valido</FormHelperText>
@@ -164,6 +165,7 @@ class ExpenseForm extends Component {
               name="category"
               onChange={(e) => this.handleChange(e)}
               onBlur={(e) => this.handleBlur(e)}
+              className={this.props.rounded.round}
             >
               {this.props.categoriesList.map((category, index) => {
                 return (
@@ -179,7 +181,7 @@ class ExpenseForm extends Component {
           </FormControl>
           <FormControl
             fullWidth
-            className="mt-2"
+            className="my-2"
             error={this.state.errores.account}
           >
             <InputLabel id="demo-simple-select-label">Cuenta</InputLabel>
@@ -190,6 +192,7 @@ class ExpenseForm extends Component {
               name="account"
               onChange={(e) => this.handleChange(e)}
               onBlur={(e) => this.handleBlur(e)}
+              className={this.props.rounded.round}
             >
               {this.props.accountsList.map((account, index) => {
                 return (
@@ -205,8 +208,8 @@ class ExpenseForm extends Component {
           </FormControl>
           <TextField
             error={this.state.errores.description}
-            className="w-100 mt-2"
             multiline
+            fullWidth
             rows={3}
             label="Notas"
             placeholder="Boludeces seguro"
@@ -214,6 +217,7 @@ class ExpenseForm extends Component {
             value={this.state.description}
             name="description"
             onChange={(e) => this.handleChange(e)}
+            className={this.props.rounded.round}
           />
           {this.state.errores.price ? (
             <li className="mb-0 mt-3 text-danger fw-bold">Importe no valido</li>
@@ -237,6 +241,7 @@ class ExpenseForm extends Component {
               fullWidth
               loading
               loadingPosition="start"
+              startIcon={null}
               variant="outlined"
             >
               Guardar
