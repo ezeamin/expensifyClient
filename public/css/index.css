@@ -69,3 +69,29 @@
 .swal2-popup{
     border-radius: 20px !important;
 }
+
+
+/* Scrollbar styling */
+
+/* width */
+::-webkit-scrollbar {
+    height: 5px;
+    width: 3px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    /*background: #f1f1f1; */
+    background-color: transparent;
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(196, 195, 195); 
+    border-radius: 20px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(170, 170, 170); 
+  }

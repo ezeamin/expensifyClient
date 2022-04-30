@@ -16,7 +16,7 @@ const Auth = () => {
   const [info, setInfo] = React.useState(null);
 
   const redirectSuccess = () => {
-    navigate("/app");
+    navigate("/");
   };
 
   React.useEffect(() => {
@@ -30,7 +30,7 @@ const Auth = () => {
     }
   }, [info]);
 
-  if (window.location.pathname === "/")
+  if (window.location.pathname === "/login")
     return (
       <div className="auth">
         <GithubCorner

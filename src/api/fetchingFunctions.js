@@ -49,7 +49,7 @@ export const postLogin = async (user) => {
   return data;
 };
 
-export const deleteLogout = (home) => {
+export const deleteLogout = (setAuth,navigate) => {
   let accessToken = localStorage.getItem("accessToken");
   let refreshToken = localStorage.getItem("refreshToken");
 
@@ -82,7 +82,8 @@ export const deleteLogout = (home) => {
               showConfirmButton: false,
               timer: 1500,
             }).then(() => {
-              home("/");
+              setAuth(null);
+              navigate("/login");
             });
           } else {
             Swal.fire({

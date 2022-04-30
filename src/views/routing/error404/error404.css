@@ -1,0 +1,6 @@
+.error404{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}

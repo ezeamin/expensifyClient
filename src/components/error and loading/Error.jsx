@@ -55,7 +55,7 @@ const Error = (props) => {
       </div>
       <h2 className="mt-5">¿Y diai?</h2>
       <p className="mb-0">
-        Te recomiendo recargar la pagina. Si no se soluciona, por favor esperá.
+        Te recomiendo recargar la pagina. Si no se soluciona, volvé a iniciar sesión. Sino, por favor esperá.
         Si aún no se soluciona, tomate un té. Si todavia nada, recien entonces
         tocá el boton :)
       </p>

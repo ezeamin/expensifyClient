@@ -26,8 +26,8 @@ const Navegation = (props) => {
     {
       titulo: "Resumen",
       icono: "fa-solid fa-user-astronaut",
-      enlace: "/app",
-      active: window.location.pathname.includes("/app"),
+      enlace: "/",
+      active: window.location.pathname === "/",
     },
   ];
 

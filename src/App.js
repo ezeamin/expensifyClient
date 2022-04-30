@@ -1,6 +1,6 @@
 import "./App.css";
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Auth from "./views/auth/Auth";
 import AppPage from "./views/app/AppPage";
 import Expenses from "./views/expenses/Expenses";
@@ -14,33 +14,45 @@ import { ThemeProvider } from "@mui/material/styles";
 import NewCategory from "./views/categories/newCategory/NewCategory";
 import NewAccount from "./views/accounts/newAccount/NewAccount";
 import InfoList from "./views/infoList/InfoList";
+import Layout from "./views/routing/Layout";
+import CannotBeLogged from "./views/routing/CannotBeLogged";
+import RequireAuth from "./views/routing/RequireAuth";
 import useTheme from "./hooks/useTheme";
+import Error404 from "./views/routing/error404/Error404";
 
 function App() {
   return (
-    <div className="App">
-      <ThemeProvider theme={useTheme()}>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Auth />} />
+    <ThemeProvider theme={useTheme()}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          {/* Auth routes */}
+          <Route element={<CannotBeLogged />} >
+            <Route path="/login" element={<Auth />} />
             <Route path="/signup" element={<Auth />} />
             <Route path="/recPassword" element={<Auth />} />
             <Route path="/recPassword/:recCode" element={<Auth />} />
-            <Route path="/app" element={<AppPage />} />
-            <Route path="/expenses" element={<Expenses />} />
-            <Route path="/accounts" element={<Accounts />} />
-            <Route path="/categories" element={<Categories />} />
-            <Route path="/categories/new" element={<NewCategory />} />
-            <Route path="/accounts/new" element={<NewAccount />} />
-            <Route path="/info/:id" element={<InfoList />} />
-            <Route path="/newExpense" element={<NewExpense />} />
-            <Route path="/newExpense/expense" element={<Expense />} />
-            <Route path="/newExpense/income" element={<Income />} />
-            <Route path="/newExpense/transfer" element={<Transfer />} />
-          </Routes>
-        </Router>
-      </ThemeProvider>
-    </div>
+          </Route>
+
+        {/* Protected routes */}
+        <Route element={<RequireAuth />}>
+          <Route path="/" element={<AppPage />} />
+          <Route path="/expenses" element={<Expenses />} />
+          <Route path="/accounts" element={<Accounts />} />
+          <Route path="/categories" element={<Categories />} />
+          <Route path="/categories/new" element={<NewCategory />} />
+          <Route path="/accounts/new" element={<NewAccount />} />
+          <Route path="/info/:id" element={<InfoList />} />
+          <Route path="/newExpense" element={<NewExpense />} />
+          <Route path="/newExpense/expense" element={<Expense />} />
+          <Route path="/newExpense/income" element={<Income />} />
+          <Route path="/newExpense/transfer" element={<Transfer />} />
+        </Route>
+
+        {/* 404 Error route */}
+        <Route path="*" element={<Error404 />} />
+      </Route>
+      </Routes>
+    </ThemeProvider>
   );
 }
 

@@ -33,9 +33,7 @@ const CategoryAndAccountList = (props) => {
                 type={props.type}
                 id={item.id}
                 progress={
-                  item.spent
-                    ? Math.round((item.spent * 100) / item.limit)
-                    : null
+                  item.spent && Math.round((item.spent * 100) / item.limit)
                 }
               />
             );
