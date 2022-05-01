@@ -173,7 +173,7 @@ class AuthForm extends Component {
             onBlur={(e) => this.handleBlur(e)}
           />
           <div className="text-start mt-1">
-            <a href="/recPassword" className="auth__box__olvidasteContraseña">¿Olvidaste tu contraseña?</a>
+            <a href="/auth/recPassword" className="auth__box__olvidasteContraseña">¿Olvidaste tu contraseña?</a>
           </div>
           <div className="d-flex flex-column">
             <label

@@ -30,7 +30,7 @@ const Auth = () => {
     }
   }, [info]);
 
-  if (window.location.pathname === "/login")
+  if (window.location.pathname === "/auth/login")
     return (
       <div className="auth">
         <GithubCorner
@@ -49,14 +49,14 @@ const Auth = () => {
         <div className="auth__box mt-2">
           <p className="mb-0 auth__box__mensajeRegistro">
             ¿Sos nuevo?{" "}
-            <a href="/signup" className="auth__box__mensajeRegistro__a">
+            <a href="/auth/signup" className="auth__box__mensajeRegistro__a">
               Registrate acá
             </a>
           </p>
         </div>
       </div>
     );
-  else if (window.location.pathname === "/signup")
+  else if (window.location.pathname === "/auth/signup")
     return (
       <div className="auth">
         <GithubCorner
@@ -68,13 +68,13 @@ const Auth = () => {
         <div className="auth__box">
           <AuthTitle title="Bienvenido" showDescription={true} />
           <SignUp redirectSuccess={redirectSuccess} setInfo={setInfo} />
-          <a href="/" className="auth__box__volver">
+          <a href="/auth/login" className="auth__box__volver">
             <p className="mt-3 mb-0">Volver</p>
           </a>
         </div>
       </div>
     );
-  else if (window.location.pathname === "/recPassword")
+  else if (window.location.pathname === "/auth/recPassword")
     return (
       <div className="auth">
         <GithubCorner
@@ -92,7 +92,7 @@ const Auth = () => {
             </p>
             <RecPassword />
           </div>
-          <a href="/" className="auth__box__volver">
+          <a href="/auth/login" className="auth__box__volver">
             <p className="mt-3 mb-0">Volver</p>
           </a>
         </div>

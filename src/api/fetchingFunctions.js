@@ -83,7 +83,7 @@ export const deleteLogout = (setAuth,navigate) => {
               timer: 1500,
             }).then(() => {
               setAuth(null);
-              navigate("/login");
+              navigate("/auth/login");
             });
           } else {
             Swal.fire({

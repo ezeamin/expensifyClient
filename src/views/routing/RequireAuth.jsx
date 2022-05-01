@@ -6,7 +6,7 @@ const RequireAuth = () => {
     const { auth }= useAuth();
 
     return (
-        auth ? <Outlet /> : <Navigate to="/login" replace />
+        auth ? <Outlet /> : <Navigate to="/auth/login" replace />
     );
 };
 

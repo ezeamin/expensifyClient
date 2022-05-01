@@ -27,10 +27,10 @@ function App() {
         <Route path="/" element={<Layout />}>
           {/* Auth routes */}
           <Route element={<CannotBeLogged />} >
-            <Route path="/login" element={<Auth />} />
-            <Route path="/signup" element={<Auth />} />
-            <Route path="/recPassword" element={<Auth />} />
-            <Route path="/recPassword/:recCode" element={<Auth />} />
+            <Route path="/auth/login" element={<Auth />} />
+            <Route path="/auth/signup" element={<Auth />} />
+            <Route path="/auth/recPassword" element={<Auth />} />
+            <Route path="/auth/recPassword/:recCode" element={<Auth />} />
           </Route>
 
         {/* Protected routes */}
