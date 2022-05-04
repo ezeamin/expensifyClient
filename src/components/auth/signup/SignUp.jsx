@@ -179,7 +179,7 @@ class SignUp extends Component {
       <form onSubmit={(e) => this.handleSubmit(e)}>
         <TextField
           error={this.state.errores.nombre}
-          className="w-100"
+          fullWidth
           label="Nombre o apodo"
           variant="outlined"
           size="small"
@@ -187,10 +187,13 @@ class SignUp extends Component {
           name="nombre"
           onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
           onBlur={(e) => this.handleBlur(e)}
+          className={this.props.rounded.round}
         />
+        <div className="w-100 mt-3">
+
         <TextField
           error={this.state.errores.dni}
-          className="w-100 mt-3"
+          fullWidth
           label="DNI"
           variant="outlined"
           size="small"
@@ -198,10 +201,14 @@ class SignUp extends Component {
           name="dni"
           onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
           onBlur={(e) => this.handleBlur(e)}
+          className={this.props.rounded.round}
         />
+        </div>
+        <div className="w-100 mt-3">
+
         <TextField
           error={this.state.errores.email}
-          className="w-100 mt-3"
+          fullWidth
           label="E-mail"
           variant="outlined"
           size="small"
@@ -209,13 +216,16 @@ class SignUp extends Component {
           name="email"
           onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
           onBlur={(e) => this.handleBlur(e)}
+          className={this.props.rounded.round}
         />
+        </div>
+        <div className="w-100 mt-3">
         <TextField
           error={this.state.errores.password}
           type="password"
           helperText="La contraseña debe tener al menos 6 caracteres, una mayuscula,
           una minuscula y un numero"
-          className="w-100 mt-3"
+          fullWidth
           label="Contraseña"
           variant="outlined"
           size="small"
@@ -223,11 +233,14 @@ class SignUp extends Component {
           name="password"
           onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
           onBlur={(e) => this.handleBlur(e)}
+          className={this.props.rounded.round}
         />
+        </div>
+        <div className="w-100 mt-2">
         <TextField
           error={this.state.errores.password2}
           type="password"
-          className="w-100 mt-3"
+          fullWidth
           label="Repetir contraseña"
           variant="outlined"
           size="small"
@@ -235,7 +248,9 @@ class SignUp extends Component {
           name="password2"
           onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
           onBlur={(e) => this.handleBlur(e)}
+          className={this.props.rounded.round}
         />
+        </div>
         <div className="d-flex flex-column mt-3">
           {!this.state.loading ? (
             <Button variant="contained" color="mainColor" type="submit">

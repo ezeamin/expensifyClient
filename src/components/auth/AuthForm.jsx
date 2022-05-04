@@ -151,7 +151,7 @@ class AuthForm extends Component {
         <form onSubmit={(e) => this.handleSubmit(e)}>
           <TextField
             error={this.state.errores.dni}
-            className="w-100"
+            fullWidth
             label="DNI"
             variant="outlined"
             size="small"
@@ -159,11 +159,14 @@ class AuthForm extends Component {
             name="dni"
             onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
             onBlur={(e) => this.handleBlur(e)}
+            className={this.props.rounded.round}
           />
+          <div className="w-100 mt-3">
           <TextField
             error={this.state.errores.password}
             type="password"
-            className="w-100 mt-3"
+            fullWidth
+            className={this.props.rounded.round}
             label="Contraseña"
             variant="outlined"
             size="small"
@@ -172,6 +175,7 @@ class AuthForm extends Component {
             onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
             onBlur={(e) => this.handleBlur(e)}
           />
+          </div>
           <div className="text-start mt-1">
             <a href="/auth/recPassword" className="auth__box__olvidasteContraseña">¿Olvidaste tu contraseña?</a>
           </div>

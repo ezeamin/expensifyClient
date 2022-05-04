@@ -108,7 +108,7 @@ class RecPasswordCode extends React.Component {
         <form onSubmit={(e) => this.handleSubmit(e)}>
           <TextField
             error={this.state.errores.password}
-            className="w-100"
+            fullWidth
             label="Nueva contraseña"
             helperText="La contraseña debe tener al menos 6 caracteres, una mayúscula,
           una minúscula y un número"
@@ -119,10 +119,12 @@ class RecPasswordCode extends React.Component {
             name="password"
             onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
             onBlur={(e) => this.handleBlur(e)}
+            className={this.props.rounded.round}
           />
+          <div className="mt-2">
           <TextField
             error={this.state.errores.password2}
-            className="w-100 mt-2"
+            fullWidth
             label="Repetir contraseña"
             variant="outlined"
             type="password2"
@@ -131,7 +133,9 @@ class RecPasswordCode extends React.Component {
             name="password2"
             onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
             onBlur={(e) => this.handleBlur(e)}
+            className={this.props.rounded.round}
           />
+          </div>
           <div className="mt-3">
             {!this.state.loading ? (
               <Button
@@ -139,6 +143,8 @@ class RecPasswordCode extends React.Component {
                 color="mainColor"
                 type="submit"
                 fullWidth
+                
+            className={this.props.rounded.round}
               >
                 Guardar
               </Button>

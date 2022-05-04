@@ -112,7 +112,7 @@ class RecPassword extends Component {
         <form onSubmit={(e) => this.handleSubmit(e)} className="px-5">
           <TextField
             error={this.state.errores.dni}
-            className="w-100"
+            fullWidth
             label="DNI"
             variant="outlined"
             size="small"
@@ -120,6 +120,7 @@ class RecPassword extends Component {
             name="dni"
             onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
             onBlur={(e) => this.handleBlur(e)}
+            className={this.props.rounded.round}
           />
           <div className="mt-3">
             {!this.state.loading ? (
