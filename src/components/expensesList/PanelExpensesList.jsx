@@ -8,7 +8,7 @@ const PanelExpensesList = () => {
     <>
       <div className="container position-relative">
         <Title text="Datos" />
-        <a href="#" className="dataList__historyButton"><i className="fa-solid fa-clock-rotate-left"></i></a>
+        <a href="/expenses/old" className="dataList__historyButton"><i className="fa-solid fa-clock-rotate-left"></i></a>
       </div>
       <TabsSection page="lists" />
     </>

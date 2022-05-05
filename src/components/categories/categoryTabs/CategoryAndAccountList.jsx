@@ -1,13 +1,32 @@
 import { Button } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { cargarPackCategorias } from "../../../api/fetchingFunctions";
 import Empty from "../../error and loading/Empty";
 import CategoryItem from "../categoryItem/CategoryItem";
+
+let estilo = window.getComputedStyle(document.body);
+let successColor = estilo.getPropertyValue("--color-success");
 
 const CategoryAndAccountList = (props) => {
   const navigate = useNavigate();
 
-  const cargarPack = () => {};
+  const cargarPack = () => {
+    Swal.fire({
+      title: "Cargar pack",
+      text: "Se agregaran las siguientes categorias: Alimentos, Transporte, Entretenimiento, Salud, Educación, Auto, Gimnasia, Indumentaria, Supermercado, Kiosko, Servicios, Impuestos, Boludeces, Varios",
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: successColor,
+    }).then((result) => {
+      if (result.value) {
+        cargarPackCategorias().then(() => {
+          window.location.reload();
+        });
+      }
+    });
+  };
 
   return (
     <div>

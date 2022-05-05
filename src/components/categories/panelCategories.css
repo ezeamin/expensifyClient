@@ -36,7 +36,13 @@
 }
 
 .listContainer{
-    max-height: calc(100vh - 325px);
+    max-height: calc(100vh - 310px);
+    overflow-y: scroll;
+    border-radius: 10px;
+}
+
+.listContainer--main{
+    max-height: calc(100vh - 385px);
     overflow-y: scroll;
     border-radius: 10px;
 }

@@ -6,6 +6,7 @@ import ChangeDataForm from "./changeDataForm/ChangeDataForm";
 import { deleteLogout } from "../../../api/fetchingFunctions";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
+import Box from "../resumen/box/Box";
 
 const Settings = () => {
   const [selectedOption, setSelectedOption] = React.useState(null);
@@ -64,7 +65,7 @@ const Settings = () => {
   }
 
   return (
-    <div className="profile__resumen__box">
+    <Box>
       {opciones.map((opcion, index) => {
         return (
           <SettingItem
@@ -76,7 +77,7 @@ const Settings = () => {
           />
         );
       })}
-    </div>
+    </Box>
   );
 };
 

@@ -22,6 +22,5 @@ root.render(
         </Router>
       </AuthProvider>
     </QueryClientProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );

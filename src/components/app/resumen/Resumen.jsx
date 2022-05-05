@@ -43,7 +43,7 @@ const Resumen = () => {
   }, []);
 
   return (
-    <div className="listContainer">
+    <div className="listContainer--main">
       <div className="text-light paddingBottom">
         <Box>
           <h2 className="mb-0">Estado</h2>

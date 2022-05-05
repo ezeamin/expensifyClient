@@ -11,6 +11,7 @@ import OwnDebtsList from "../accounts/accountTabs/OwnDebtsList";
 import CategoryAndAccountList from "../categories/categoryTabs/CategoryAndAccountList";
 import OtherDebtsList from "../accounts/accountTabs/OtherDebtsList";
 import PagosList from "../categories/categoryTabs/PagosList";
+import Charts from "./charts/Charts";
 
 let estilo = window.getComputedStyle(document.body);
 let primaryColor = estilo.getPropertyValue("--color-primary");
@@ -86,7 +87,7 @@ const TabsSection = (props) => {
             <Resumen />
           </TabPanel>
           <TabPanel index={1}>
-            <p className="text-light">AGREGAR</p>
+            <Charts />
           </TabPanel>
           <TabPanel index={2}>
             <Settings />

@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 import axios from "./axios";
+import { categorias } from "../data/defaultCategories";
 
 let estilo = window.getComputedStyle(document.body);
 let successColor = estilo.getPropertyValue("--color-success");
@@ -8,7 +9,7 @@ let dangerColor = estilo.getPropertyValue("--color-danger");
 // initiate server
 
 export const pingServer = async () => {
-  await axios.get('/api/ping');
+  await axios.get("/api/ping");
 };
 
 // auth
@@ -49,7 +50,7 @@ export const postLogin = async (user) => {
   return data;
 };
 
-export const deleteLogout = (setAuth,navigate) => {
+export const deleteLogout = (setAuth, navigate) => {
   let accessToken = localStorage.getItem("accessToken");
   let refreshToken = localStorage.getItem("refreshToken");
 
@@ -108,7 +109,7 @@ export const deleteLogout = (setAuth,navigate) => {
 
 //setters
 
-export const postData = async (link,info) => {
+export const postData = async (link, info) => {
   let res, data;
   let accessToken = localStorage.getItem("accessToken");
   let refreshToken = localStorage.getItem("refreshToken");
@@ -164,7 +165,7 @@ export const putData = async (link, info) => {
     };
   }
   return data;
-}
+};
 
 //getters
 
@@ -195,4 +196,21 @@ export const getData = async (link) => {
     };
   }
   return data;
-}
+};
+
+export const cargarPackCategorias = async () => {
+  let accessToken = localStorage.getItem("accessToken");
+  let refreshToken = localStorage.getItem("refreshToken");
+
+  categorias.forEach(async (categoria) => {
+    try {
+      await axios.put("/api/category", categoria, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+          refresh: refreshToken,
+        },
+      });
+    } catch (err) { throw err; }
+  });
+};

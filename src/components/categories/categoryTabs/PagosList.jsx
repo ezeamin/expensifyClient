@@ -1,6 +1,7 @@
 import { Alert, Button } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import EnConstruccion from "../../temp/EnConstruccion";
 
 const PagosList = () => {
   const navigate = useNavigate();
@@ -16,7 +17,10 @@ const PagosList = () => {
       >
         Nuevo pago
       </Button>
-      <Alert severity="info">Acá podes cargar los pagos recurrentes</Alert>
+      <Alert severity="info" className="mb-2">
+        Acá podes cargar los pagos recurrentes
+      </Alert>
+      <EnConstruccion />
     </div>
   );
 };

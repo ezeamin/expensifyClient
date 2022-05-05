@@ -19,6 +19,7 @@ import CannotBeLogged from "./views/routing/CannotBeLogged";
 import RequireAuth from "./views/routing/RequireAuth";
 import useTheme from "./hooks/useTheme";
 import Error404 from "./views/routing/error404/Error404";
+import Old from "./components/expensesList/old/Old";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route element={<RequireAuth />}>
           <Route path="/" element={<AppPage />} />
           <Route path="/expenses" element={<Expenses />} />
+          <Route path="/expenses/old" element={<Old />} />
           <Route path="/accounts" element={<Accounts />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/categories/new" element={<NewCategory />} />
