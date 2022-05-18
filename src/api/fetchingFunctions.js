@@ -198,6 +198,38 @@ export const getData = async (link) => {
   return data;
 };
 
+// delete
+
+
+export const deleteData = async (link) => {
+  let res, data;
+  let accessToken = localStorage.getItem("accessToken");
+  let refreshToken = localStorage.getItem("refreshToken");
+
+  try {
+    res = await axios.delete(link, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+        refresh: refreshToken,
+      },
+    });
+    data = {
+      status: res.status,
+      data: res?.data,
+    };
+  } catch (err) {
+    let msg = err.response ? err.response.data : err;
+    let status = err.response ? err.response.status : err;
+
+    data = {
+      status: status,
+      data: msg,
+    };
+  }
+  return data;
+};
+
 export const cargarPackCategorias = async () => {
   let accessToken = localStorage.getItem("accessToken");
   let refreshToken = localStorage.getItem("refreshToken");

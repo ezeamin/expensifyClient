@@ -54,6 +54,11 @@
   height: calc(100vh - 110px);
 }
 
+.loadingScreen--little{
+  height: 250px;
+}
+
+
 #wifi-loader {
   --background: #62abff;
   --front-color: var(--color-primary);

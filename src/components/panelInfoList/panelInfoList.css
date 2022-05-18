@@ -19,6 +19,7 @@
     width: 55px;
     height: 55px;
     text-decoration: none;
+    border: none;
 }
 
 .infoList__top__icon__actions:hover{

@@ -30,7 +30,23 @@ class CategoryForm extends Component {
     };
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidMount() {
+    if (this.props.data) {
+      const limit = this.props.data.limit // limit saves both limit and balance
+        ? this.props.data.limit
+        : this.props.data.balance;
+
+      this.setState({
+        title: this.props.data.title,
+        icon: this.props.data.icon,
+        accountType: this.props.data?.accountType,
+        limit: limit + "",
+        description: this.props.data.description,
+      });
+    }
+  }
+
+  componentDidUpdate() {
     if (this.state.loading !== this.props.loading) {
       this.setState({ loading: this.props.loading });
     }
@@ -62,6 +78,8 @@ class CategoryForm extends Component {
 
   verificar(name, value) {
     const errores = this.state.errores;
+
+    console.log(name, value);
 
     if (value.trim() === "" || value.length < 1) {
       return this.error(errores, name);
@@ -115,10 +133,10 @@ class CategoryForm extends Component {
 
       if (this.props.type === "category") {
         if (this.props.isNew) this.loadCategory();
-        else this.updateCategory();
+        else this.editCategory();
       } else {
         if (this.props.isNew) this.loadAccount();
-        else this.updateAccount();
+        else this.editAccount();
       }
     }
   };
@@ -132,7 +150,14 @@ class CategoryForm extends Component {
     });
   };
 
-  updateCategory = () => {};
+  editCategory = () => {
+    this.props.editCategory({
+      title: this.state.title,
+      icon: this.state.icon,
+      limit: this.state.limit,
+      description: this.state.description,
+    });
+  };
 
   loadAccount = () => {
     this.props.newAccount({
@@ -144,7 +169,15 @@ class CategoryForm extends Component {
     });
   };
 
-  updateAccount = () => {};
+  editAccount = () => {
+    this.props.editAccount({
+      title: this.state.title,
+      icon: this.state.icon,
+      accountType: this.state.accountType,
+      balance: this.state.limit,
+      description: this.state.description,
+    });
+  };
 
   render() {
     return (

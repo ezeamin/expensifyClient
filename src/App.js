@@ -27,32 +27,34 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           {/* Auth routes */}
-          <Route element={<CannotBeLogged />} >
+          <Route element={<CannotBeLogged />}>
             <Route path="/auth/login" element={<Auth />} />
             <Route path="/auth/signup" element={<Auth />} />
             <Route path="/auth/recPassword" element={<Auth />} />
             <Route path="/auth/recPassword/:recCode" element={<Auth />} />
           </Route>
 
-        {/* Protected routes */}
-        <Route element={<RequireAuth />}>
-          <Route path="/" element={<AppPage />} />
-          <Route path="/expenses" element={<Expenses />} />
-          <Route path="/expenses/old" element={<Old />} />
-          <Route path="/accounts" element={<Accounts />} />
-          <Route path="/categories" element={<Categories />} />
-          <Route path="/categories/new" element={<NewCategory />} />
-          <Route path="/accounts/new" element={<NewAccount />} />
-          <Route path="/info/:id" element={<InfoList />} />
-          <Route path="/newExpense" element={<NewExpense />} />
-          <Route path="/newExpense/expense" element={<Expense />} />
-          <Route path="/newExpense/income" element={<Income />} />
-          <Route path="/newExpense/transfer" element={<Transfer />} />
-        </Route>
+          {/* Protected routes */}
+          <Route element={<RequireAuth />}>
+            <Route path="/" element={<AppPage />} />
+            <Route path="/expenses" element={<Expenses />} />
+            <Route path="/expenses/old" element={<Old />} />
+            <Route path="/accounts" element={<Accounts />} />
+            <Route path="/accounts/new" element={<NewAccount />} />
+            <Route path="/accounts/edit/:id" element={<NewAccount edit/>} />
+            <Route path="/categories" element={<Categories />} />
+            <Route path="/categories/new" element={<NewCategory />} />
+            <Route path="/categories/edit/:id" element={<NewCategory edit/>} />
+            <Route path="/info/:id" element={<InfoList />} />
+            <Route path="/newExpense" element={<NewExpense />} />
+            <Route path="/newExpense/expense" element={<Expense />} />
+            <Route path="/newExpense/income" element={<Income />} />
+            <Route path="/newExpense/transfer" element={<Transfer />} />
+          </Route>
 
-        {/* 404 Error route */}
-        <Route path="*" element={<Error404 />} />
-      </Route>
+          {/* 404 Error route */}
+          <Route path="*" element={<Error404 />} />
+        </Route>
       </Routes>
     </ThemeProvider>
   );

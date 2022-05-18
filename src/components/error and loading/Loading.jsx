@@ -1,9 +1,10 @@
 import React from "react";
 import "./style.css";
 
-const Loading = () => {
+const Loading = (props) => {
+  const className = props.little ? "loadingScreen loadingScreen--little" : "loadingScreen";
   return (
-    <div className="loadingScreen">
+    <div className={className}>
       <div id="wifi-loader">
         <svg className="circle-outer" viewBox="0 0 86 86">
           <circle className="back" cx="43" cy="43" r="40"></circle>
