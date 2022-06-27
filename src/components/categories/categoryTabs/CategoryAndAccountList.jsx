@@ -51,6 +51,7 @@ const CategoryAndAccountList = (props) => {
                 accountType={item.accountType}
                 type={props.type}
                 id={item.id}
+                limit={item.limit}
                 progress={
                   item.spent && Math.round((item.spent * 100) / item.limit)
                 }

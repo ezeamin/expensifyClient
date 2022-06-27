@@ -48,8 +48,11 @@ function App() {
             <Route path="/info/:id" element={<InfoList />} />
             <Route path="/newExpense" element={<NewExpense />} />
             <Route path="/newExpense/expense" element={<Expense />} />
+            <Route path="/newExpense/expense/:id" element={<Expense edit/>} />
             <Route path="/newExpense/income" element={<Income />} />
+            <Route path="/newExpense/income/:id" element={<Income edit/>} />
             <Route path="/newExpense/transfer" element={<Transfer />} />
+            <Route path="/newExpense/transfer/:id" element={<Transfer edit/>} />
           </Route>
 
           {/* 404 Error route */}

@@ -2,6 +2,9 @@ import { Button } from "@mui/material";
 import React from "react";
 import { init, send } from "@emailjs/browser";
 import { LoadingButton } from "@mui/lab";
+import { deleteDirectLogout } from "../../api/fetchingFunctions";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Error = (props) => {
   let url = window.location.href;
@@ -42,6 +45,18 @@ const Error = (props) => {
     }
   };
 
+  const { setAuth } = useAuth();
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (
+      props.data.data.message === "Forbidden" ||
+      props.data.data === "Forbidden"
+    ) {
+      deleteDirectLogout(setAuth, navigate);
+    }
+  }, [props.data.data]);
+
   return (
     <div className="errorPage text-light text-center container">
       <h1 className="fw-bold text-light">💀 Error</h1>
@@ -49,15 +64,16 @@ const Error = (props) => {
       <p className="mt-3">No mentira, mira:</p>
       <div className="errorPage__errorCode">
         <p className="my-0">
-          ✨ {props.data.data.message ? props.data.data.message : props.data.data } ✨<br />{" "}
-          <span className="errorPage__siteSpan">Site: {site}</span>
+          ✨{" "}
+          {props.data.data.message ? props.data.data.message : props.data.data}{" "}
+          ✨<br /> <span className="errorPage__siteSpan">Site: {site}</span>
         </p>
       </div>
       <h2 className="mt-5">¿Y diai?</h2>
       <p className="mb-0">
-        Te recomiendo recargar la pagina. Si no se soluciona, volvé a iniciar sesión. Sino, por favor esperá.
-        Si aún no se soluciona, tomate un té. Si todavia nada, recien entonces
-        tocá el boton :)
+        Te recomiendo recargar la pagina. Si no se soluciona, volvé a iniciar
+        sesión. Sino, por favor esperá. Si aún no se soluciona, tomate un té. Si
+        todavia nada, recien entonces tocá el boton :)
       </p>
       <div className="mt-2 w-75">
         {!loading ? (
@@ -68,7 +84,7 @@ const Error = (props) => {
               onClick={() => sendMail()}
               disabled={disabled}
               fullWidth
-              style={{fontWeight: "600"}}
+              style={{ fontWeight: "600" }}
             >
               {message}
             </Button>
@@ -82,7 +98,7 @@ const Error = (props) => {
               color="dangerColor"
               backgroundColor="dangerColor"
               fullWidth
-              style={{fontWeight: "600"}}
+              style={{ fontWeight: "600" }}
             >
               &nbsp;Reportar error
             </LoadingButton>

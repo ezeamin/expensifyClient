@@ -107,6 +107,29 @@ export const deleteLogout = (setAuth, navigate) => {
   });
 };
 
+export const deleteDirectLogout = (setAuth,navigate) => {
+  let accessToken = localStorage.getItem("accessToken");
+  let refreshToken = localStorage.getItem("refreshToken");
+
+  axios
+    .delete("/api/logout", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+        refresh: refreshToken,
+      },
+    })
+    .then((data) => {
+      if (data.status === 204) {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+
+        setAuth(null);
+        navigate("/auth/login");
+      }
+    });
+};
+
 //setters
 
 export const postData = async (link, info) => {
@@ -200,7 +223,6 @@ export const getData = async (link) => {
 
 // delete
 
-
 export const deleteData = async (link) => {
   let res, data;
   let accessToken = localStorage.getItem("accessToken");
@@ -243,6 +265,8 @@ export const cargarPackCategorias = async () => {
           refresh: refreshToken,
         },
       });
-    } catch (err) { throw err; }
+    } catch (err) {
+      throw err;
+    }
   });
 };

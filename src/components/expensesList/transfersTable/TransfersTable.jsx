@@ -1,10 +1,11 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { useQuery } from "react-query";
-import { getData } from "../../../api/fetchingFunctions";
+import { deleteData, getData } from "../../../api/fetchingFunctions";
 import ErrorMsg from "../errorMsg/ErrorMsg";
 import EmptyMsg from "../emptyMsg/EmptyMsg";
 import LoadingList from "../loadingList/LoadingList";
+import Swal from "sweetalert2";
 
 /*const rows = [
   {
@@ -60,7 +61,40 @@ const TransfersTable = () => {
   };
 
   const handleDelete = (id) => {
-    console.log("delete" + id);
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "No podras revertir esta acción!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#5263dd",
+      cancelButtonColor: "#FF5A5F",
+      confirmButtonText: "Si, borrar!",
+      cancelButtonText: "Cancelar",
+    }).then(async (result) => {
+      if (result.value) {
+        const res = await deleteData(`/api/transfer/${id}`);
+
+        if (res.status === 200) {
+          Swal.fire({
+            title: "Borrado",
+            text: "Se ha eliminado correctamente",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 2000,
+          }).then(() => {
+            window.location.reload();
+          });
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: res.data.message
+              ? res.data.message
+              : "Ha ocurrido un error inesperado",
+            icon: "error",
+          });
+        }
+      }
+    });
   };
 
   if (error && !(isLoading || isFetching)) {

@@ -17,7 +17,7 @@ const CategoryItem = (props) => {
           className="categorias__box__leftGroup__icon"
           style={{ backgroundColor: props.color }}
         >
-          {props.type === "categories" ? (
+          {(props.type === "categories" && props.limit !== 0) ? (
             <CircularProgress
               variant="determinate"
               color={props.progress <= 80 ? "mainColor" : "dangerColor"}

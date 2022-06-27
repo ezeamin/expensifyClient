@@ -79,8 +79,6 @@ class CategoryForm extends Component {
   verificar(name, value) {
     const errores = this.state.errores;
 
-    console.log(name, value);
-
     if (value.trim() === "" || value.length < 1) {
       return this.error(errores, name);
     } else if (

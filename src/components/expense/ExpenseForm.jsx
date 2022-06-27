@@ -37,6 +37,19 @@ class ExpenseForm extends Component {
     }
   }
 
+  componentDidMount() {
+    if(this.props.data) {
+      const { data } = this.props;
+      this.setState({
+        price: data.price,
+        category: data.category,
+        description: data.description,
+        title: data.title,
+        account: data.account,
+      });
+    }
+  }
+
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
 
@@ -118,7 +131,16 @@ class ExpenseForm extends Component {
     });
   };
 
-  updateExpense = () => {};
+  updateExpense = () => {
+    this.props.editExpense({
+      title: this.state.title,
+      description: this.state.description,
+      categoryId: this.state.category,
+      accountId: this.state.account,
+      price: this.state.price,
+      old: this.props.data,
+    });
+  };
 
   render() {
     return (

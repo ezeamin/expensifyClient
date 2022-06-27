@@ -1,7 +1,9 @@
 import { Button } from "@mui/material";
 import React from "react";
 import { useQuery } from "react-query";
-import { getData } from "../../../api/fetchingFunctions";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { deleteData, getData } from "../../../api/fetchingFunctions";
 import EmptyMsg from "../emptyMsg/EmptyMsg";
 import ErrorMsg from "../errorMsg/ErrorMsg";
 import LoadingList from "../loadingList/LoadingList";
@@ -26,12 +28,48 @@ const ExpensesTable = () => {
     }
   );
 
+  const navigate = useNavigate();
+
   const handleEdit = (id) => {
-    console.log("edit" + id);
+    // console.log("edit" + id);
+    navigate(`/newExpense/expense/${id}`);
   };
 
   const handleDelete = (id) => {
-    console.log("delete" + id);
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "No podras revertir esta acción!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#5263dd",
+      cancelButtonColor: "#FF5A5F",
+      confirmButtonText: "Si, borrar!",
+      cancelButtonText: "Cancelar",
+    }).then(async (result) => {
+      if (result.value) {
+        const res = await deleteData(`/api/expense/${id}`);
+
+        if (res.status === 200) {
+          Swal.fire({
+            title: "Borrado",
+            text: "Se ha eliminado correctamente",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 2000,
+          }).then(() => {
+            window.location.reload();
+          });
+        } else {
+          Swal.fire({
+            title: "Error",
+            text: res.data.message
+              ? res.data.message
+              : "Ha ocurrido un error inesperado",
+            icon: "error",
+          });
+        }
+      }
+    });
   };
 
   if (error && !(isLoading || isFetching)) {
