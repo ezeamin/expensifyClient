@@ -7,9 +7,9 @@ A simple expense and income tracking app, built with React.
 - Expenses
 - Incomes
 - Transferences
-- Debts (Own and other's)
-- Stats & Charts
-- Historical data
+- Debts (Own and other's) (pending)
+- Stats & Charts (pending)
+- Historical data (pending)
 
 ## Dependencies
 
