@@ -6,11 +6,14 @@ import ErrorMsg from "../errorMsg/ErrorMsg";
 import LoadingList from "../loadingList/LoadingList";
 import EmptyMsg from "../emptyMsg/EmptyMsg";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom"
 
 const IncomesTable = () => {
   const [rows, setRows] = React.useState([]);
   const [error, setError] = React.useState(false);
   const [errorMsg, setErrorMsg] = React.useState("");
+
+  const navigate = useNavigate();
 
   const { isLoading, isFetching } = useQuery(
     ["incomes"],
@@ -28,7 +31,21 @@ const IncomesTable = () => {
   );
 
   const handleEdit = (id) => {
-    console.log("edit" + id);
+    // console.log("edit" + id);
+
+    const income = rows.find((income) => income.id === id);
+    if (income.account === "DELETED") {
+      Swal.fire({
+        title: "Error",
+        text: "La cuenta ha sido eliminada, y no se puede modificar",
+        icon: "error",
+        timer: 2500,
+        showConfirmButton: false,
+      });
+      return;
+    }
+
+    navigate(`/newExpense/income/${id}`);
   };
 
   const handleDelete = (id) => {

@@ -8,13 +8,18 @@ import Swal from "sweetalert2";
 import Loading from "../../../components/error and loading/Loading";
 import useRoundedBorder from "../../../hooks/useRoundedBorder";
 
-const Income = () => {
+const Income = (props) => {
   const [accountsList, setAccountsList] = React.useState([]);
   const [loadingPost, setLoadingPost] = React.useState(false);
+  const [info, setInfo] = React.useState(null);
 
   const navigate = useNavigate();
 
   const rounded = useRoundedBorder(); //for style
+
+  const url = window.location.href;
+  const urlSplit = url.split("/");
+  const id = urlSplit[urlSplit.length - 1];
 
   const { isLoading } = useQuery(["accounts"], () => getData("/api/accounts"), {
     onSuccess: (data) => {
@@ -23,6 +28,22 @@ const Income = () => {
       }
     },
   });
+
+  const { isLoading: isLoadingData, isFetching: isFetchingData } = useQuery(
+    ["info"],
+    () => {
+      if (props.edit) {
+        return getData(`/api/income/${id}`);
+      }
+    },
+    {
+      onSuccess: (data) => {
+        if (data.status === 200) {
+          setInfo(data?.data);
+        }
+      },
+    }
+  );
 
   const { mutate } = useMutation((info) => putData("/api/income", info), {
     onSuccess: (data) => {
@@ -58,11 +79,49 @@ const Income = () => {
     },
   });
 
+  const { mutate: mutateEdit } = useMutation((info) => putData(`/api/income/${id}`, info), {
+    onSuccess: (data) => {
+      setLoadingPost(false);
+      if (!data || data.status !== 200) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: data.data.message
+            ? data.data.message
+            : "Error al editar el ingreso",
+        });
+      } else {
+        Swal.fire({
+          title: "Exito",
+          text: "Ingreso editado",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 2000,
+        }).then(() => {
+          navigate("/expenses");
+        });
+      }
+    },
+    onError: (data) => {
+      setLoadingPost(false);
+      let msg = data.text();
+      Swal.fire({
+        title: "Error",
+        text: msg,
+        icon: "error",
+      });
+    },
+  });
+
   const newIncome = async (info) => {
     mutate(info);
   };
 
-  if (isLoading)
+  const editIncome = async (info) => {
+    mutateEdit(info);
+  };
+
+  if (isLoading || isLoadingData || isFetchingData)
     return (
       <div>
         <Navegation />
@@ -77,12 +136,14 @@ const Income = () => {
           <h1>Nuevo ingreso</h1>
         </div>
         <IncomeForm
-          isNew={true}
+          isNew={!props.edit}
           accountsList={accountsList}
           newIncome={newIncome}
           loading={loadingPost}
           setLoadingPost={setLoadingPost}
           rounded={rounded}
+          data={info}
+          editIncome={editIncome}
         />
       </div>
     </div>

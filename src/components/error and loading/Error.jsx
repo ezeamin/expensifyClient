@@ -79,7 +79,7 @@ const Error = (props) => {
       </p>
       <div className="mt-2 w-75">
         {!loading ? (
-          <div className={disabled && "forms__loadingButton"}>
+          <div className={disabled ? "forms__loadingButton" : undefined}>
             <Button
               variant="outlined"
               color="dangerColor"

@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../../components/error and loading/Loading";
 import useRoundedBorder from "../../../hooks/useRoundedBorder";
+import BackButton from "../../../components/backButton/BackButton";
 
 const Expense = (props) => {
   const [categoriesList, setCategoriesList] = React.useState([]);
@@ -55,7 +56,7 @@ const Expense = (props) => {
     },
     {
       onSuccess: (data) => {
-        if (data.status === 200) {
+        if (props.edit && data.status === 200) {
           setInfo(data?.data);
         }
       },

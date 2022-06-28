@@ -55,7 +55,7 @@ const NewAccount = (props) => {
   });
 
   const { mutate: edit } = useMutation(
-    (info) => putData("/api/account/"+id, info),
+    (info) => putData("/api/account/" + id, info),
     {
       onSuccess: (data) => {
         setLoadingPost(false);
@@ -102,14 +102,28 @@ const NewAccount = (props) => {
   };
 
   const editAccount = async (info) => {
-    edit({
-      id: props.id,
-      title: info.title,
-      icon: info.icon,
-      balance: info.balance,
-      accountType: info.accountType,
-      description: info.description,
-    });
+    if (info.new.balance !== info.old.balance) {
+      Swal.fire({
+        title: "Atención",
+        html: `Es altamente recomendable que <b>NO</b> cambies el balance de una cuenta directamente, sino realizando ingresos y gastos, ya que impactará negativamente en las estadísticas de la cuenta del mes.
+        <br/><br/>¿Deseas continuar?`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, continuar",
+        cancelButtonText: "No, cancelar",
+      }).then((result) => {
+        if (result.value) {
+          edit({
+            id: props.id,
+            new: info.new,
+            old: info.old,
+          });
+        }
+        else setLoadingPost(false);
+      });
+    }
   };
 
   const { isLoading } = useQuery(

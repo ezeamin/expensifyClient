@@ -77,7 +77,6 @@ const Transfer = () => {
           <h1>Transferencia</h1>
         </div>
         <TransferForm
-          isNew={true}
           accountsList={accountsList}
           newTransfer={newTransfer}
           setLoadingPost={setLoadingPost}
