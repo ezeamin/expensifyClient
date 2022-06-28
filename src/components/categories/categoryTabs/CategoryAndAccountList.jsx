@@ -21,9 +21,17 @@ const CategoryAndAccountList = (props) => {
       confirmButtonColor: successColor,
     }).then((result) => {
       if (result.value) {
-        cargarPackCategorias().then(() => {
-          window.location.reload();
+        cargarPackCategorias();
+        Swal.fire({
+          title: "Cargando",
+          timer: 2000,
+          timerProgressBar: true,
+          showCancelButton: false,
+          showConfirmButton: false,
         });
+        window.setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       }
     });
   };

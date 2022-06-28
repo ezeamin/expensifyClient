@@ -7,6 +7,8 @@ import { deleteLogout } from "../../../api/fetchingFunctions";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import Box from "../resumen/box/Box";
+import BackLink from "./backLink/BackLink";
+import EnConstruccion from "../../temp/EnConstruccion"
 
 const Settings = () => {
   const [selectedOption, setSelectedOption] = React.useState(null);
@@ -36,22 +38,18 @@ const Settings = () => {
   switch (selectedOption) {
     case 0:
       return (
-        <div className="profile__resumen__box">
-          <ChangeDataForm />
-          <div className="text-center">
-            <button
-              onClick={() => setSelectedOption(null)}
-              className="profile__backButton"
-            >
-              Volver
-            </button>
-          </div>
+        <div className="profile__resumen__box pt-1">
+          {/* <ChangeDataForm /> */}
+          <EnConstruccion />
+          <BackLink action={setSelectedOption} />
         </div>
       );
     case 1:
       return (
-        <div className="profile__resumen__box">
-          <ChangePasswordForm />
+        <div className="profile__resumen__box pt-1">
+          {/* <ChangePasswordForm /> */}
+          <EnConstruccion />
+          <BackLink action={setSelectedOption} />
         </div>
       );
     case 2:
@@ -59,7 +57,12 @@ const Settings = () => {
       break;
     case 3:
       //deleteLogout(auth.setAuth,navigate);
-      break;
+      return (
+        <div className="profile__resumen__box pt-1">
+          <EnConstruccion />
+          <BackLink action={setSelectedOption} />
+        </div>
+      );
     default:
       break;
   }

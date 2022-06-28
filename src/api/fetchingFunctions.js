@@ -252,9 +252,11 @@ export const deleteData = async (link) => {
   return data;
 };
 
-export const cargarPackCategorias = async () => {
+export const cargarPackCategorias = () => {
   let accessToken = localStorage.getItem("accessToken");
   let refreshToken = localStorage.getItem("refreshToken");
+
+  console.log('im in bitch');
 
   categorias.forEach(async (categoria) => {
     try {

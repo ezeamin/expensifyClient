@@ -120,7 +120,7 @@ class SignUp extends Component {
   signup = async () => {
 
     //mejorar
-    prompt("Al registrarte, confirmas tu conformidad con la privacidad de tu cuenta y datos. Por ello se entiende, que tus datos no serán compartidos con nadie ajeno a Expensify, y solo vos tendrás acceso a ellos; que Expensify no es un contador ni estadista de tus gastos, sino un registro sencillo y sin responsabilidad sobre los mismos")
+    // prompt("Al registrarte, confirmas tu conformidad con la privacidad de tu cuenta y datos. Por ello se entiende, que tus datos no serán compartidos con nadie ajeno a Expensify, y solo vos tendrás acceso a ellos; que Expensify no es un contador ni estadista de tus gastos, sino un registro sencillo y sin responsabilidad sobre los mismos")
 
     postData(`/api/signup`,{
       dni: this.state.dni,

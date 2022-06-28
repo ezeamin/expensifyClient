@@ -53,6 +53,11 @@
     box-shadow: 0 0.2rem 10px rgba(50, 150, 80, 0.4);
 }
 
+.loadingBox{
+    background: linear-gradient(45deg, var(--color-primary-disabled) 0%, var(rgb(168, 168, 168)) 100%);
+    box-shadow: 0 0.2rem 10px rgba(141, 141, 141, 0.4);
+}
+
 .panel{
     height: calc(100vh - 100px);
     padding: 1rem 0;

@@ -12,6 +12,7 @@ import CategoryAndAccountList from "../categories/categoryTabs/CategoryAndAccoun
 import OtherDebtsList from "../accounts/accountTabs/OtherDebtsList";
 import PagosList from "../categories/categoryTabs/PagosList";
 import Charts from "./charts/Charts";
+import EnConstruccion from "../temp/EnConstruccion";
 
 let estilo = window.getComputedStyle(document.body);
 let primaryColor = estilo.getPropertyValue("--color-primary");
@@ -84,7 +85,8 @@ const TabsSection = (props) => {
         </Tabs>
         <div className="container">
           <TabPanel index={0}>
-            <Resumen />
+            {/* <Resumen /> */}
+            <EnConstruccion />
           </TabPanel>
           <TabPanel index={1}>
             <Charts />

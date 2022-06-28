@@ -10,7 +10,9 @@ const Error = (props) => {
   let url = window.location.href;
   let urlSplit = url.split("/");
   let site = urlSplit[urlSplit.length - 1];
-  site = site[0].toUpperCase() + site.slice(1);
+  site = site[0]?.toUpperCase() + site?.slice(1);
+
+  if(site.length <= 0 || site === "undefined") site = "Inicio";
 
   const [loading, setLoading] = React.useState(false);
   const [message, setMessage] = React.useState("Reportar error");
@@ -55,7 +57,7 @@ const Error = (props) => {
     ) {
       deleteDirectLogout(setAuth, navigate);
     }
-  }, [props.data.data]);
+  }, [props?.data?.data]);
 
   return (
     <div className="errorPage text-light text-center container">
@@ -65,7 +67,7 @@ const Error = (props) => {
       <div className="errorPage__errorCode">
         <p className="my-0">
           ✨{" "}
-          {props.data.data.message ? props.data.data.message : props.data.data}{" "}
+          {props?.data?.data?.message ? props.data.data.message : props.data.data}{" "}
           ✨<br /> <span className="errorPage__siteSpan">Site: {site}</span>
         </p>
       </div>
