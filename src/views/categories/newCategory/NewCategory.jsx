@@ -54,7 +54,7 @@ const NewCategory = (props) => {
   });
 
   const { mutate: edit } = useMutation(
-    (info) => putData("/api/category/"+id, info),
+    (info) => putData("/api/category/" + id, info),
     {
       onSuccess: (data) => {
         setLoadingPost(false);
@@ -102,10 +102,8 @@ const NewCategory = (props) => {
   const editCategory = async (info) => {
     edit({
       id: props.id,
-      title: info.title,
-      icon: info.icon,
-      limit: info.limit,
-      description: info.description,
+      new: info.new,
+      old: info.old,
     });
   };
 

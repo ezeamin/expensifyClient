@@ -134,8 +134,7 @@ class TransferForm extends Component {
         if (result.value) {
           this.props.setLoadingPost(true);
 
-          if (this.props.isNew) this.loadTransfer();
-          else this.updateTransfer();
+          this.loadTransfer();
         }
       });
     }
@@ -149,8 +148,6 @@ class TransferForm extends Component {
       destinationAccountId: this.state.destinationAccount,
     });
   };
-
-  updateTransfer = () => {};
 
   render() {
     return (

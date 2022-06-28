@@ -11,7 +11,7 @@ import { Button } from "@mui/material";
 import "./incomeForm.css";
 import ItemList from "../expense/itemList/ItemList";
 import { LoadingButton } from "@mui/lab";
-import SaveIcon from '@mui/icons-material/Save';
+import SaveIcon from "@mui/icons-material/Save";
 
 class IncomeForm extends Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class IncomeForm extends Component {
   }
 
   componentDidMount() {
-    if(this.props.data) {
+    if (this.props.data) {
       const { data } = this.props;
       this.setState({
         price: String(data.price),
@@ -130,10 +130,19 @@ class IncomeForm extends Component {
   updateIncome = () => {
     this.props.editIncome({
       id: this.props.data.id,
-      price: this.state.price,
-      description: this.state.description,
-      title: this.state.title,
-      accountId: this.state.account,
+      new: {
+        price: this.state.price,
+        description: this.state.description,
+        title: this.state.title,
+        accountId: this.state.account,
+      },
+      old: {
+        id: this.props.data.id,
+        price: this.props.data.price,
+        description: this.props.data.description,
+        title: this.props.data.title,
+        accountId: this.props.data.accountId,
+      },
     });
   };
 

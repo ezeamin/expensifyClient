@@ -5,6 +5,7 @@ import InfoHeaderIcons from "./infoHeaderIcons/InfoHeaderIcons";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { deleteData } from "../../api/fetchingFunctions";
+import BackButton from "../backButton/BackButton";
 
 const PanelInfoList = (props) => {
   let [stateValue, setStateValue] = React.useState(0);
@@ -78,6 +79,7 @@ const PanelInfoList = (props) => {
 
   return (
     <div className="container panel">
+      <BackButton />
       <InfoHeaderIcons {...props} editItem={editItem} deleteItem={deleteItem} />
       <div className="profile__resumen__box listItem__saldos">
         {props.type === "account" && props.accountType !== "Credito" && (

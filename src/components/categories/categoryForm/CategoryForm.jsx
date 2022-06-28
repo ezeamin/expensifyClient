@@ -11,6 +11,7 @@ import { Button } from "@mui/material";
 import IconPicker from "react-icon-picker";
 import "./categoryForm.css";
 import { LoadingButton } from "@mui/lab";
+import SaveIcon from "@mui/icons-material/Save";
 
 class CategoryForm extends Component {
   constructor(props) {
@@ -150,10 +151,18 @@ class CategoryForm extends Component {
 
   editCategory = () => {
     this.props.editCategory({
-      title: this.state.title,
-      icon: this.state.icon,
-      limit: this.state.limit,
-      description: this.state.description,
+      new: {
+        title: this.state.title,
+        icon: this.state.icon,
+        limit: this.state.limit,
+        description: this.state.description,
+      },
+      old: {
+        title: this.props.data.title,
+        icon: this.props.data.icon,
+        limit: this.props.data.limit,
+        description: this.props.data.description,
+      },
     });
   };
 
@@ -169,11 +178,20 @@ class CategoryForm extends Component {
 
   editAccount = () => {
     this.props.editAccount({
-      title: this.state.title,
-      icon: this.state.icon,
-      accountType: this.state.accountType,
-      balance: this.state.limit,
-      description: this.state.description,
+      new: {
+        title: this.state.title,
+        icon: this.state.icon,
+        accountType: this.state.accountType,
+        balance: this.state.limit,
+        description: this.state.description,
+      },
+      old: {
+        title: this.props.data.title,
+        icon: this.props.data.icon,
+        accountType: this.props.data.accountType,
+        balance: this.props.data.balance,
+        description: this.props.data.description,
+      },
     });
   };
 
@@ -304,6 +322,7 @@ class CategoryForm extends Component {
               loading
               loadingPosition="start"
               variant="outlined"
+              startIcon={<SaveIcon />}
             >
               Guardar
             </LoadingButton>
