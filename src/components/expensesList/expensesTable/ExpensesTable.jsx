@@ -32,6 +32,29 @@ const ExpensesTable = () => {
 
   const handleEdit = (id) => {
     // console.log("edit" + id);
+
+    const expense = rows.find((expense) => expense.id === id);
+    if (expense.category === "DELETED") {
+      Swal.fire({
+        title: "Error",
+        text: "La categoria ha sido eliminada, y no se puede modificar",
+        icon: "error",
+        timer: 2500,
+        showConfirmButton: false,
+      });
+      return;
+    }
+    if (expense.account === "DELETED") {
+      Swal.fire({
+        title: "Error",
+        text: "La cuenta ha sido eliminada, y no se puede modificar",
+        icon: "error",
+        timer: 2500,
+        showConfirmButton: false,
+      });
+      return;
+    }
+
     navigate(`/newExpense/expense/${id}`);
   };
 

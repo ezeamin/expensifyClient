@@ -11,6 +11,7 @@ import { Button } from "@mui/material";
 import "./incomeForm.css";
 import ItemList from "../expense/itemList/ItemList";
 import { LoadingButton } from "@mui/lab";
+import SaveIcon from '@mui/icons-material/Save';
 
 class IncomeForm extends Component {
   constructor(props) {
@@ -32,6 +33,18 @@ class IncomeForm extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.state.loading !== this.props.loading) {
       this.setState({ loading: this.props.loading });
+    }
+  }
+
+  componentDidMount() {
+    if(this.props.data) {
+      const { data } = this.props;
+      this.setState({
+        price: String(data.price),
+        description: data.description,
+        title: data.title,
+        account: data.accountId,
+      });
     }
   }
 
@@ -114,7 +127,15 @@ class IncomeForm extends Component {
     });
   };
 
-  updateIncome = () => {};
+  updateIncome = () => {
+    this.props.editIncome({
+      id: this.props.data.id,
+      price: this.state.price,
+      description: this.state.description,
+      title: this.state.title,
+      accountId: this.state.account,
+    });
+  };
 
   render() {
     return (
@@ -211,6 +232,7 @@ class IncomeForm extends Component {
               loading
               loadingPosition="start"
               variant="outlined"
+              startIcon={<SaveIcon />}
             >
               Guardar
             </LoadingButton>

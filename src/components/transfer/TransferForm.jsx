@@ -10,6 +10,8 @@ import {
 import { Button } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import ItemList from "../expense/itemList/ItemList";
+import Swal from "sweetalert2";
+import SaveIcon from '@mui/icons-material/Save';
 
 class TransferForm extends Component {
   constructor(props) {
@@ -111,11 +113,31 @@ class TransferForm extends Component {
       }
     });
 
-    if (!errorGeneral){
-      this.props.setLoadingPost(true);
+    if (!errorGeneral) {
+      const cuentaOrigen = this.props.accountsList.find(
+        (account) => account.id === this.state.originAccount
+      ).title;
+      const cuentaDestino = this.props.accountsList.find(
+        (account) => account.id === this.state.destinationAccount
+      ).title;
 
-      if(this.props.isNew) this.loadTransfer();
-      else this.updateTransfer();
+      Swal.fire({
+        title: "¿Estás seguro?",
+        html: `Estas transfiriendo <b>$${this.state.price}</b> de <b>${cuentaOrigen}</b> a <b>${cuentaDestino}</b>.<br/><br/> Esta acción no se puede deshacer.`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, transferir",
+        cancelButtonText: "Cancelar",
+      }).then((result) => {
+        if (result.value) {
+          this.props.setLoadingPost(true);
+
+          if (this.props.isNew) this.loadTransfer();
+          else this.updateTransfer();
+        }
+      });
     }
   };
 
@@ -125,7 +147,7 @@ class TransferForm extends Component {
       description: this.state.description,
       originAccountId: this.state.originAccount,
       destinationAccountId: this.state.destinationAccount,
-    })
+    });
   };
 
   updateTransfer = () => {};
@@ -147,10 +169,7 @@ class TransferForm extends Component {
           />
         </div>
         <div className="expense__dataBox">
-          <FormControl
-            fullWidth
-            error={this.state.errores.originAccount}
-          >
+          <FormControl fullWidth error={this.state.errores.originAccount}>
             <InputLabel id="demo-simple-select-label">Cuenta origen</InputLabel>
             <Select
               error={this.state.errores.originAccount}
@@ -164,7 +183,7 @@ class TransferForm extends Component {
               {this.props.accountsList.map((account, index) => {
                 return (
                   <MenuItem key={index} value={account.id}>
-                     <ItemList {...account} type="account" />
+                    <ItemList {...account} type="account" />
                   </MenuItem>
                 );
               })}
@@ -238,6 +257,7 @@ class TransferForm extends Component {
               loading
               loadingPosition="start"
               variant="outlined"
+              startIcon={<SaveIcon />}
             >
               Guardar
             </LoadingButton>

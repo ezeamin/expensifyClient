@@ -11,6 +11,7 @@ import { Button } from "@mui/material";
 import "./expenseForm.css";
 import ItemList from "./itemList/ItemList";
 import { LoadingButton } from "@mui/lab";
+import SaveIcon from '@mui/icons-material/Save';
 
 class ExpenseForm extends Component {
   constructor(props) {
@@ -263,7 +264,7 @@ class ExpenseForm extends Component {
               fullWidth
               loading
               loadingPosition="start"
-              startIcon={null}
+              startIcon={<SaveIcon />}
               variant="outlined"
             >
               Guardar

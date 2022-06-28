@@ -55,7 +55,7 @@ const Expense = (props) => {
     },
     {
       onSuccess: (data) => {
-        if (data.status === 200) {
+        if (props.edit && data.status === 200) {
           setInfo(data?.data);
         }
       },
