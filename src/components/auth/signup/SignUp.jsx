@@ -14,12 +14,14 @@ class SignUp extends Component {
       email: "",
       password: "",
       password2: "",
+      limit: "",
       errores: {
         nombre: false,
         dni: false,
         email: false,
         password: false,
         password2: false,
+        limit: false,
       },
       loading: false,
     };
@@ -75,6 +77,9 @@ class SignUp extends Component {
             return this.error(errores, name);
           }
           break;
+        case "limit":
+          if (value <= 0) return this.error(errores, name);
+          break;
         default:
           break;
       }
@@ -97,13 +102,14 @@ class SignUp extends Component {
 
     let errorGeneral = false;
 
-    let error = [false, false, false, false, false];
+    let error = [false, false, false, false, false, false];
 
     error[0] = this.verificar("nombre", this.state.nombre);
     error[1] = this.verificar("dni", this.state.dni);
     error[2] = this.verificar("email", this.state.email);
     error[3] = this.verificar("password", this.state.password);
     error[4] = this.verificar("password2", this.state.password2);
+    error[5] = this.verificar("limit", this.state.limit);
 
     error.forEach((element) => {
       if (element) {
@@ -112,21 +118,22 @@ class SignUp extends Component {
     });
 
     if (!errorGeneral) this.signup();
-    else this.setState({
-      loading: false,
-    });
+    else
+      this.setState({
+        loading: false,
+      });
   };
 
   signup = async () => {
-
     //mejorar
     // prompt("Al registrarte, confirmas tu conformidad con la privacidad de tu cuenta y datos. Por ello se entiende, que tus datos no serán compartidos con nadie ajeno a Expensify, y solo vos tendrás acceso a ellos; que Expensify no es un contador ni estadista de tus gastos, sino un registro sencillo y sin responsabilidad sobre los mismos")
 
-    postData(`/api/signup`,{
+    postData(`/api/signup`, {
       dni: this.state.dni,
       password: this.state.password,
       email: this.state.email,
       name: this.state.nombre,
+      limit: this.state.limit,
     }).then(async (res) => {
       if (res.status === 200) {
         this.setState({
@@ -190,66 +197,81 @@ class SignUp extends Component {
           className={this.props.rounded.round}
         />
         <div className="w-100 mt-3">
-
-        <TextField
-          error={this.state.errores.dni}
-          fullWidth
-          label="DNI"
-          variant="outlined"
-          size="small"
-          value={this.state.dni}
-          name="dni"
-          onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
-          onBlur={(e) => this.handleBlur(e)}
-          className={this.props.rounded.round}
-        />
+          <TextField
+            error={this.state.errores.dni}
+            fullWidth
+            label="DNI"
+            type="number"
+            variant="outlined"
+            size="small"
+            value={this.state.dni}
+            name="dni"
+            onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
+            onBlur={(e) => this.handleBlur(e)}
+            className={this.props.rounded.round}
+          />
         </div>
         <div className="w-100 mt-3">
-
-        <TextField
-          error={this.state.errores.email}
-          fullWidth
-          label="E-mail"
-          variant="outlined"
-          size="small"
-          value={this.state.email}
-          name="email"
-          onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
-          onBlur={(e) => this.handleBlur(e)}
-          className={this.props.rounded.round}
-        />
+          <TextField
+            error={this.state.errores.email}
+            fullWidth
+            label="E-mail"
+            variant="outlined"
+            size="small"
+            value={this.state.email}
+            name="email"
+            type="email"
+            onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
+            onBlur={(e) => this.handleBlur(e)}
+            className={this.props.rounded.round}
+          />
         </div>
         <div className="w-100 mt-3">
-        <TextField
-          error={this.state.errores.password}
-          type="password"
-          helperText="La contraseña debe tener al menos 6 caracteres, una mayuscula,
+          <TextField
+            error={this.state.errores.password}
+            type="password"
+            helperText="La contraseña debe tener al menos 6 caracteres, una mayuscula,
           una minuscula y un numero"
-          fullWidth
-          label="Contraseña"
-          variant="outlined"
-          size="small"
-          value={this.state.password}
-          name="password"
-          onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
-          onBlur={(e) => this.handleBlur(e)}
-          className={this.props.rounded.round}
-        />
+            fullWidth
+            label="Contraseña"
+            variant="outlined"
+            size="small"
+            value={this.state.password}
+            name="password"
+            onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
+            onBlur={(e) => this.handleBlur(e)}
+            className={this.props.rounded.round}
+          />
         </div>
         <div className="w-100 mt-2">
-        <TextField
-          error={this.state.errores.password2}
-          type="password"
-          fullWidth
-          label="Repetir contraseña"
-          variant="outlined"
-          size="small"
-          value={this.state.password2}
-          name="password2"
-          onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
-          onBlur={(e) => this.handleBlur(e)}
-          className={this.props.rounded.round}
-        />
+          <TextField
+            error={this.state.errores.password2}
+            type="password"
+            fullWidth
+            label="Repetir contraseña"
+            variant="outlined"
+            size="small"
+            value={this.state.password2}
+            name="password2"
+            onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
+            onBlur={(e) => this.handleBlur(e)}
+            className={this.props.rounded.round}
+          />
+        </div>
+        <div className="w-100 mt-3">
+          <TextField
+            error={this.state.errores.limit}
+            fullWidth
+            label="Limite mensual inicial ($)"
+            variant="outlined"
+            size="small"
+            value={this.state.limit}
+            type="number"
+            name="limit"
+            onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
+            onBlur={(e) => this.handleBlur(e)}
+            className={this.props.rounded.round}
+          />
         </div>
         <div className="d-flex flex-column mt-3">
           {!this.state.loading ? (

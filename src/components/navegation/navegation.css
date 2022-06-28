@@ -50,3 +50,15 @@
     color: #ffffff;
 }
 
+
+@media screen and (min-width: 768px) {
+    .navegation__box{
+        padding: 0 3%;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .navegation__box{
+        padding: 0 25%;
+    }
+}

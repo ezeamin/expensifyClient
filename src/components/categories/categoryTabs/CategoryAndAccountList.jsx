@@ -31,7 +31,7 @@ const CategoryAndAccountList = (props) => {
         });
         window.setTimeout(() => {
           window.location.reload();
-        }, 2000);
+        }, 2200);
       }
     });
   };

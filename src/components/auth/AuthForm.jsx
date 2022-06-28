@@ -196,7 +196,7 @@ class AuthForm extends Component {
                 />
                 <div className="toggle__fill"></div>
               </div>
-              <div className="ms-2">Recordarme</div>
+              <div className="ms-2">Recordarme (ya va a andar!!)</div>
             </label>
             {!this.state.loading ? (
               <Button variant="contained" color="mainColor" type="submit">

@@ -6,7 +6,7 @@ const PanelTransfersTable = () => {
   let [month, setMonth] = React.useState("");
 
   React.useEffect(() => {
-    setMonth(getMonth(0));
+    setMonth(getMonth(true));
   }, []);
 
   return (

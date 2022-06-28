@@ -13,6 +13,12 @@ let meses = [
     "Diciembre",
   ];
 
-export default function getMonth(month) {
+export default function getMonth(current,month) {
+
+    if(current){
+      //get current month
+      month = new Date().getMonth();
+    }
+
     return meses[month];
 }
