@@ -3,7 +3,8 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { deleteData, getData } from "../../../api/fetchingFunctions";
+import { deleteData, deleteDirectLogout, getData } from "../../../api/fetchingFunctions";
+import useAuth from "../../../hooks/useAuth";
 import EmptyMsg from "../emptyMsg/EmptyMsg";
 import ErrorMsg from "../errorMsg/ErrorMsg";
 import LoadingList from "../loadingList/LoadingList";
@@ -13,6 +14,8 @@ const ExpensesTable = () => {
   const [error, setError] = React.useState(false);
   const [errorMsg, setErrorMsg] = React.useState("");
 
+  const auth = useAuth();
+
   const { isLoading, isFetching } = useQuery(
     ["expenses"],
     () => getData("/api/expenses/listTransform"),
@@ -20,6 +23,8 @@ const ExpensesTable = () => {
       onSuccess: (data) => {
         if (data.status === 200) {
           setRows(data.data);
+        } else if (data.status === 403) {
+          deleteDirectLogout(auth.setAuth, navigate);
         } else {
           setError(true);
           setErrorMsg(data.data.message ? data.data.message : data.data);
@@ -31,8 +36,6 @@ const ExpensesTable = () => {
   const navigate = useNavigate();
 
   const handleEdit = (id) => {
-    // console.log("edit" + id);
-
     const expense = rows.find((expense) => expense.id === id);
     if (expense.category === "DELETED") {
       Swal.fire({

@@ -1,12 +1,13 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { useQuery } from "react-query";
-import { deleteData, getData } from "../../../api/fetchingFunctions";
+import { deleteData, deleteDirectLogout, getData } from "../../../api/fetchingFunctions";
 import ErrorMsg from "../errorMsg/ErrorMsg";
 import LoadingList from "../loadingList/LoadingList";
 import EmptyMsg from "../emptyMsg/EmptyMsg";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom"
+import useAuth from "../../../hooks/useAuth";
 
 const IncomesTable = () => {
   const [rows, setRows] = React.useState([]);
@@ -14,6 +15,7 @@ const IncomesTable = () => {
   const [errorMsg, setErrorMsg] = React.useState("");
 
   const navigate = useNavigate();
+  const auth = useAuth();
 
   const { isLoading, isFetching } = useQuery(
     ["incomes"],
@@ -22,6 +24,8 @@ const IncomesTable = () => {
       onSuccess: (data) => {
         if (data.status === 200) {
           setRows(data.data);
+        } else if (data.status === 403) {
+          deleteDirectLogout(auth.setAuth, navigate);
         } else {
           setError(true);
           setErrorMsg(data.data.message ? data.data.message : data.data);
@@ -31,8 +35,6 @@ const IncomesTable = () => {
   );
 
   const handleEdit = (id) => {
-    // console.log("edit" + id);
-
     const income = rows.find((income) => income.id === id);
     if (income.account === "DELETED") {
       Swal.fire({

@@ -3,10 +3,11 @@ import Navegation from "../../../components/navegation/Navegation";
 import IncomeForm from "../../../components/income/IncomeForm";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { getData, putData } from "../../../api/fetchingFunctions";
+import { deleteDirectLogout, getData, putData } from "../../../api/fetchingFunctions";
 import Swal from "sweetalert2";
 import Loading from "../../../components/error and loading/Loading";
 import useRoundedBorder from "../../../hooks/useRoundedBorder";
+import useAuth from "../../../hooks/useAuth";
 
 const Income = (props) => {
   const [accountsList, setAccountsList] = React.useState([]);
@@ -14,6 +15,7 @@ const Income = (props) => {
   const [info, setInfo] = React.useState(null);
 
   const navigate = useNavigate();
+  const auth = useAuth();
 
   const rounded = useRoundedBorder(); //for style
 
@@ -25,6 +27,8 @@ const Income = (props) => {
     onSuccess: (data) => {
       if (data.status === 200) {
         setAccountsList(data.data.accounts);
+      } else if (data.status === 403) {
+        deleteDirectLogout(auth.setAuth, navigate);
       }
     },
   });

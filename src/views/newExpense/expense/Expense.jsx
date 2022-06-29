@@ -2,12 +2,12 @@ import React from "react";
 import Navegation from "../../../components/navegation/Navegation";
 import ExpenseForm from "../../../components/expense/ExpenseForm";
 import { useMutation, useQuery } from "react-query";
-import { getData, putData } from "../../../api/fetchingFunctions";
+import { deleteDirectLogout, getData, putData } from "../../../api/fetchingFunctions";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../../components/error and loading/Loading";
 import useRoundedBorder from "../../../hooks/useRoundedBorder";
-import BackButton from "../../../components/backButton/BackButton";
+import useAuth from "../../../hooks/useAuth";
 
 const Expense = (props) => {
   const [categoriesList, setCategoriesList] = React.useState([]);
@@ -18,6 +18,7 @@ const Expense = (props) => {
   const rounded = useRoundedBorder(); //for style
 
   const navigate = useNavigate();
+  const auth = useAuth();
 
   const url = window.location.href;
   const urlSplit = url.split("/");
@@ -30,6 +31,8 @@ const Expense = (props) => {
       onSuccess: (data) => {
         if (data.status === 200) {
           setCategoriesList(data.data.categories);
+        } else if (data.status === 403) {
+          deleteDirectLogout(auth.setAuth, navigate);
         }
       },
     }

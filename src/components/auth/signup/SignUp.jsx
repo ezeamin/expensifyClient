@@ -4,6 +4,8 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { Button } from "@mui/material";
 import { postData, postLogin } from "../../../api/fetchingFunctions";
 import Swal from "sweetalert2";
+import SaveIcon from "@mui/icons-material/Save";
+import { toUpperCase } from "../../../helpers/toUpperCase";
 
 class SignUp extends Component {
   constructor(props) {
@@ -132,7 +134,7 @@ class SignUp extends Component {
       dni: this.state.dni,
       password: this.state.password,
       email: this.state.email,
-      name: this.state.nombre,
+      name: toUpperCase(this.state.nombre),
       limit: this.state.limit,
     }).then(async (res) => {
       if (res.status === 200) {
@@ -279,7 +281,12 @@ class SignUp extends Component {
               Registrarse
             </Button>
           ) : (
-            <LoadingButton loading loadingPosition="start" variant="outlined">
+            <LoadingButton
+              loading
+              loadingPosition="start"
+              variant="outlined"
+              startIcon={<SaveIcon />}
+            >
               Registrarse
             </LoadingButton>
           )}

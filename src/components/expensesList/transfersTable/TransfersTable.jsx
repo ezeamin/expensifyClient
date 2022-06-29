@@ -1,16 +1,20 @@
 import React from "react";
-import { Button } from "@mui/material";
 import { useQuery } from "react-query";
-import { deleteData, getData } from "../../../api/fetchingFunctions";
+import { deleteData, deleteDirectLogout, getData } from "../../../api/fetchingFunctions";
 import ErrorMsg from "../errorMsg/ErrorMsg";
 import EmptyMsg from "../emptyMsg/EmptyMsg";
 import LoadingList from "../loadingList/LoadingList";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 const TransfersTable = () => {
   const [rows, setRows] = React.useState([]);
   const [error, setError] = React.useState(false);
   const [errorMsg, setErrorMsg] = React.useState("");
+
+  const navigate = useNavigate();
+  const auth = useAuth();
 
   const { isLoading, isFetching } = useQuery(
     ["transfers"],
@@ -19,6 +23,8 @@ const TransfersTable = () => {
       onSuccess: (data) => {
         if (data.status === 200) {
           setRows(data.data);
+        } else if (data.status === 403) {
+          deleteDirectLogout(auth.setAuth, navigate);
         } else {
           setError(true);
           setErrorMsg(data.data.message ? data.data.message : data.data);
@@ -26,47 +32,6 @@ const TransfersTable = () => {
       },
     }
   );
-
-  const handleEdit = (id) => {
-    console.log("edit" + id);
-  };
-
-  const handleDelete = (id) => {
-    Swal.fire({
-      title: "¿Estás seguro?",
-      text: "No podras revertir esta acción!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#5263dd",
-      cancelButtonColor: "#FF5A5F",
-      confirmButtonText: "Si, borrar!",
-      cancelButtonText: "Cancelar",
-    }).then(async (result) => {
-      if (result.value) {
-        const res = await deleteData(`/api/transfer/${id}`);
-
-        if (res.status === 200) {
-          Swal.fire({
-            title: "Borrado",
-            text: "Se ha eliminado correctamente",
-            icon: "success",
-            showConfirmButton: false,
-            timer: 2000,
-          }).then(() => {
-            window.location.reload();
-          });
-        } else {
-          Swal.fire({
-            title: "Error",
-            text: res.data.message
-              ? res.data.message
-              : "Ha ocurrido un error inesperado",
-            icon: "error",
-          });
-        }
-      }
-    });
-  };
 
   if (error && !(isLoading || isFetching)) {
     return <ErrorMsg errorMsg={errorMsg} />;

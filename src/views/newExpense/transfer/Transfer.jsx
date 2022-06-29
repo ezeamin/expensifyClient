@@ -2,10 +2,11 @@ import React from "react";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { getData, putData } from "../../../api/fetchingFunctions";
+import { deleteDirectLogout, getData, putData } from "../../../api/fetchingFunctions";
 import Loading from "../../../components/error and loading/Loading";
 import Navegation from "../../../components/navegation/Navegation";
 import TransferForm from "../../../components/transfer/TransferForm";
+import useAuth from "../../../hooks/useAuth";
 import useRoundedBorder from "../../../hooks/useRoundedBorder";
 
 const Transfer = () => {
@@ -13,6 +14,7 @@ const Transfer = () => {
   const [loadingPost, setLoadingPost] = React.useState(false);
 
   const navigate = useNavigate();
+  const auth = useAuth();
   
   const rounded = useRoundedBorder(); //for style
 
@@ -20,6 +22,8 @@ const Transfer = () => {
     onSuccess: (data) => {
       if (data.status === 200) {
         setAccountsList(data.data.accounts);
+      } else if (data.status === 403) {
+        deleteDirectLogout(auth.setAuth, navigate);
       }
     },
   });

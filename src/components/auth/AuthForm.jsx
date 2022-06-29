@@ -5,6 +5,7 @@ import { Button } from "@mui/material";
 import Swal from "sweetalert2";
 import { postLogin } from "../../api/fetchingFunctions";
 import "./authForm.css";
+import SaveIcon from "@mui/icons-material/Save";
 
 class AuthForm extends Component {
   constructor(props) {
@@ -82,9 +83,10 @@ class AuthForm extends Component {
     });
 
     if (!errorGeneral) this.login();
-    else this.setState({
-      loading: false,
-    });
+    else
+      this.setState({
+        loading: false,
+      });
   };
 
   login = async () => {
@@ -116,7 +118,7 @@ class AuthForm extends Component {
       } else {
         let msg = res.data.message;
 
-        if(msg === "Usuario ya autenticado"){
+        if (msg === "Usuario ya autenticado") {
           Swal.fire({
             title: "Ya estás autenticado",
             timer: 1500,
@@ -162,22 +164,29 @@ class AuthForm extends Component {
             className={this.props.rounded.round}
           />
           <div className="w-100 mt-3">
-          <TextField
-            error={this.state.errores.password}
-            type="password"
-            fullWidth
-            className={this.props.rounded.round}
-            label="Contraseña"
-            variant="outlined"
-            size="small"
-            value={this.state.password}
-            name="password"
-            onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
-            onBlur={(e) => this.handleBlur(e)}
-          />
+            <TextField
+              error={this.state.errores.password}
+              type="password"
+              fullWidth
+              className={this.props.rounded.round}
+              label="Contraseña"
+              variant="outlined"
+              size="small"
+              value={this.state.password}
+              name="password"
+              onChange={(e) =>
+                this.setState({ [e.target.name]: e.target.value })
+              }
+              onBlur={(e) => this.handleBlur(e)}
+            />
           </div>
           <div className="text-start mt-1">
-            <a href="/auth/recPassword" className="auth__box__olvidasteContraseña">¿Olvidaste tu contraseña?</a>
+            <a
+              href="/auth/recPassword"
+              className="auth__box__olvidasteContraseña"
+            >
+              ¿Olvidaste tu contraseña?
+            </a>
           </div>
           <div className="d-flex flex-column">
             <label
@@ -203,7 +212,12 @@ class AuthForm extends Component {
                 Continuar
               </Button>
             ) : (
-              <LoadingButton loading loadingPosition="start" variant="outlined">
+              <LoadingButton
+                loading
+                loadingPosition="start"
+                variant="outlined"
+                startIcon={<SaveIcon />}
+              >
                 Continuar
               </LoadingButton>
             )}

@@ -19,8 +19,10 @@
     justify-content: center;
 }
 
-.navegation__box__newButton__a{
-    text-decoration: none;
+.navegation__box__newButton__button{
+    border: none;
+    background-color: transparent;
+    outline: none;
     color: #ffffff;
 }
 
@@ -49,7 +51,6 @@
     transform: rotate(180deg);
     color: #ffffff;
 }
-
 
 @media screen and (min-width: 768px) {
     .navegation__box{
