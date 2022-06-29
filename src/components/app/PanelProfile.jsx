@@ -1,14 +1,18 @@
 import React from "react";
-import { getData } from "../../api/fetchingFunctions";
+import { deleteDirectLogout, deleteLogout, getData } from "../../api/fetchingFunctions";
 import Title from "../titles/Title";
 import TabsSection from "./TabsSection";
 import { useQuery } from "react-query";
 import Loading from "../error and loading/Loading";
 import Error from "../error and loading/Error";
 import CuadroSaldo from "./cuadroSaldo/CuadroSaldo";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const PanelProfile = () => {
   const [user, setUser] = React.useState({});
+  const navigate = useNavigate();
+  const auth = useAuth();
 
   const { isLoading, isFetching, isError, isSuccess, data } = useQuery(
     ["profile"],
@@ -17,6 +21,9 @@ const PanelProfile = () => {
       onSuccess: (data) => {
         if (data.status === 200) {
           setUser(data.data);
+        }
+        else if (data.status === 403){
+          deleteDirectLogout(auth.setAuth,navigate);
         }
       },
     }
