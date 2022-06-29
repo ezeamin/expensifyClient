@@ -131,6 +131,17 @@ class AuthForm extends Component {
           return;
         }
 
+        if (msg === "Network Error") {
+          this.setState({
+            loginError: {
+              error: true,
+              msg: "Error de conexion",
+            },
+            loading: false,
+          });
+          return;
+        }
+
         this.setState({
           loginError: {
             error: true,

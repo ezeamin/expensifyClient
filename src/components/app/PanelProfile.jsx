@@ -73,7 +73,7 @@ const PanelProfile = () => {
         });
       }
     }
-  }, [newMonthInfo]);
+  }, [newMonthInfo,newPeriod]);
 
   if (isLoading || (isFetching && !user.name)) return <Loading />;
   if (isError || data.status !== 200)

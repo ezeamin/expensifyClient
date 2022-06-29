@@ -57,7 +57,7 @@ const Error = (props) => {
     ) {
       deleteDirectLogout(setAuth, navigate);
     }
-  }, [props?.data?.data]);
+  }, [props?.data?.data, setAuth, navigate]);
 
   return (
     <div className="errorPage text-light text-center container">

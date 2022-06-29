@@ -1,10 +1,9 @@
 import React from "react";
 import { useQuery } from "react-query";
-import { deleteData, deleteDirectLogout, getData } from "../../../api/fetchingFunctions";
+import { deleteDirectLogout, getData } from "../../../api/fetchingFunctions";
 import ErrorMsg from "../errorMsg/ErrorMsg";
 import EmptyMsg from "../emptyMsg/EmptyMsg";
 import LoadingList from "../loadingList/LoadingList";
-import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 

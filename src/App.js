@@ -20,8 +20,13 @@ import RequireAuth from "./views/routing/RequireAuth";
 import useTheme from "./hooks/useTheme";
 import Error404 from "./views/routing/error404/Error404";
 import Old from "./components/expensesList/old/Old";
+import { pingServer } from "./api/fetchingFunctions";
 
-function App() {
+const App = () => {
+  React.useEffect(() => {
+    pingServer();
+  }, []);
+
   return (
     <ThemeProvider theme={useTheme()}>
       <Routes>
@@ -41,18 +46,21 @@ function App() {
             <Route path="/expenses/old" element={<Old />} />
             <Route path="/accounts" element={<Accounts />} />
             <Route path="/accounts/new" element={<NewAccount />} />
-            <Route path="/accounts/edit/:id" element={<NewAccount edit/>} />
+            <Route path="/accounts/edit/:id" element={<NewAccount edit />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/categories/new" element={<NewCategory />} />
-            <Route path="/categories/edit/:id" element={<NewCategory edit/>} />
+            <Route path="/categories/edit/:id" element={<NewCategory edit />} />
             <Route path="/info/:id" element={<InfoList />} />
             <Route path="/newExpense" element={<NewExpense />} />
             <Route path="/newExpense/expense" element={<Expense />} />
-            <Route path="/newExpense/expense/:id" element={<Expense edit/>} />
+            <Route path="/newExpense/expense/:id" element={<Expense edit />} />
             <Route path="/newExpense/income" element={<Income />} />
-            <Route path="/newExpense/income/:id" element={<Income edit/>} />
+            <Route path="/newExpense/income/:id" element={<Income edit />} />
             <Route path="/newExpense/transfer" element={<Transfer />} />
-            <Route path="/newExpense/transfer/:id" element={<Transfer edit/>} />
+            <Route
+              path="/newExpense/transfer/:id"
+              element={<Transfer edit />}
+            />
           </Route>
 
           {/* 404 Error route */}
@@ -61,6 +69,6 @@ function App() {
       </Routes>
     </ThemeProvider>
   );
-}
+};
 
 export default App;
