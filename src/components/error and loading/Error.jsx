@@ -12,7 +12,7 @@ const Error = (props) => {
   let site = urlSplit[urlSplit.length - 1];
   site = site[0]?.toUpperCase() + site?.slice(1);
 
-  if(site.length <= 0 || site === "undefined") site = "Inicio";
+  if (site.length <= 0 || site === "undefined") site = "Inicio";
 
   const [loading, setLoading] = React.useState(false);
   const [message, setMessage] = React.useState("Reportar error");
@@ -50,6 +50,10 @@ const Error = (props) => {
   const { setAuth } = useAuth();
   const navigate = useNavigate();
 
+  const handleExit = () => {
+    deleteDirectLogout(setAuth, navigate);
+  };
+
   React.useEffect(() => {
     if (
       props.data.data.message === "Forbidden" ||
@@ -61,13 +65,18 @@ const Error = (props) => {
 
   return (
     <div className="errorPage text-light text-center container">
+      <button onClick={handleExit} className="backButton backButton--errorPage dangerBox">
+        <i className="fa-solid fa-arrow-right-from-bracket"></i>
+      </button>
       <h1 className="fw-bold text-light">💀 Error</h1>
       <p>Estas en bancarrota!!1!</p>
       <p className="mt-3">No mentira, mira:</p>
       <div className="errorPage__errorCode">
         <p className="my-0">
           ✨{" "}
-          {props?.data?.data?.message ? props.data.data.message : props.data.data}{" "}
+          {props?.data?.data?.message
+            ? props.data.data.message
+            : props.data.data}{" "}
           ✨<br /> <span className="errorPage__siteSpan">Site: {site}</span>
         </p>
       </div>

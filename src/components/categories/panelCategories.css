@@ -3,7 +3,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    text-decoration: none;
+    border: none;
+    outline: none;
+    background-color: white;
+    width: 100%;
 }
 
 .categorias__box:hover{

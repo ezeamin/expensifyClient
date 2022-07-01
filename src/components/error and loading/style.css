@@ -44,6 +44,16 @@
   font-size: 15px;
 }
 
+.backButton--errorPage{
+  color: #fff;
+  width: 0.6rem !important;
+  height: 2.5rem !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 1rem;
+}
+
 /* loading */
 
 .loadingScreen {

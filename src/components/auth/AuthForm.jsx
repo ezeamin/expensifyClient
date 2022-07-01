@@ -126,6 +126,7 @@ class AuthForm extends Component {
             showCancelButton: false,
             showConfirmButton: false,
           }).then(() => {
+            this.props.setInfo(res.data);
             this.props.redirectSuccess();
           });
           return;
@@ -170,6 +171,7 @@ class AuthForm extends Component {
             size="small"
             value={this.state.dni}
             name="dni"
+            type="number"
             onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
             onBlur={(e) => this.handleBlur(e)}
             className={this.props.rounded.round}

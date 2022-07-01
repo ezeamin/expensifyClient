@@ -28,6 +28,7 @@ class CategoryForm extends Component {
         accountType: false,
       },
       loading: false,
+      data: {},
     };
   }
 
@@ -43,6 +44,7 @@ class CategoryForm extends Component {
         accountType: this.props.data?.accountType,
         limit: limit + "",
         description: this.props.data.description,
+        data: this.props.data,
       });
     }
   }
@@ -50,6 +52,21 @@ class CategoryForm extends Component {
   componentDidUpdate() {
     if (this.state.loading !== this.props.loading) {
       this.setState({ loading: this.props.loading });
+    }
+
+    if (this.state.data !== this.props.data) {
+      const limit = this.props.data.limit // limit saves both limit and balance
+        ? this.props.data.limit
+        : this.props.data.balance;
+
+      this.setState({
+        title: this.props.data.title,
+        icon: this.props.data.icon,
+        accountType: this.props.data?.accountType,
+        limit: limit + "",
+        description: this.props.data.description,
+        data: this.props.data,
+      });
     }
   }
 

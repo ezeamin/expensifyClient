@@ -111,6 +111,10 @@ export const deleteDirectLogout = (setAuth, navigate) => {
   let accessToken = localStorage.getItem("accessToken");
   let refreshToken = localStorage.getItem("refreshToken");
 
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+  setAuth(null);
+
   axios
     .delete("/api/logout", {
       headers: {
@@ -120,9 +124,6 @@ export const deleteDirectLogout = (setAuth, navigate) => {
       },
     })
     .then((data) => {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      setAuth(null);
       navigate("/auth/login");
     });
 };

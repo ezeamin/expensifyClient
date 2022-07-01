@@ -1,15 +1,18 @@
 import React from "react";
 import { CircularProgress } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const CategoryItem = (props) => {
   let id;
+
+  const navigate = useNavigate();
 
   if (props.type === "categories") id = "cat=" + props.id;
   else id = "acc=" + props.id;
 
   return (
-    <a
-      href={`/info/${id}`}
+    <button
+      onClick={()=>navigate(`/info/${id}`)}
       className="categorias__box profile__resumen__box mb-2"
     >
       <div className="categorias__box__leftGroup">
@@ -33,12 +36,12 @@ const CategoryItem = (props) => {
           {props.accountType &&
           props.accountType !== "Efectivo" &&
           props.accountType !== "Otro" ? (
-            <p className="mb-0">{props.accountType}</p>
+            <p className="mb-0 text-start">{props.accountType}</p>
           ) : null}
         </div>
       </div>
       <i className="fa-solid fa-angle-right"></i>
-    </a>
+    </button>
   );
 };
 

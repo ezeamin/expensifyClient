@@ -1,6 +1,6 @@
+import "./panelAccounts.css";
 import React from "react";
 import Title from "../titles/Title";
-import "./panelAccounts.css";
 import TabsSection from "../app/TabsSection";
 
 const PanelAccounts = (props) => {
@@ -15,7 +15,7 @@ const PanelAccounts = (props) => {
   }, [props.list]);
 
   return (
-    <div ref={container}>
+    <div ref={container} className="container">
       <Title text="Cuentas" />
       <TabsSection page="accounts" data={props}/>
     </div>
