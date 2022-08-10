@@ -1,10 +1,14 @@
 import React from 'react';
-import EnConstruccion from '../../temp/EnConstruccion';
+import CategoriesChart from './CategoriesChart/CategoriesChart';
+import DayChart from './DayChart/DayChart';
 
 const Charts = () => {
     return (
-        <div>
-            <EnConstruccion />
+        <div style={{
+            marginBottom: "7rem"
+        }}>
+            <CategoriesChart />
+            <DayChart />    
         </div>
     );
 };

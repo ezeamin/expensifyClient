@@ -3,6 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "dependencies": {
+    "@amcharts/amcharts5": "^5.2.15",
     "@emailjs/browser": "^3.5.0",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
