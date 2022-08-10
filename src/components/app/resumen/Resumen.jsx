@@ -6,6 +6,8 @@ import Dato from "./dato/Dato";
 import AccountsListItem from "./accountsListItem/AccountsListItem";
 import Box from "./box/Box";
 import AccountsList from "./accountsList/AccountsList";
+import { getData } from "../../../api/fetchingFunctions";
+import { useQuery } from "react-query";
 
 const Resumen = () => {
   let cuentas = [
@@ -29,6 +31,13 @@ const Resumen = () => {
   const [stateValue, setStateValue] = React.useState(70);
   const [progressColor, setProgressColor] = React.useState("successColor");
   const [month, setMonth] = React.useState(0);
+  const [gastado,setGastado] = React.useState(0)
+
+  const dt = new Date();
+  const currentDay = dt.getDate();
+  const currentMonth = dt.getMonth();
+  const currentYear = dt.getFullYear();
+  const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
 
   React.useEffect(() => {
     if (stateValue >= 80) {
@@ -39,8 +48,21 @@ const Resumen = () => {
   }, [stateValue]);
 
   React.useEffect(() => {
-    setMonth(getMonth(0));
+    setMonth(getMonth(currentMonth));
   }, []);
+
+  // info sobre gastado
+  const { isLoading, isFetching, isError, isSuccess, data } = useQuery(
+    ["gastado"],
+    () => getData("/api/accounts/spent"),
+    {
+      onSuccess: (data) => {
+        if (data.status === 200) {
+          setGastado(data.data.spent);
+        } 
+      },
+    }
+  );
 
   return (
     <div className="listContainer--main">
@@ -56,11 +78,17 @@ const Resumen = () => {
         </Box>
         <Box top>
           <Dato title="Periodo Actual" data={month} />
-          <Dato title="Dias transcurridos" data="xx / xx" />
-          <Dato title="Dias restantes" data="xx" />
+          <Dato
+            title="Dias transcurridos"
+            data={`${currentDay - 1} / ${daysInMonth}`}
+          />
+          <Dato
+            title="Dias restantes"
+            data={`${daysInMonth - currentDay + 1}`}
+          />
         </Box>
         <Box top>
-          <Dato title="Gastado" data="$ xxxx" bold />
+          <Dato title="Gastado" data={`$ ${gastado}`} bold />
           <AccountsList accounts={cuentas} />
         </Box>
         <Box top>
