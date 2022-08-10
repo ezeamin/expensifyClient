@@ -11,7 +11,7 @@ import { Button } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import ItemList from "../expense/itemList/ItemList";
 import Swal from "sweetalert2";
-import SaveIcon from '@mui/icons-material/Save';
+import SaveIcon from "@mui/icons-material/Save";
 
 class TransferForm extends Component {
   constructor(props) {
@@ -177,13 +177,17 @@ class TransferForm extends Component {
               onBlur={(e) => this.handleBlur(e)}
               className={this.props.rounded.round}
             >
-              {this.props.accountsList.map((account, index) => {
-                return (
-                  <MenuItem key={index} value={account.id}>
-                    <ItemList {...account} type="account" />
-                  </MenuItem>
-                );
-              })}
+              {this.props.accountsList.length > 0 ? (
+                this.props.accountsList.map((account, index) => {
+                  return (
+                    <MenuItem key={index} value={account.id}>
+                      <ItemList {...account} type="account" />
+                    </MenuItem>
+                  );
+                })
+              ) : (
+                <p className="text-center mb-0 py-2">No hay cuentas</p>
+              )}
             </Select>
             {this.state.errores.originAccount ? (
               <FormHelperText>Seleccione una cuenta</FormHelperText>
@@ -206,13 +210,17 @@ class TransferForm extends Component {
               onBlur={(e) => this.handleBlur(e)}
               className={this.props.rounded.round}
             >
-              {this.props.accountsList.map((account, index) => {
-                return (
-                  <MenuItem key={index} value={account.id}>
-                    <ItemList {...account} type="account" />
-                  </MenuItem>
-                );
-              })}
+              {this.props.accountsList.length > 0 ? (
+                this.props.accountsList.map((account, index) => {
+                  return (
+                    <MenuItem key={index} value={account.id}>
+                      <ItemList {...account} type="account" />
+                    </MenuItem>
+                  );
+                })
+              ) : (
+                <p className="text-center mb-0 py-2">No hay cuentas</p>
+              )}
             </Select>
             {this.state.errores.destinationAccount ? (
               <FormHelperText>Seleccione una cuenta valida</FormHelperText>

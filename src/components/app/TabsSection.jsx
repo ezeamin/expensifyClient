@@ -86,7 +86,6 @@ const TabsSection = (props) => {
         <div className="container">
           <TabPanel index={0}>
             <Resumen />
-            {/* <EnConstruccion /> */}
           </TabPanel>
           <TabPanel index={1}>
             <Charts />

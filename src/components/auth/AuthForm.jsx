@@ -127,7 +127,8 @@ class AuthForm extends Component {
             showConfirmButton: false,
           }).then(() => {
             this.props.setInfo(res.data);
-            this.props.redirectSuccess();
+            // this.props.redirectSuccess();
+            window.location.reload();
           });
           return;
         }

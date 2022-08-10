@@ -193,13 +193,17 @@ class IncomeForm extends Component {
               onBlur={(e) => this.handleBlur(e)}
               className={this.props.rounded.round}
             >
-              {this.props.accountsList.map((account, index) => {
-                return (
-                  <MenuItem key={index} value={account.id}>
-                    <ItemList {...account} type="account" />
-                  </MenuItem>
-                );
-              })}
+              {this.props.accountsList.length > 0 ? (
+                this.props.accountsList.map((account, index) => {
+                  return (
+                    <MenuItem key={index} value={account.id}>
+                      <ItemList {...account} type="account" />
+                    </MenuItem>
+                  );
+                })
+              ) : (
+                <p className="text-center mb-0 py-2">No hay cuentas</p>
+              )}
             </Select>
             {this.state.errores.account ? (
               <FormHelperText>Seleccione una cuenta</FormHelperText>

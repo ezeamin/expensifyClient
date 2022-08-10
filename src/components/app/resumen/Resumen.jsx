@@ -2,36 +2,23 @@ import React from "react";
 import "./resumen.css";
 import LinearProgressWithLabel from "../../../helpers/LinearProgressWithLabel";
 import getMonth from "../../../helpers/getMonth";
+import Loading from "../../error and loading/Loading";
 import Dato from "./dato/Dato";
-import AccountsListItem from "./accountsListItem/AccountsListItem";
 import Box from "./box/Box";
 import AccountsList from "./accountsList/AccountsList";
-import { getData } from "../../../api/fetchingFunctions";
-import { useQuery } from "react-query";
+import { getData, putData } from "../../../api/fetchingFunctions";
+import { useMutation, useQuery } from "react-query";
+import Swal from "sweetalert2";
 
 const Resumen = () => {
-  let cuentas = [
-    {
-      name: "Mercado Pago",
-      spent: "xx",
-      mean: "xx",
-    },
-    {
-      name: "Cuenta 2",
-      spent: "xx",
-      mean: "xx",
-    },
-    {
-      name: "Cuenta 3",
-      spent: "xx",
-      mean: "xx",
-    },
-  ];
-
-  const [stateValue, setStateValue] = React.useState(70);
+  const [stateValue, setStateValue] = React.useState(0);
+  const [limit, setLimit] = React.useState(0);
   const [progressColor, setProgressColor] = React.useState("successColor");
   const [month, setMonth] = React.useState(0);
-  const [gastado,setGastado] = React.useState(0)
+  const [spent, setSpent] = React.useState(0);
+  const [accounts, setAccounts] = React.useState([]);
+  const [dayMeanSpent, setDayMeanSpent] = React.useState(0);
+  const [dayMeanAccounts, setDayMeanAccounts] = React.useState([]);
 
   const dt = new Date();
   const currentDay = dt.getDate();
@@ -51,25 +38,131 @@ const Resumen = () => {
     setMonth(getMonth(currentMonth));
   }, []);
 
-  // info sobre gastado
-  const { isLoading, isFetching, isError, isSuccess, data } = useQuery(
-    ["gastado"],
-    () => getData("/api/accounts/spent"),
+  //cambio de limite
+  const { mutate } = useMutation(
+    (info) => putData("/api/account/generalLimit", info),
     {
       onSuccess: (data) => {
-        if (data.status === 200) {
-          setGastado(data.data.spent);
-        } 
+        if (!data || data.status !== 200) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: data.data.message
+              ? data.data.message
+              : "Error al modificar limite",
+          });
+        } else {
+          Swal.fire({
+            title: "Exito",
+            text: "Limite mensual modificado",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 2000,
+          }).then(() => {
+            window.location.reload();
+          });
+        }
+      },
+      onError: (data) => {
+        let msg = data.text();
+        Swal.fire({
+          title: "Error",
+          text: msg,
+          icon: "error",
+        });
       },
     }
   );
 
+  // info sobre gastado
+  const { isLoading: isLoadingGastado, isError: isErrorGastado } = useQuery(
+    ["gastado"],
+    () => getData("/api/accounts/spentAndList"),
+    {
+      onSuccess: (data) => {
+        if (data.status === 200) {
+          setSpent(data.data.spent);
+          setAccounts(data.data.accountsList);
+
+          const days = currentDay - 1;
+
+          const means = data.data.accountsList.map((acc) => {
+            const spent = Math.round(acc.spent / days || acc.spent);
+            const mean = Math.round((acc.spent * 100) / data.data.spent);
+            return {
+              title: acc.title,
+              spent,
+              mean,
+            };
+          });
+
+          const dayMeanSpent = Math.round(
+            data.data.spent / days || data.data.spent
+          );
+          setDayMeanSpent(dayMeanSpent);
+          setDayMeanAccounts(means);
+        }
+      },
+    }
+  );
+
+  const { isLoading: isLoadingLimit, isError: isErrorLimit } = useQuery(
+    ["limit"],
+    () => getData("/api/accounts/limit"),
+    {
+      onSuccess: (data) => {
+        if (data.status === 200) {
+          setLimit(data.data.limit);
+        }
+      },
+    }
+  );
+
+  React.useEffect(() => {
+    if (limit && spent) {
+      const value = Math.round((spent * 100) / limit);
+      setStateValue(value);
+    }
+  }, [limit, spent]);
+
+  const handleChangeLimit = async () => {
+    const { value: newLimit } = await Swal.fire({
+      title: "Ingresá el nuevo limite",
+      input: "number",
+      inputLabel: "Nuevo limite",
+      showCancelButton: true,
+      inputValidator: (value) => {
+        if (!value) {
+          return "Debes ingresar un valor";
+        }
+      },
+    });
+
+    mutate({
+      limit: Number.parseInt(newLimit),
+    });
+  };
+
+  if (isLoadingGastado || isLoadingLimit) return <Loading little />;
+  if (isErrorGastado || isErrorLimit)
+    return (
+      <Box>
+        <h3 className="text-danger">Error en la solicitud</h3>
+        <p className="mb-0">Por favor, volvé a intentar</p>
+      </Box>
+    );
   return (
     <div className="listContainer--main">
       <div className="text-light paddingBottom">
         <Box>
-          <h2 className="mb-0">Estado</h2>
-          <Dato title="Limite mensual" data="$ xxxxx" className="mb-2" />
+          <div className="d-flex justify-content-between align-items-center">
+            <h2 className="mb-0">Estado</h2>
+            <i
+              className="fa-solid fa-pencil text-secondary"
+              onClick={handleChangeLimit}
+            ></i>
+          </div>
+          <Dato title="Limite mensual" data={`$ ${limit}`} className="mb-2" />
           <LinearProgressWithLabel
             variant="determinate"
             value={stateValue}
@@ -88,12 +181,12 @@ const Resumen = () => {
           />
         </Box>
         <Box top>
-          <Dato title="Gastado" data={`$ ${gastado}`} bold />
-          <AccountsList accounts={cuentas} />
+          <Dato title="Gastado" data={`$ ${spent}`} bold />
+          <AccountsList accounts={accounts} />
         </Box>
         <Box top>
-          <Dato title="Promedio diario" data="$ xxxx" bold />
-          <AccountsList accounts={cuentas} />
+          <Dato title="Promedio diario" data={`$ ${dayMeanSpent}`} bold />
+          <AccountsList accounts={dayMeanAccounts} />
         </Box>
       </div>
     </div>

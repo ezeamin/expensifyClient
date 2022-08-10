@@ -147,7 +147,7 @@ class ExpenseForm extends Component {
         categoryId: this.props.data.category,
         accountId: this.props.data.account,
         price: this.props.data.price,
-      }
+      },
     });
   };
 
@@ -198,13 +198,17 @@ class ExpenseForm extends Component {
               onBlur={(e) => this.handleBlur(e)}
               className={this.props.rounded.round}
             >
-              {this.props.categoriesList.map((category, index) => {
-                return (
-                  <MenuItem key={index} value={category.id}>
-                    <ItemList {...category} type="category" />
-                  </MenuItem>
-                );
-              })}
+              {this.props.categoriesList.length > 0 ? (
+                this.props.categoriesList.map((category, index) => {
+                  return (
+                    <MenuItem key={index} value={category.id}>
+                      <ItemList {...category} type="category" />
+                    </MenuItem>
+                  );
+                })
+              ) : (
+                <p className="text-center mb-0 py-2">No hay categorias</p>
+              )}
             </Select>
             {this.state.errores.category ? (
               <FormHelperText>Seleccione una categoria</FormHelperText>
@@ -225,13 +229,17 @@ class ExpenseForm extends Component {
               onBlur={(e) => this.handleBlur(e)}
               className={this.props.rounded.round}
             >
-              {this.props.accountsList.map((account, index) => {
-                return (
-                  <MenuItem key={index} value={account.id}>
-                    <ItemList {...account} type="account" />
-                  </MenuItem>
-                );
-              })}
+              {this.props.accountsList.length > 0 ? (
+                this.props.accountsList.map((account, index) => {
+                  return (
+                    <MenuItem key={index} value={account.id}>
+                      <ItemList {...account} type="account" />
+                    </MenuItem>
+                  );
+                })
+              ) : (
+                <p className="text-center mb-0 py-2">No hay cuentas</p>
+              )}
             </Select>
             {this.state.errores.account ? (
               <FormHelperText>Seleccione una cuenta</FormHelperText>

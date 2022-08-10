@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 
 const Loading = (props) => {
-  const className = props.little ? "loadingScreen loadingScreen--little" : "loadingScreen";
+  const className = props.little ? "loadingScreen loadingScreen--little" : props.xs ? "loadingScreen loadingScreen--xs" : "loadingScreen";
   return (
     <div className={className}>
       <div id="wifi-loader">

@@ -54,19 +54,21 @@ class CategoryForm extends Component {
       this.setState({ loading: this.props.loading });
     }
 
-    if (this.state.data !== this.props.data) {
-      const limit = this.props.data.limit // limit saves both limit and balance
-        ? this.props.data.limit
-        : this.props.data.balance;
+    if (window.location.href.split("/").at(-1) !== "new") {
+      if (this.state.data !== this.props.data) {
+        const limit = this.props.data.limit // limit saves both limit and balance
+          ? this.props.data.limit
+          : this.props.data.balance;
 
-      this.setState({
-        title: this.props.data.title,
-        icon: this.props.data.icon,
-        accountType: this.props.data?.accountType,
-        limit: limit + "",
-        description: this.props.data.description,
-        data: this.props.data,
-      });
+        this.setState({
+          title: this.props.data.title,
+          icon: this.props.data.icon,
+          accountType: this.props.data?.accountType,
+          limit: limit + "",
+          description: this.props.data.description,
+          data: this.props.data,
+        });
+      }
     }
   }
 
@@ -186,10 +188,10 @@ class CategoryForm extends Component {
   loadAccount = () => {
     this.props.newAccount({
       title: this.state.title,
-      icon: this.state.icon,
+      icon: this.state.icon || this.props.defaultIcon,
       accountType: this.state.accountType,
       balance: this.state.limit,
-      description: this.state.description,
+      description: this.state.description || "",
     });
   };
 
