@@ -161,12 +161,14 @@ const CategoriesChart = () => {
   if (isLoading)
     return (
       <Box className="mt-3">
+        <h2 className="mb-0">Gráfico por categoría</h2>
         <p className="mb-0 py-2 text-center">Cargando...</p>
       </Box>
     );
   if (isError)
     return (
       <Box className="mt-3">
+        <h2 className="mb-0">Gráfico por categoría</h2>
         <p className="mb-0 py-2 text-center text-danger">
           Error cargando gráfico
         </p>
