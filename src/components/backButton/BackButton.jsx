@@ -11,6 +11,14 @@ const BackButton = (props) => {
 
     const className = props.className ? props.className + ' backButton' : 'backButton';
     
+    if(props.rightSmall) {
+        return (
+            <div onClick={handleClick} className="dataList__historyButton">
+                <i className="fa-solid fa-arrow-left"></i>
+            </div>
+        );
+    }
+
     return (
         <button onClick={handleClick} className={className}>
             <i className="fa-solid fa-arrow-left"></i>

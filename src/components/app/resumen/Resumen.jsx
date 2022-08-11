@@ -128,8 +128,8 @@ const Resumen = () => {
     const { value: newLimit } = await Swal.fire({
       title: "Ingresá el nuevo limite",
       input: "number",
-      inputLabel: "Nuevo limite",
       showCancelButton: true,
+      cancelButtonText: "Cancelar",
       inputValidator: (value) => {
         if (!value) {
           return "Debes ingresar un valor";
@@ -137,9 +137,11 @@ const Resumen = () => {
       },
     });
 
-    mutate({
-      limit: Number.parseInt(newLimit),
-    });
+    if (newLimit) {
+      mutate({
+        limit: Number.parseInt(newLimit),
+      });
+    }
   };
 
   if (isLoadingGastado || isLoadingLimit) return <Loading little />;
