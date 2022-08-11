@@ -9,6 +9,7 @@ import { icons } from "../../../data/accountIcons";
 import { accountList } from "../../../data/accountList";
 import useRoundedBorder from "../../../hooks/useRoundedBorder";
 import Loading from "../../../components/error and loading/Loading";
+import BackButton from "../../../components/backButton/BackButton";
 
 const NewAccount = (props) => {
   const navigate = useNavigate();
@@ -120,8 +121,7 @@ const NewAccount = (props) => {
             new: info.new,
             old: info.old,
           });
-        }
-        else setLoadingPost(false);
+        } else setLoadingPost(false);
       });
     }
   };
@@ -139,7 +139,10 @@ const NewAccount = (props) => {
   );
 
   return (
-    <div>
+    <>
+      <div className="container">
+        <BackButton />
+      </div>
       <Navegation />
       <div className="panel">
         <div className="expense__title mb-4">
@@ -163,7 +166,7 @@ const NewAccount = (props) => {
           />
         )}
       </div>
-    </div>
+    </>
   );
 };
 

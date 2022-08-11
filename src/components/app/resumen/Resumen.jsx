@@ -164,7 +164,7 @@ const Resumen = () => {
           <Dato title="Limite mensual" data={`$ ${limit}`} className="mb-2" />
           <LinearProgressWithLabel
             variant="determinate"
-            value={stateValue}
+            value={stateValue > 100 ? 100 : stateValue}
             color={progressColor}
           />
         </Box>

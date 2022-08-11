@@ -236,7 +236,7 @@ const DayChart = () => {
           <p className="text-center mb-0 py-2">Sin datos</p>
         )}
       </Box>
-      <Box>
+      <Box className="mb-3">
         <h2 className="mb-0">Gráfico por día - Ingresos</h2>
         <p className="mb-1">{month}</p>
         {data && data.length > 0 ? (

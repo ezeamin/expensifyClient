@@ -3,6 +3,7 @@ import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { deleteDirectLogout, getData, putData } from "../../../api/fetchingFunctions";
+import BackButton from "../../../components/backButton/BackButton";
 import Loading from "../../../components/error and loading/Loading";
 import Navegation from "../../../components/navegation/Navegation";
 import TransferForm from "../../../components/transfer/TransferForm";
@@ -74,7 +75,10 @@ const Transfer = () => {
       </div>
     );
   return (
-    <div>
+    <>
+      <div className="container">
+        <BackButton />
+      </div>
       <Navegation />
       <div className="panel">
         <div className="expense__title">
@@ -88,7 +92,7 @@ const Transfer = () => {
           rounded={rounded}
         />
       </div>
-    </div>
+    </>
   );
 };
 

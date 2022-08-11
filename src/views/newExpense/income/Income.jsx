@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import Loading from "../../../components/error and loading/Loading";
 import useRoundedBorder from "../../../hooks/useRoundedBorder";
 import useAuth from "../../../hooks/useAuth";
+import BackButton from "../../../components/backButton/BackButton";
 
 const Income = (props) => {
   const [accountsList, setAccountsList] = React.useState([]);
@@ -133,7 +134,10 @@ const Income = (props) => {
       </div>
     );
   return (
-    <div>
+    <>
+      <div className="container">
+        <BackButton />
+      </div>
       <Navegation />
       <div className="panel">
         <div className="expense__title">
@@ -150,7 +154,7 @@ const Income = (props) => {
           editIncome={editIncome}
         />
       </div>
-    </div>
+    </>
   );
 };
 

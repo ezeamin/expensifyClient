@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import useRoundedBorder from "../../../hooks/useRoundedBorder";
 import { icons } from "../../../data/categoryIcons";
 import Loading from "../../../components/error and loading/Loading";
+import BackButton from "../../../components/backButton/BackButton";
 
 const NewCategory = (props) => {
   const navigate = useNavigate();
@@ -120,8 +121,11 @@ const NewCategory = (props) => {
   );
 
   return (
-    <div>
+    <>
       <Navegation />
+      <div className="container">
+        <BackButton />
+      </div>
       <div className="panel">
         <div className="expense__title mb-4">
           <h1>{props.edit ? "Editar categoria" : "Nueva categoria"}</h1>
@@ -143,7 +147,7 @@ const NewCategory = (props) => {
           />
         )}
       </div>
-    </div>
+    </>
   );
 };
 

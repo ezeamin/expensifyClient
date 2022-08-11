@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../../../components/error and loading/Loading";
 import useRoundedBorder from "../../../hooks/useRoundedBorder";
 import useAuth from "../../../hooks/useAuth";
+import BackButton from "../../../components/backButton/BackButton";
 
 const Expense = (props) => {
   const [categoriesList, setCategoriesList] = React.useState([]);
@@ -142,16 +143,28 @@ const Expense = (props) => {
     mutateEdit(info);
   };
 
+  
+  // This useEffect allows to avoid center content in this page
+  React.useLayoutEffect(() => {
+    document.getElementsByClassName("panel")[0].style = "display: block; height: 100%";
+
+    return () => {
+      document.getElementsByClassName("panel")[0].style = "";
+    };
+  }, []);
+
   if (isLoadingCat || isLoadingAcc || isLoadingData || isFetchingData)
     return (
       <div>
         <Navegation />
+        <div className="panel"></div>
         <Loading />
       </div>
     );
   if (categoriesList.length === 0 || accountsList.length === 0) {
     <div>
       <Navegation />
+      <div className="panel"></div>
       <div className="container w-100 d-flex justify-content-center">
         <h3 className="fw-bold">
           Carga tu primera categoria y/o cuenta antes de cargar un gasto!
@@ -160,10 +173,13 @@ const Expense = (props) => {
     </div>;
   }
   return (
-    <div>
+    <>
+      <div className="container">
+        <BackButton />
+      </div>
       <Navegation disabled={false} />
       <div className="panel">
-        <div className="expense__title">
+        <div className="expense__title" style={{marginTop: "5rem"}}>
           <h1>{props.edit ? "Editar gasto" : "Nuevo gasto"}</h1>
         </div>
         <ExpenseForm
@@ -178,7 +194,7 @@ const Expense = (props) => {
           editExpense={editExpense}
         />
       </div>
-    </div>
+    </>
   );
 };
 

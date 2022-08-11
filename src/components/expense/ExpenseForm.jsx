@@ -160,7 +160,7 @@ class ExpenseForm extends Component {
 
   render() {
     return (
-      <form className="container px-4" onSubmit={(e) => this.handleSubmit(e)}>
+      <form style={{marginBottom: "6rem"}} className="container px-4" onSubmit={(e) => this.handleSubmit(e)}>
         <div className="expense__priceBox dangerBox">
           <p className="expense__priceBox__dollarSign">$</p>
           <input
