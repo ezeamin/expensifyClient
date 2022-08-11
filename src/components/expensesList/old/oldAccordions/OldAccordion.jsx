@@ -19,12 +19,12 @@ const OldAccordion = ({ item, index }) => {
     });
   };
 
-  const perc = Math.round((item.spent / item.generalLimit) * 100 || 0);
+  const perc = Math.round((item.spent / item.limit) * 100 || 0);
   const promDiario = Math.round(item.spent / item.days);
 
   const dt = new Date(item.start);
   const currentMonth = dt.getMonth();
-  const month = getMonth(currentMonth);
+  const month = getMonth(false,currentMonth);
 
   return (
     <Accordion>
@@ -47,7 +47,7 @@ const OldAccordion = ({ item, index }) => {
           <br />
           Saldo restante: $ {item.balance}
           <br />
-          Limite mensual: $ {item.generalLimit} ({perc}%)
+          Limite mensual: $ {item.limit} ({perc}%)
           <hr />
           Promedio diario: $ {promDiario}
           <hr />
