@@ -2,7 +2,11 @@ import React from "react";
 import Navegation from "../../../components/navegation/Navegation";
 import ExpenseForm from "../../../components/expense/ExpenseForm";
 import { useMutation, useQuery } from "react-query";
-import { deleteDirectLogout, getData, putData } from "../../../api/fetchingFunctions";
+import {
+  deleteDirectLogout,
+  getData,
+  putData,
+} from "../../../api/fetchingFunctions";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../../components/error and loading/Loading";
@@ -101,39 +105,42 @@ const Expense = (props) => {
     },
   });
 
-  const { mutate: mutateEdit } = useMutation((info) => putData(`/api/expense/${id}`, info), {
-    onSuccess: (data) => {
-      setLoadingPost(false);
-      if (!data || data.status !== 200) {
+  const { mutate: mutateEdit } = useMutation(
+    (info) => putData(`/api/expense/${id}`, info),
+    {
+      onSuccess: (data) => {
+        setLoadingPost(false);
+        if (!data || data.status !== 200) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: data.data.message
+              ? data.data.message
+              : "Error al editar el gasto",
+          });
+        } else {
+          Swal.fire({
+            title: "Exito",
+            text: "Gasto editado",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 2000,
+          }).then(() => {
+            navigate("/expenses");
+          });
+        }
+      },
+      onError: (data) => {
+        setLoadingPost(false);
+        let msg = data.text();
         Swal.fire({
-          icon: "error",
           title: "Error",
-          text: data.data.message
-            ? data.data.message
-            : "Error al editar el gasto",
+          text: msg,
+          icon: "error",
         });
-      } else {
-        Swal.fire({
-          title: "Exito",
-          text: "Gasto editado",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 2000,
-        }).then(() => {
-          navigate("/expenses");
-        });
-      }
-    },
-    onError: (data) => {
-      setLoadingPost(false);
-      let msg = data.text();
-      Swal.fire({
-        title: "Error",
-        text: msg,
-        icon: "error",
-      });
-    },
-  });
+      },
+    }
+  );
 
   const newExpense = async (info) => {
     mutate(info);
@@ -143,15 +150,16 @@ const Expense = (props) => {
     mutateEdit(info);
   };
 
-  
   // This useEffect allows to avoid center content in this page
   React.useLayoutEffect(() => {
-    document.getElementsByClassName("panel")[0].style = "display: block; height: 100%";
+    if (isLoadingCat || isLoadingAcc || isLoadingData || isFetchingData) return;
+    document.getElementsByClassName("panel")[0].style =
+      "display: block; height: 100%";
 
     return () => {
       document.getElementsByClassName("panel")[0].style = "";
     };
-  }, []);
+  }, [isLoadingCat, isLoadingAcc, isLoadingData, isFetchingData]);
 
   if (isLoadingCat || isLoadingAcc || isLoadingData || isFetchingData)
     return (
@@ -179,7 +187,7 @@ const Expense = (props) => {
       </div>
       <Navegation disabled={false} />
       <div className="panel">
-        <div className="expense__title" style={{marginTop: "5rem"}}>
+        <div className="expense__title" style={{ marginTop: "5rem" }}>
           <h1>{props.edit ? "Editar gasto" : "Nuevo gasto"}</h1>
         </div>
         <ExpenseForm

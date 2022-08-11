@@ -10,7 +10,7 @@ const Error404 = () => {
     <div className="container error404">
       <Box className="w-100">
         <h1 className="text-center fw-bold">404</h1>
-        <p className="text-center">Pagina no encontrada</p>
+        <p className="text-center">Página no encontrada</p>
         <div onClick={()=>navigate(-1)} className="btn btn-secondary">
           Volver
         </div>

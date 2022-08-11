@@ -9,7 +9,17 @@ import Swal from "sweetalert2";
 import getMonth from "../../../../helpers/getMonth";
 
 const OldAccordion = ({ item, index }) => {
-  const handleClick = () => {
+  const handleClickDetalle = () => {
+    Swal.fire({
+      title: "Proximamente",
+      text: "Esta funcionalidad estará disponible próximamente",
+      icon: "info",
+      timer: 2000,
+      showConfirmButton: false,
+    });
+  };
+
+  const handleClickGraficos = () => {
     Swal.fire({
       title: "Proximamente",
       text: "Esta funcionalidad estará disponible próximamente",
@@ -140,14 +150,23 @@ const OldAccordion = ({ item, index }) => {
             Sin datos
           </Typography>
         )}
+        <hr />
         <Button
-          onClick={handleClick}
+          onClick={handleClickDetalle}
           fullWidth
-          sx={{ marginTop: "1rem" }}
           variant="contained"
           color="primary"
         >
           Ver detalle
+        </Button>
+        <Button
+          onClick={handleClickGraficos}
+          fullWidth
+          sx={{ marginTop: "0.5rem" }}
+          variant="contained"
+          color="error"
+        >
+          Ver gráficos
         </Button>
       </AccordionDetails>
     </Accordion>
