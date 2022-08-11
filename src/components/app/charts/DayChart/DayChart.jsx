@@ -34,6 +34,14 @@ const DayChart = () => {
       // https://www.amcharts.com/docs/v5/concepts/themes/
       root1.setThemes([am5themes_Animated.new(root1)]);
 
+      let yRenderer1 = am5xy.AxisRendererY.new(root1, {
+        minGridDistance: 1,
+      });
+
+      let yRenderer2 = am5xy.AxisRendererY.new(root2, {
+        minGridDistance: 1,
+      });
+
       // Create chart
       // https://www.amcharts.com/docs/v5/charts/xy-chart/
       var chart1 = root1.container.children.push(
@@ -61,10 +69,7 @@ const DayChart = () => {
       var yAxis1 = chart1.yAxes.push(
         am5xy.CategoryAxis.new(root1, {
           categoryField: "day",
-          renderer: am5xy.AxisRendererY.new(root1, {
-            cellStartLocation: 0.1,
-            cellEndLocation: 0.9,
-          }),
+          renderer: yRenderer1,
           tooltip: am5.Tooltip.new(root1, {}),
         })
       );
@@ -74,10 +79,7 @@ const DayChart = () => {
       var yAxis2 = chart2.yAxes.push(
         am5xy.CategoryAxis.new(root2, {
           categoryField: "day",
-          renderer: am5xy.AxisRendererY.new(root2, {
-            cellStartLocation: 0.1,
-            cellEndLocation: 0.9,
-          }),
+          renderer: yRenderer2,
           tooltip: am5.Tooltip.new(root2, {}),
         })
       );
@@ -118,9 +120,17 @@ const DayChart = () => {
       series1.columns.template.setAll({
         height: am5.percent(70),
       });
+      series1.set("fill", am5.color("#e74f4f"));
+      series1.set("stroke", am5.color("#e74f4f"));
+
+      // Rounded corners for columns
+      series1.columns.template.setAll({
+        cornerRadiusTR: 5,
+        cornerRadiusBR: 5,
+      });
 
       var series2 = chart2.series.push(
-        am5xy.LineSeries.new(root2, {
+        am5xy.ColumnSeries.new(root2, {
           name: "Ingresos",
           xAxis: xAxis2,
           yAxis: yAxis2,
@@ -134,20 +144,17 @@ const DayChart = () => {
         })
       );
 
-      series2.strokes.template.setAll({
-        strokeWidth: 2,
+      series2.columns.template.setAll({
+        height: am5.percent(70),
       });
 
-      series2.bullets.push(function () {
-        return am5.Bullet.new(root2, {
-          locationY: 0.5,
-          sprite: am5.Circle.new(root2, {
-            radius: 5,
-            stroke: series2.get("stroke"),
-            strokeWidth: 2,
-            fill: root2.interfaceColors.get("background"),
-          }),
-        });
+      series2.set("fill", am5.color("#69bb70"));
+      series2.set("stroke", am5.color("#69bb70"));
+
+      // Rounded corners for columns
+      series2.columns.template.setAll({
+        cornerRadiusTR: 5,
+        cornerRadiusBR: 5,
       });
 
       // Add cursor
@@ -219,7 +226,7 @@ const DayChart = () => {
     <>
       <Box className="mb-3">
         <h2 className="mb-0">Gráfico por día - Gastos</h2>
-        <p>{month}</p>
+        <p className="mb-1">{month}</p>
         {data && data.length > 0 ? (
           <div
             id={chartID1}
@@ -231,7 +238,7 @@ const DayChart = () => {
       </Box>
       <Box>
         <h2 className="mb-0">Gráfico por día - Ingresos</h2>
-        <p>{month}</p>
+        <p className="mb-1">{month}</p>
         {data && data.length > 0 ? (
           <div
             id={chartID2}

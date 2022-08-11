@@ -5,10 +5,12 @@ import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import { useQuery } from "react-query";
 import { getData } from "../../../../api/fetchingFunctions";
+import getMonth from "../../../../helpers/getMonth";
 
 const CategoriesChart = () => {
   const chartID = "categoriesdiv";
   const [data, setData] = React.useState([]);
+  const month = getMonth(new Date().getMonth());
 
   const { isLoading, isError } = useQuery(
     ["categoriesChart"],
@@ -176,7 +178,8 @@ const CategoriesChart = () => {
     );
   return (
     <Box className="mb-3">
-      <h2>Gráfico por categoría</h2>
+      <h2 className="mb-0">Gráfico por categoría</h2>
+      <p className="mb-1">{month}</p>
       {data && data.length > 0 ? (
         <div
           id={chartID}

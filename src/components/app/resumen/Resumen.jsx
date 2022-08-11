@@ -88,11 +88,10 @@ const Resumen = () => {
 
           const means = data.data.accountsList.map((acc) => {
             const spent = Math.round(acc.spent / days || acc.spent);
-            const mean = Math.round(((acc.spent * 100) / data.data.spent) || 0);
             return {
               title: acc.title,
               spent,
-              mean,
+              mean: acc.mean,
             };
           });
 

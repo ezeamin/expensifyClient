@@ -32,7 +32,7 @@ const CategoryItem = (props) => {
           <i className={props.icon}></i>
         </div>
         <div>
-          <p className="mb-0 fw-bold">{props.title}</p>
+          <p className="mb-0 fw-bold text-start">{props.title}</p>
           {props.accountType &&
           props.accountType !== "Efectivo" &&
           props.accountType !== "Otro" ? (
