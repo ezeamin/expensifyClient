@@ -24,7 +24,10 @@ const OldAccordion = ({ item, index }) => {
 
   const dt = new Date(item.start);
   const currentMonth = dt.getMonth();
-  const month = getMonth(false,currentMonth);
+  const month = getMonth(false, currentMonth+1);
+
+  item.accounts.sort((a, b) => b.spent - a.spent);
+  item.categories.sort((a, b) => b.spent - a.spent);
 
   return (
     <Accordion>
