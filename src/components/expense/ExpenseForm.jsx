@@ -12,6 +12,7 @@ import "./expenseForm.css";
 import ItemList from "./itemList/ItemList";
 import { LoadingButton } from "@mui/lab";
 import SaveIcon from "@mui/icons-material/Save";
+import DatePickerExpense from "./DatePicker/DatePickerExpense"
 
 class ExpenseForm extends Component {
   constructor(props) {
@@ -245,6 +246,7 @@ class ExpenseForm extends Component {
               <FormHelperText>Seleccione una cuenta</FormHelperText>
             ) : null}
           </FormControl>
+          <DatePickerExpense />
           <TextField
             error={this.state.errores.description}
             multiline
