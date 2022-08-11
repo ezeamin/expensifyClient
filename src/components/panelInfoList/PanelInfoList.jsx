@@ -111,7 +111,7 @@ const PanelInfoList = (props) => {
           </div>
           <LinearProgressWithLabel
             variant="determinate"
-            value={stateValue}
+            value={stateValue > 100 ? 100 : stateValue}
             color={progressColor}
           />
         </div>

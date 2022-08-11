@@ -24,7 +24,7 @@ const CategoryItem = (props) => {
             <CircularProgress
               variant="determinate"
               color={props.progress <= 80 ? "mainColor" : "dangerColor"}
-              value={props.progress}
+              value={props.progress > 100 ? 100 : props.progress}
               size={50}
               className="categorias__box__leftGroup__icon__progress"
             />

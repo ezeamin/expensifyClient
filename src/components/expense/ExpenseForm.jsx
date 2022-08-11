@@ -6,6 +6,7 @@ import {
   InputLabel,
   FormHelperText,
   MenuItem,
+  Box,
 } from "@mui/material";
 import { Button } from "@mui/material";
 import "./expenseForm.css";
@@ -23,6 +24,7 @@ class ExpenseForm extends Component {
       description: "",
       title: "",
       account: "",
+      date: new Date(),
       errores: {
         price: false,
         category: false,
@@ -48,6 +50,7 @@ class ExpenseForm extends Component {
         description: data.description,
         title: data.title,
         account: data.account,
+        date: data.date
       });
     }
   }
@@ -130,6 +133,7 @@ class ExpenseForm extends Component {
       categoryId: this.state.category,
       accountId: this.state.account,
       price: this.state.price,
+      date: this.state.date,
     });
   };
 
@@ -141,6 +145,7 @@ class ExpenseForm extends Component {
         categoryId: this.state.category,
         accountId: this.state.account,
         price: this.state.price,
+        date: this.state.date,
       },
       old: {
         title: this.props.data.title,
@@ -148,6 +153,7 @@ class ExpenseForm extends Component {
         categoryId: this.props.data.category,
         accountId: this.props.data.account,
         price: this.props.data.price,
+        date: this.props.data.date,
       },
     });
   };
@@ -246,7 +252,9 @@ class ExpenseForm extends Component {
               <FormHelperText>Seleccione una cuenta</FormHelperText>
             ) : null}
           </FormControl>
-          <DatePickerExpense />
+          <Box marginBottom={1} sx={{width: "100%"}}>
+            <DatePickerExpense value={this.state.date} onChange={this.handleChange} className={this.props.rounded.round}/>
+          </Box>
           <TextField
             error={this.state.errores.description}
             multiline

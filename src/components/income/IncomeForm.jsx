@@ -6,12 +6,14 @@ import {
   InputLabel,
   FormHelperText,
   MenuItem,
+  Box,
 } from "@mui/material";
 import { Button } from "@mui/material";
 import "./incomeForm.css";
 import ItemList from "../expense/itemList/ItemList";
 import { LoadingButton } from "@mui/lab";
 import SaveIcon from "@mui/icons-material/Save";
+import DatePickerExpense from "../expense/DatePicker/DatePickerExpense"
 
 class IncomeForm extends Component {
   constructor(props) {
@@ -21,6 +23,7 @@ class IncomeForm extends Component {
       description: "",
       title: "",
       account: "",
+      date: new Date(),
       errores: {
         price: false,
         title: false,
@@ -44,6 +47,7 @@ class IncomeForm extends Component {
         description: data.description,
         title: data.title,
         account: data.accountId,
+        date: data.date,
       });
     }
   }
@@ -124,6 +128,7 @@ class IncomeForm extends Component {
       description: this.state.description,
       title: this.state.title,
       accountId: this.state.account,
+      date: this.state.date,
     });
   };
 
@@ -135,6 +140,7 @@ class IncomeForm extends Component {
         description: this.state.description,
         title: this.state.title,
         accountId: this.state.account,
+        date: this.state.date,
       },
       old: {
         id: this.props.data.id,
@@ -142,6 +148,7 @@ class IncomeForm extends Component {
         description: this.props.data.description,
         title: this.props.data.title,
         accountId: this.props.data.accountId,
+        date: this.props.data.date,
       },
     });
   };
@@ -209,6 +216,9 @@ class IncomeForm extends Component {
               <FormHelperText>Seleccione una cuenta</FormHelperText>
             ) : null}
           </FormControl>
+          <Box marginBottom={1} sx={{width: "100%"}}>
+            <DatePickerExpense value={this.state.date} onChange={this.handleChange} className={this.props.rounded.round}/>
+          </Box>
           <TextField
             error={this.state.errores.description}
             multiline
