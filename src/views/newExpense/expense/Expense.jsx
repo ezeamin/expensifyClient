@@ -152,13 +152,14 @@ const Expense = (props) => {
 
   // This useEffect allows to avoid center content in this page
   React.useLayoutEffect(() => {
+    if (isLoadingCat || isLoadingAcc || isLoadingData || isFetchingData) return;
     document.getElementsByClassName("panel")[0].style =
       "display: block; height: 100%";
 
     return () => {
       document.getElementsByClassName("panel")[0].style = "";
     };
-  }, [isLoadingCat,isLoadingAcc]);
+  }, [isLoadingCat, isLoadingAcc, isLoadingData, isFetchingData]);
 
   if (isLoadingCat || isLoadingAcc || isLoadingData || isFetchingData)
     return (

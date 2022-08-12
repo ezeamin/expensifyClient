@@ -44,6 +44,11 @@
     border-radius: 10px;
 }
 
+.listContainer--long{
+    max-height: calc(100vh - 220px);
+    overflow-y: scroll;
+}
+
 .listContainer--main{
     max-height: calc(100vh - 385px);
     overflow-y: scroll;
