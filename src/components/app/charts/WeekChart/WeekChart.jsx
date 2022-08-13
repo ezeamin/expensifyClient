@@ -197,6 +197,7 @@ const WeekChart = () => {
       ) : (
         <p className="text-center mb-0 py-2">Sin datos</p>
       )}
+      <p className="mb-0">*corresponde al gasto promedio</p>
     </Box>
   );
 };

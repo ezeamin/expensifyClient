@@ -1,6 +1,6 @@
 export const categorias = [
     {
-      title: "Alimentos",
+      title: "Comidas",
       icon: "fa-solid fa-utensils",
       limit: 0,
       description: "",
