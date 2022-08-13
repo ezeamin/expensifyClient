@@ -20,12 +20,36 @@ import RequireAuth from "./views/routing/RequireAuth";
 import useTheme from "./hooks/useTheme";
 import Error404 from "./views/routing/error404/Error404";
 import Old from "./components/expensesList/old/Old";
-import { pingServer } from "./api/fetchingFunctions";
+import { getData } from "./api/fetchingFunctions";
+import { useQuery } from "react-query";
+import Swal from "sweetalert2";
 
 const App = () => {
+  // no longer needed, but kept for reference
+  // React.useEffect(() => {
+  //   pingServer();
+  // }, []);
+
+  // Detect new period, and ping server if necessary
+  const { data: newMonthInfo } = useQuery(["getNewMonth"], () =>
+    getData("/api/isNewMonth")
+  );
+
   React.useEffect(() => {
-    pingServer();
-  }, []);
+    if (newMonthInfo && newMonthInfo.status === 200) {
+      if (newMonthInfo.data.isNewMonth) {
+        Swal.fire({
+          title: "Felicidades",
+          html: "Sobreviviste a un nuevo mes<br><br>Tus datos están siendo guardados y movidos a archivo",
+          timer: 3500,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        }).then(() => {
+          window.location.reload();
+        });
+      }
+    }
+  }, [newMonthInfo]);
 
   return (
     <ThemeProvider theme={useTheme()}>
