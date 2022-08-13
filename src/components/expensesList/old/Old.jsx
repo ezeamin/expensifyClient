@@ -27,7 +27,7 @@ const Old = () => {
 
   return (
     <>
-      <div className="container position-relative">
+      <div className="container position-relative h-100">
         <Navegation />
         <BackButton rightSmall />
         <Title text="Periodos" />

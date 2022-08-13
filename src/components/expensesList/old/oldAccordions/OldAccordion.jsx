@@ -34,7 +34,7 @@ const OldAccordion = ({ item, index }) => {
 
   const dt = new Date(item.start);
   const currentMonth = dt.getMonth();
-  const month = getMonth(false, currentMonth+1);
+  const monthName = getMonth(false, currentMonth);
 
   item.accounts.sort((a, b) => b.spent - a.spent);
   item.categories.sort((a, b) => b.spent - a.spent);
@@ -47,7 +47,7 @@ const OldAccordion = ({ item, index }) => {
         id={`panel-${index}-header`}
       >
         <Typography variant="h6">
-          Periodo <span className="fw-bold">{month}</span>
+          Periodo <span className="fw-bold">{monthName}</span>
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
