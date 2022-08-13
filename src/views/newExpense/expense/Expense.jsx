@@ -165,8 +165,9 @@ const Expense = (props) => {
     return (
       <div>
         <Navegation />
-        <div className="panel"></div>
-        <Loading />
+        <div className="panel">
+          <Loading />
+        </div>
       </div>
     );
   if (categoriesList.length === 0 || accountsList.length === 0) {
