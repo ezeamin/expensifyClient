@@ -12,7 +12,6 @@ import CategoryAndAccountList from "../categories/categoryTabs/CategoryAndAccoun
 import OtherDebtsList from "../accounts/accountTabs/OtherDebtsList";
 import PagosList from "../categories/categoryTabs/PagosList";
 import Charts from "./charts/Charts";
-import EnConstruccion from "../temp/EnConstruccion";
 
 let estilo = window.getComputedStyle(document.body);
 let primaryColor = estilo.getPropertyValue("--color-primary");

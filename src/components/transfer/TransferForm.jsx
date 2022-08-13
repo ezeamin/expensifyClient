@@ -123,7 +123,7 @@ class TransferForm extends Component {
 
       Swal.fire({
         title: "¿Estás seguro?",
-        html: `Estas transfiriendo <b>$${this.state.price}</b> de <b>${cuentaOrigen}</b> a <b>${cuentaDestino}</b>.<br/><br/> Esta acción no se puede deshacer.`,
+        html: `Estas transfiriendo <b>$${this.state.price}</b> de <br/><b>${cuentaOrigen}</b><br/> a <br/><b>${cuentaDestino}</b>.<br/><br/> Esta acción no se puede deshacer.`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
