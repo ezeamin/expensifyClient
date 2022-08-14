@@ -2,7 +2,11 @@ import React from "react";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { deleteDirectLogout, getData, putData } from "../../../api/fetchingFunctions";
+import {
+  deleteDirectLogout,
+  getData,
+  putData,
+} from "../../../api/fetchingFunctions";
 import BackButton from "../../../components/backButton/BackButton";
 import Loading from "../../../components/error and loading/Loading";
 import Navegation from "../../../components/navegation/Navegation";
@@ -16,7 +20,7 @@ const Transfer = () => {
 
   const navigate = useNavigate();
   const auth = useAuth();
-  
+
   const rounded = useRoundedBorder(); //for style
 
   const { isLoading } = useQuery(["accounts"], () => getData("/api/accounts"), {

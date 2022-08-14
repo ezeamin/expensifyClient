@@ -48,7 +48,7 @@ const CategoryAndAccountList = (props) => {
         {props.type === "categories" ? "Nueva categoría" : "Nueva cuenta"}
       </Button>
       <div className="listContainer">
-        {props.data.list.length !== 0 ? (
+        {props.data?.list?.length !== 0 ? (
           props.data.list.map((item, index) => {
             return (
               <CategoryItem
@@ -60,6 +60,8 @@ const CategoryAndAccountList = (props) => {
                 type={props.type}
                 id={item.id}
                 limit={item.limit}
+                balance={item?.balance}
+                noBalance={item?.noBalance}
                 progress={
                   item.spent && Math.round((item.spent * 100) / item.limit)
                 }

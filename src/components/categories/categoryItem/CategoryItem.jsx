@@ -12,7 +12,7 @@ const CategoryItem = (props) => {
 
   return (
     <button
-      onClick={()=>navigate(`/info/${id}`)}
+      onClick={() => navigate(`/info/${id}`)}
       className="categorias__box profile__resumen__box mb-2"
     >
       <div className="categorias__box__leftGroup">
@@ -20,7 +20,7 @@ const CategoryItem = (props) => {
           className="categorias__box__leftGroup__icon"
           style={{ backgroundColor: props.color }}
         >
-          {(props.type === "categories" && props.limit !== 0) ? (
+          {props.type === "categories" && props.limit !== 0 ? (
             <CircularProgress
               variant="determinate"
               color={props.progress <= 80 ? "mainColor" : "dangerColor"}
@@ -40,7 +40,12 @@ const CategoryItem = (props) => {
           ) : null}
         </div>
       </div>
-      <i className="fa-solid fa-angle-right"></i>
+      <div className="d-flex align-items-center">
+        {props.type === "accounts" && props.balance !== undefined && !props.noBalance && (
+          <p className="mb-0 text-start me-3">$ {props.balance}</p>
+        )}
+        <i className="fa-solid fa-angle-right"></i>
+      </div>
     </button>
   );
 };

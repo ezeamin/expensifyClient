@@ -36,7 +36,7 @@ const TransfersTable = () => {
     return <ErrorMsg errorMsg={errorMsg} />;
   }
   if (rows.length === 0 && !(isLoading || isFetching)) {
-    return <EmptyMsg type="income" />;
+    return <EmptyMsg type="transfer" />;
   }
   return (
     <div className="table-responsive list__table__container mt-3">

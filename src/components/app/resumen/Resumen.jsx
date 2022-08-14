@@ -10,7 +10,7 @@ import { getData, putData } from "../../../api/fetchingFunctions";
 import { useMutation, useQuery } from "react-query";
 import Swal from "sweetalert2";
 
-const Resumen = () => {
+const Resumen = ({ balance }) => {
   const [stateValue, setStateValue] = React.useState(0);
   const [limit, setLimit] = React.useState(0);
   const [progressColor, setProgressColor] = React.useState("successColor");
@@ -19,6 +19,8 @@ const Resumen = () => {
   const [accounts, setAccounts] = React.useState([]);
   const [dayMeanSpent, setDayMeanSpent] = React.useState(0);
   const [dayMeanAccounts, setDayMeanAccounts] = React.useState([]);
+  const [left, setLeft] = React.useState(0);
+  const [negativeBalance, setNegativeBalance] = React.useState(false);
 
   const dt = new Date();
   const currentDay = dt.getDate();
@@ -121,6 +123,13 @@ const Resumen = () => {
     if (limit && spent) {
       const value = Math.round((spent * 100) / limit);
       setStateValue(value);
+
+      const remainingDays = daysInMonth - currentDay + 1;
+      const remaining = Math.round(balance - remainingDays * dayMeanSpent);
+      setLeft(remaining);
+      if (remaining < 0) {
+        setNegativeBalance(true);
+      }
     }
   }, [limit, spent]);
 
@@ -188,6 +197,14 @@ const Resumen = () => {
         <Box top>
           <Dato title="Promedio diario" data={`$ ${dayMeanSpent}`} bold />
           <AccountsList accounts={dayMeanAccounts} />
+        </Box>
+        <Box top>
+          <p className="mb-0 text-center">
+            De continuar así, llegarás a fin de mes con{" "}
+            <span className={`fw-bold ${negativeBalance && "text-danger"}`}>
+              ${left}
+            </span>
+          </p>
         </Box>
       </div>
     </div>
