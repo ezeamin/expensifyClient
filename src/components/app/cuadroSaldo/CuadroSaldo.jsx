@@ -38,7 +38,7 @@ const CuadroSaldo = ({ isSuccess, data }) => {
         const remaining = Math.round(user.saldo - left);
         const remainingPerc = Math.round((remaining / user.saldo) * 100);
 
-        if (remainingPerc <= 50) {
+        if (remainingPerc <= 20) {
           status = "warning";
         } else {
           status = "ok";
