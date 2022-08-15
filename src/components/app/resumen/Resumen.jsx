@@ -98,7 +98,7 @@ const Resumen = ({ balance }) => {
           });
 
           const dayMeanSpent = Math.round(
-            data.data.spent / days || data.data.spent
+            data.data.spent / daysInMonth || data.data.spent
           );
           setDayMeanSpent(dayMeanSpent);
           setDayMeanAccounts(means);
