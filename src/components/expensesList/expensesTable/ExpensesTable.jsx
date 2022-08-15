@@ -22,7 +22,14 @@ const ExpensesTable = () => {
     {
       onSuccess: (data) => {
         if (data.status === 200) {
-          setRows(data.data);
+          const formattedData = data.data.map((row) => {
+            const date = new Date(row.fullDate);
+            date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+            row.fullDate = date;
+
+            return row;
+          });
+          setRows(formattedData);
         } else if (data.status === 403) {
           deleteDirectLogout(auth.setAuth, navigate);
         } else {

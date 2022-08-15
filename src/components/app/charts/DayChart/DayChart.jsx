@@ -190,7 +190,7 @@ const DayChart = () => {
         root2.dispose();
       };
     }
-  }, [chartID1, data]);
+  }, [chartID1,chartID2, data]);
 
   if (isLoading)
     return (
