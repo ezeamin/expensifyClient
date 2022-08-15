@@ -8,7 +8,6 @@ import {
   deleteDirectLogout,
   getData,
 } from "../../../api/fetchingFunctions";
-import formatDate from "../../../helpers/formatDate";
 import useAuth from "../../../hooks/useAuth";
 import EmptyMsg from "../emptyMsg/EmptyMsg";
 import ErrorMsg from "../errorMsg/ErrorMsg";
@@ -27,18 +26,7 @@ const ExpensesTable = () => {
     {
       onSuccess: (data) => {
         if (data.status === 200) {
-          const formattedData = data.data.map((row) => {
-            const date = new Date(row.fullDate);
-            date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
-
-            const formatted = formatDate(date);
-            row.date = formatted.day;
-            row.time = formatted.time;
-            row.fullDate = date;
-
-            return row;
-          });
-          setRows(formattedData);
+          setRows(data.data);
         } else if (data.status === 403) {
           deleteDirectLogout(auth.setAuth, navigate);
         } else {

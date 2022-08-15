@@ -129,6 +129,7 @@ class IncomeForm extends Component {
       title: this.state.title,
       accountId: this.state.account,
       date: this.state.date,
+      tzOffset: (new Date()).getTimezoneOffset(),
     });
   };
 
@@ -141,6 +142,7 @@ class IncomeForm extends Component {
         title: this.state.title,
         accountId: this.state.account,
         date: this.state.date,
+        tzOffset: (new Date()).getTimezoneOffset(),
       },
       old: {
         id: this.props.data.id,
@@ -149,6 +151,7 @@ class IncomeForm extends Component {
         title: this.props.data.title,
         accountId: this.props.data.accountId,
         date: this.props.data.date,
+        tzOffset: this.props.data.tzOffset,
       },
     });
   };

@@ -146,6 +146,8 @@ class TransferForm extends Component {
       description: this.state.description,
       originAccountId: this.state.originAccount,
       destinationAccountId: this.state.destinationAccount,
+      date: new Date(),
+      tzOffset: (new Date()).getTimezoneOffset(),
     });
   };
 

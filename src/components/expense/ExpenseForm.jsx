@@ -134,6 +134,7 @@ class ExpenseForm extends Component {
       accountId: this.state.account,
       price: this.state.price,
       date: this.state.date,
+      tzOffset: (new Date()).getTimezoneOffset(),
     });
   };
 
@@ -146,6 +147,7 @@ class ExpenseForm extends Component {
         accountId: this.state.account,
         price: this.state.price,
         date: this.state.date,
+        tzOffset: (new Date()).getTimezoneOffset(),
       },
       old: {
         title: this.props.data.title,
@@ -154,6 +156,7 @@ class ExpenseForm extends Component {
         accountId: this.props.data.account,
         price: this.props.data.price,
         date: this.props.data.date,
+        tzOffset: this.props.data.tzOffset,
       },
     });
   };
