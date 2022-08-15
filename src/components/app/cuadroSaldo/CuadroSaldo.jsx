@@ -11,6 +11,12 @@ const CuadroSaldo = ({ isSuccess, data }) => {
   const [showStatus, setShowStatus] = React.useState(false);
   const [eyeClass, setEyeClass] = React.useState("fa-regular fa-eye eye");
 
+  const dt = new Date();
+  const currentDay = dt.getDate();
+  const currentMonth = dt.getMonth();
+  const currentYear = dt.getFullYear();
+  const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
+
   React.useEffect(() => {
     if (isSuccess && data.status === 200) {
       if (user.shouldSeeStatus) {
@@ -20,12 +26,28 @@ const CuadroSaldo = ({ isSuccess, data }) => {
       }
       setShowStatus(user.shouldSeeStatus);
 
-      const available = user.generalLimit - user.spent;
-      const status = Math.round((user.saldo * 100) / available || 0);
+      const dayMeanSpent = Math.round(user.spent / daysInMonth || user.spent);
+      const remainingDays = daysInMonth - currentDay + 1;
+      const left = Math.round(user.saldo - remainingDays * dayMeanSpent);
 
-      if (status >= 50) {
+      let status;
+
+      if (left <= 0) {
+        status = "danger";
+      } else {
+        const remaining = Math.round(user.saldo - left);
+        const remainingPerc = Math.round((remaining / user.saldo) * 100);
+
+        if (remainingPerc <= 50) {
+          status = "warning";
+        } else {
+          status = "ok";
+        }
+      }
+
+      if (status === "ok") {
         cuadroSaldo.current.className = "expense__priceBox successBox";
-      } else if (status >= 25) {
+      } else if (status === "warning") {
         cuadroSaldo.current.className = "expense__priceBox warningBox";
       } else {
         cuadroSaldo.current.className = "expense__priceBox dangerBox";
