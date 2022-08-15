@@ -3,7 +3,12 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { deleteData, deleteDirectLogout, getData } from "../../../api/fetchingFunctions";
+import {
+  deleteData,
+  deleteDirectLogout,
+  getData,
+} from "../../../api/fetchingFunctions";
+import formatDate from "../../../helpers/formatDate";
 import useAuth from "../../../hooks/useAuth";
 import EmptyMsg from "../emptyMsg/EmptyMsg";
 import ErrorMsg from "../errorMsg/ErrorMsg";
@@ -25,6 +30,10 @@ const ExpensesTable = () => {
           const formattedData = data.data.map((row) => {
             const date = new Date(row.fullDate);
             date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+
+            const formatted = formatDate(date);
+            row.date = formatted.day;
+            row.time = formatted.time;
             row.fullDate = date;
 
             return row;
