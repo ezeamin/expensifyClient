@@ -89,7 +89,7 @@ const Resumen = ({ balance }) => {
           const days = currentDay - 1;
 
           const means = data.data.accountsList.map((acc) => {
-            const spent = Math.round(acc.spent / days || acc.spent);
+            const spent = Math.round(acc.spent / daysInMonth || acc.spent);
             return {
               title: acc.title,
               spent,
