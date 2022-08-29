@@ -13,16 +13,19 @@ import EmptyMsg from "../emptyMsg/EmptyMsg";
 import ErrorMsg from "../errorMsg/ErrorMsg";
 import LoadingList from "../loadingList/LoadingList";
 
-const ExpensesTable = () => {
+const ExpensesTable = (props) => {
   const [rows, setRows] = React.useState([]);
   const [error, setError] = React.useState(false);
   const [errorMsg, setErrorMsg] = React.useState("");
 
   const auth = useAuth();
 
+  const { id } = props;
+  const link = id ? `/api/expenses/listTransform/${id}` : "/api/expenses/listTransform"
+
   const { isLoading, isFetching } = useQuery(
     ["expenses"],
-    () => getData("/api/expenses/listTransform"),
+    () => getData(link),
     {
       onSuccess: (data) => {
         if (data.status === 200) {
@@ -128,7 +131,7 @@ const ExpensesTable = () => {
             <th style={{ minWidth: "120px" }}>Cuenta</th>
             <th style={{ minWidth: "150px" }}>Notas</th>
             <th style={{ minWidth: "120px" }}>Importe</th>
-            <th style={{ minWidth: "260px" }}>Acciones</th>
+            {!id && <th style={{ minWidth: "260px" }}>Acciones</th>}
           </tr>
         </thead>
         <tbody>
@@ -150,8 +153,8 @@ const ExpensesTable = () => {
                   <td style={{ backgroundColor: row.accountColor }}> </td>
                   <td>{row.account}</td>
                   <td>{row.description ? row.description : "N/A"}</td>
-                  <td>$ {row.price}</td>
-                  <td>
+                  <td><p className={id ? "mb-3" : "mb-0"}>$ {row.price}</p></td>
+                  {!id && <td>
                     <Button
                       variant="contained"
                       size="large"
@@ -169,7 +172,7 @@ const ExpensesTable = () => {
                     >
                       Eliminar
                     </Button>
-                  </td>
+                  </td>}
                 </tr>
               );
             })

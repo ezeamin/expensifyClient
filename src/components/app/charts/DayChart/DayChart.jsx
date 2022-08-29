@@ -50,10 +50,12 @@ const DayChart = () => {
           panY: false,
           wheelX: "none",
           wheelY: "none",
-          layout: root1.verticalLayout,
+          // layout: root1.verticalLayout,
         })
       );
 
+      chart1.zoomOutButton.set("forceHidden", true);
+      
       var chart2 = root2.container.children.push(
         am5xy.XYChart.new(root2, {
           panX: false,
@@ -62,12 +64,15 @@ const DayChart = () => {
           wheelY: "none",
           layout: root2.verticalLayout,
         })
-      );
+        );
+        
+      chart2.zoomOutButton.set("forceHidden", true);
 
       // Create axes
       // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
       var yAxis1 = chart1.yAxes.push(
         am5xy.CategoryAxis.new(root1, {
+          maxDeviation: 0,
           categoryField: "day",
           renderer: yRenderer1,
           tooltip: am5.Tooltip.new(root1, {}),
@@ -88,6 +93,8 @@ const DayChart = () => {
 
       var xAxis1 = chart1.xAxes.push(
         am5xy.ValueAxis.new(root1, {
+          maxDeviation: 0,
+          extraMax: 0.1,
           min: 0,
           renderer: am5xy.AxisRendererX.new(root1, {}),
         })
@@ -109,7 +116,6 @@ const DayChart = () => {
           yAxis: yAxis1,
           valueXField: "expenses",
           categoryYField: "day",
-          sequencedInterpolation: true,
           tooltip: am5.Tooltip.new(root1, {
             pointerOrientation: "horizontal",
             labelText: "[bold]{name}[/]\n{categoryY}: {valueX}",
@@ -156,24 +162,6 @@ const DayChart = () => {
         cornerRadiusTR: 5,
         cornerRadiusBR: 5,
       });
-
-      // Add cursor
-      // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
-      var cursor1 = chart1.set(
-        "cursor",
-        am5xy.XYCursor.new(root1, {
-          behavior: "zoomY",
-        })
-      );
-      cursor1.lineX.set("visible", false);
-
-      var cursor2 = chart2.set(
-        "cursor",
-        am5xy.XYCursor.new(root2, {
-          behavior: "zoomY",
-        })
-      );
-      cursor2.lineX.set("visible", false);
 
       series1.data.setAll(data);
       series2.data.setAll(data);

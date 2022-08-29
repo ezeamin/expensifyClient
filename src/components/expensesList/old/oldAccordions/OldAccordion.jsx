@@ -7,16 +7,13 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Button, Grid } from "@mui/material";
 import Swal from "sweetalert2";
 import getMonth from "../../../../helpers/getMonth";
+import { useNavigate } from "react-router-dom";
 
 const OldAccordion = ({ item, index }) => {
+  const navigate = useNavigate();
+  
   const handleClickDetalle = () => {
-    Swal.fire({
-      title: "Proximamente",
-      text: "Esta funcionalidad estará disponible próximamente",
-      icon: "info",
-      timer: 2000,
-      showConfirmButton: false,
-    });
+    navigate(`/expenses/old/${item.id}`);
   };
 
   const handleClickGraficos = () => {

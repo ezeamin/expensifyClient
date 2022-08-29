@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom"
 import useAuth from "../../../hooks/useAuth";
 
-const IncomesTable = () => {
+const IncomesTable = (props) => {
   const [rows, setRows] = React.useState([]);
   const [error, setError] = React.useState(false);
   const [errorMsg, setErrorMsg] = React.useState("");
@@ -17,9 +17,12 @@ const IncomesTable = () => {
   const navigate = useNavigate();
   const auth = useAuth();
 
+  const { id } = props;
+  const link = id ? `/api/incomes/listTransform/${id}` : "/api/incomes/listTransform"
+
   const { isLoading, isFetching } = useQuery(
     ["incomes"],
-    () => getData("/api/incomes/listTransform"),
+    () => getData(link),
     {
       onSuccess: (data) => {
         if (data.status === 200) {
@@ -111,7 +114,7 @@ const IncomesTable = () => {
             <th style={{ minWidth: "120px" }}>Cuenta</th>
             <th style={{ minWidth: "150px" }}>Notas</th>
             <th style={{ minWidth: "120px" }}>Importe</th>
-            <th style={{ minWidth: "260px" }}>Acciones</th>
+            {!id && <th style={{ minWidth: "260px" }}>Acciones</th>}
           </tr>
         </thead>
         <tbody>
@@ -128,8 +131,8 @@ const IncomesTable = () => {
                   <td style={{ backgroundColor: row.accountColor }}> </td>
                   <td>{row.account}</td>
                   <td>{row.description ? row.description : "N/A"}</td>
-                  <td>$ {row.price}</td>
-                  <td>
+                  <td><p className={id ? "mb-3" : "mb-0"}>$ {row.price}</p></td>
+                  {!id && <td>
                     <Button
                       variant="contained"
                       size="large"
@@ -147,7 +150,7 @@ const IncomesTable = () => {
                     >
                       Eliminar
                     </Button>
-                  </td>
+                  </td>}
                 </tr>
               );
             })

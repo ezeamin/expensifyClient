@@ -1,6 +1,5 @@
 import React from "react";
 import Navegation from "../../navegation/Navegation";
-import "./old.css";
 import Title from "../../titles/Title";
 import OldAccordions from "./oldAccordions/OldAccordion";
 import BackButton from "../../backButton/BackButton";

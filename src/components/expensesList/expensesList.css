@@ -14,26 +14,6 @@
     background-color: var(--color-danger);
 }
 
-.dataList__historyButton{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    text-decoration: none;
-    background-color: #fff;
-    color: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    z-index: 100;
-    top: 5px;
-    right: 1rem;
-}
-
-.dataList__historyButton:hover{
-    color: #000;
-}
-
 .tableLoading{
     max-height: 200px;
     overflow: hidden;

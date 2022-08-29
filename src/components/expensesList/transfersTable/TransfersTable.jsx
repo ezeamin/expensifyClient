@@ -7,7 +7,7 @@ import LoadingList from "../loadingList/LoadingList";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 
-const TransfersTable = () => {
+const TransfersTable = (props) => {
   const [rows, setRows] = React.useState([]);
   const [error, setError] = React.useState(false);
   const [errorMsg, setErrorMsg] = React.useState("");
@@ -15,9 +15,14 @@ const TransfersTable = () => {
   const navigate = useNavigate();
   const auth = useAuth();
 
+  const { id } = props;
+  const link = id
+    ? `/api/transfers/listTransform/${id}`
+    : "/api/transfers/listTransform";
+
   const { isLoading, isFetching } = useQuery(
     ["transfers"],
-    () => getData("/api/transfers/listTransform"),
+    () => getData(link),
     {
       onSuccess: (data) => {
         if (data.status === 200) {
@@ -67,15 +72,16 @@ const TransfersTable = () => {
                   <td style={{ backgroundColor: "#FFB400" }}> </td>
                   <th>{row.date}</th>
                   <td>{row.time}</td>
-                  <td style={{ backgroundColor: row.originAccountColor }}> </td>
+                  <td style={{ backgroundColor: row.originAccountColor }}></td>
                   <td>{row.originAccount}</td>
-                  <td style={{ backgroundColor: row.destinationAccountColor }}>
-                    {" "}
-                  </td>
+                  <td
+                    style={{ backgroundColor: row.destinationAccountColor }}
+                  ></td>
                   <td>{row.destinationAccount}</td>
                   <td>{row.description ? row.description : "N/A"}</td>
                   <td>
-                    <p className="mb-3">$ {row.price}</p></td>
+                    <p className="mb-3">$ {row.price}</p>
+                  </td>
                 </tr>
               );
             })
