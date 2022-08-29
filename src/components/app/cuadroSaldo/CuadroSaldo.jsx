@@ -30,13 +30,15 @@ const CuadroSaldo = ({ isSuccess, data }) => {
       const remainingDays = daysInMonth - currentDay + 1;
       const left = Math.round(user.saldo - remainingDays * dayMeanSpent);
 
+      console.log(left);
+
       let status;
 
       if (left <= 0) {
         status = "danger";
       } else {
-        const remaining = Math.round(user.saldo - left);
-        const remainingPerc = Math.round((remaining / user.saldo) * 100);
+        // const remaining = Math.round(user.saldo - left);
+        const remainingPerc = Math.round((left / user.saldo) * 100);
 
         if (remainingPerc <= 20) {
           status = "warning";
