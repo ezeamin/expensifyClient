@@ -49,7 +49,7 @@ const TransfersTable = (props) => {
         className="table bg-light mb-0"
         style={{ borderRadius: "20px", maxHeight: "50vh" }}
       >
-        <thead>
+        <thead style={{position: "sticky",top:"0",backgroundColor:"#eeeeee"}} >
           <tr>
             <td></td>
             <th>Fecha</th>

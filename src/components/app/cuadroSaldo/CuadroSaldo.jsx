@@ -30,8 +30,6 @@ const CuadroSaldo = ({ isSuccess, data }) => {
       const remainingDays = daysInMonth - currentDay + 1;
       const left = Math.round(user.saldo - remainingDays * dayMeanSpent);
 
-      console.log(left);
-
       let status;
 
       if (left <= 0) {
