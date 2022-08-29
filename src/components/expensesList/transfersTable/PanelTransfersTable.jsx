@@ -5,9 +5,10 @@ import getMonth from "../../../helpers/getMonth";
 import TransfersTable from "./TransfersTable";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { Skeleton } from "@mui/material";
 
 const PanelTransfersTable = () => {
-  let [month, setMonth] = React.useState("...");
+  let [month, setMonth] = React.useState(<Skeleton sx={{width: 50,display: "inline-block"}}/>);
 
   const params = useParams();
   const id = params?.id;
@@ -33,6 +34,16 @@ const PanelTransfersTable = () => {
     else setMonth(getMonth(true));
   }, [id]);
 
+  const handleFilter = () => {
+    Swal.fire({
+      title: "Proximamente",
+      text: "Esta funcionalidad estará disponible próximamente",
+      icon: "info",
+      timer: 2500,
+      showConfirmButton: false,
+    });
+  }
+
   return (
     <div className="profile__resumen__box mt-3">
       <div className="d-flex justify-content-between">
@@ -45,7 +56,7 @@ const PanelTransfersTable = () => {
             Periodo: <span className="fw-bold">{month}</span>
           </p>
         </div>
-        {id && (
+        {id ? (
           <Button
             variant="outline-secondary"
             className="fw-bold"
@@ -53,6 +64,10 @@ const PanelTransfersTable = () => {
           >
             Volver a hoy
           </Button>
+        ) : (
+          <div className="filter__button" onClick={handleFilter}>
+            <i className="fa-solid fa-filter"></i>
+          </div>
         )}
       </div>
         <TransfersTable id={id || null} />

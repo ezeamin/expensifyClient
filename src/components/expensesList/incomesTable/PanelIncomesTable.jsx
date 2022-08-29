@@ -5,9 +5,10 @@ import { getData } from "../../../api/fetchingFunctions";
 import { useParams, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Button } from "react-bootstrap";
+import { Skeleton } from "@mui/material";
 
 const PanelIncomesTable = () => {
-  let [month, setMonth] = React.useState("...");
+  let [month, setMonth] = React.useState(<Skeleton sx={{width: 50,display: "inline-block"}}/>);
 
   const params = useParams();
   const id = params?.id;
@@ -33,6 +34,16 @@ const PanelIncomesTable = () => {
     else setMonth(getMonth(true));
   }, [id]);
 
+  const handleFilter = () => {
+    Swal.fire({
+      title: "Proximamente",
+      text: "Esta funcionalidad estará disponible próximamente",
+      icon: "info",
+      timer: 2500,
+      showConfirmButton: false,
+    });
+  }
+
   return (
     <div className="profile__resumen__box mt-3">
       <div className="d-flex justify-content-between">
@@ -45,7 +56,7 @@ const PanelIncomesTable = () => {
             Periodo: <span className="fw-bold">{month}</span>
           </p>
         </div>
-        {id && (
+        {id ? (
           <Button
             variant="outline-secondary"
             className="fw-bold"
@@ -53,6 +64,10 @@ const PanelIncomesTable = () => {
           >
             Volver a hoy
           </Button>
+        ) : (
+          <div className="filter__button" onClick={handleFilter}>
+            <i className="fa-solid fa-filter"></i>
+          </div>
         )}
       </div>
         <IncomesTable id={id || null} />
