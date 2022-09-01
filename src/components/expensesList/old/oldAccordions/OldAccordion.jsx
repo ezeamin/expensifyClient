@@ -30,6 +30,9 @@ const OldAccordion = ({ item, index }) => {
   const promDiario = Math.round(item.spent / item.days);
 
   const dt = new Date(item.start);
+  const localTz = new Date().getTimezoneOffset();
+  dt.setMinutes(dt.getMinutes() + localTz);
+
   const currentMonth = dt.getMonth();
   const monthName = getMonth(false, currentMonth);
 
