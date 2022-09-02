@@ -10,10 +10,11 @@ import getMonth from "../../../../helpers/getMonth";
 const ExpenseOldChart = () => {
   const chartID = "spentAndIncomeOldDiv";
   const [data, setData] = React.useState([]);
+  const year = new Date().getFullYear(); // must be changed, to selected one
 
   const { isLoading, isError } = useQuery(
     ["spentAndIncomeOldChart"],
-    () => getData("/api/charts/spentAndIncomeOldChart"),
+    () => getData(`/api/charts/spentAndIncomeOldChart/${year}`),
     {
       onSuccess: (data) => {
         if (data.status === 200) {

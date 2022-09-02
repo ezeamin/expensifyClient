@@ -20,8 +20,10 @@ const ExpensesTable = (props) => {
 
   const auth = useAuth();
 
-  const { id } = props;
-  const link = id ? `/api/expenses/listTransform/${id}` : "/api/expenses/listTransform"
+  const { id, year } = props;
+  const link = id
+    ? `/api/expenses/listTransform/${year}/${id}`
+    : "/api/expenses/listTransform";
 
   const { isLoading, isFetching } = useQuery(
     ["expenses"],
@@ -117,7 +119,14 @@ const ExpensesTable = (props) => {
         className="table bg-light mb-0"
         style={{ borderRadius: "20px", maxHeight: "60vh" }}
       >
-        <thead style={{position: "sticky",top:"0",backgroundColor:"#eeeeee",zIndex: 15000}}>
+        <thead
+          style={{
+            position: "sticky",
+            top: "0",
+            backgroundColor: "#eeeeee",
+            zIndex: 15000,
+          }}
+        >
           <tr>
             <td></td>
             <td></td>
@@ -153,26 +162,30 @@ const ExpensesTable = (props) => {
                   <td style={{ backgroundColor: row.accountColor }}> </td>
                   <td>{row.account}</td>
                   <td>{row.description ? row.description : "N/A"}</td>
-                  <td><p className={id ? "mb-3" : "mb-0"}>$ {row.price}</p></td>
-                  {!id && <td>
-                    <Button
-                      variant="contained"
-                      size="large"
-                      color="warningColor"
-                      className="me-2"
-                      onClick={() => handleEdit(row.id)}
-                    >
-                      Editar
-                    </Button>
-                    <Button
-                      variant="contained"
-                      size="large"
-                      color="dangerColor"
-                      onClick={() => handleDelete(row.id)}
-                    >
-                      Eliminar
-                    </Button>
-                  </td>}
+                  <td>
+                    <p className={id ? "mb-3" : "mb-0"}>$ {row.price}</p>
+                  </td>
+                  {!id && (
+                    <td>
+                      <Button
+                        variant="contained"
+                        size="large"
+                        color="warningColor"
+                        className="me-2"
+                        onClick={() => handleEdit(row.id)}
+                      >
+                        Editar
+                      </Button>
+                      <Button
+                        variant="contained"
+                        size="large"
+                        color="dangerColor"
+                        onClick={() => handleDelete(row.id)}
+                      >
+                        Eliminar
+                      </Button>
+                    </td>
+                  )}
                 </tr>
               );
             })

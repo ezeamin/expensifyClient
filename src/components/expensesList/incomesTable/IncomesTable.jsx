@@ -1,12 +1,16 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { useQuery } from "react-query";
-import { deleteData, deleteDirectLogout, getData } from "../../../api/fetchingFunctions";
+import {
+  deleteData,
+  deleteDirectLogout,
+  getData,
+} from "../../../api/fetchingFunctions";
 import ErrorMsg from "../errorMsg/ErrorMsg";
 import LoadingList from "../loadingList/LoadingList";
 import EmptyMsg from "../emptyMsg/EmptyMsg";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 
 const IncomesTable = (props) => {
@@ -17,25 +21,23 @@ const IncomesTable = (props) => {
   const navigate = useNavigate();
   const auth = useAuth();
 
-  const { id } = props;
-  const link = id ? `/api/incomes/listTransform/${id}` : "/api/incomes/listTransform"
+  const { id, year } = props;
+  const link = id
+    ? `/api/incomes/listTransform/${year}/${id}`
+    : "/api/incomes/listTransform";
 
-  const { isLoading, isFetching } = useQuery(
-    ["incomes"],
-    () => getData(link),
-    {
-      onSuccess: (data) => {
-        if (data.status === 200) {
-          setRows(data.data);
-        } else if (data.status === 403) {
-          deleteDirectLogout(auth.setAuth, navigate);
-        } else {
-          setError(true);
-          setErrorMsg(data.data.message ? data.data.message : data.data);
-        }
-      },
-    }
-  );
+  const { isLoading, isFetching } = useQuery(["incomes"], () => getData(link), {
+    onSuccess: (data) => {
+      if (data.status === 200) {
+        setRows(data.data);
+      } else if (data.status === 403) {
+        deleteDirectLogout(auth.setAuth, navigate);
+      } else {
+        setError(true);
+        setErrorMsg(data.data.message ? data.data.message : data.data);
+      }
+    },
+  });
 
   const handleEdit = (id) => {
     const income = rows.find((income) => income.id === id);
@@ -102,7 +104,14 @@ const IncomesTable = (props) => {
         className="table bg-light mb-0"
         style={{ borderRadius: "20px", maxHeight: "50vh" }}
       >
-        <thead style={{position: "sticky",top:"0",backgroundColor:"#eeeeee",zIndex: 15000}}>
+        <thead
+          style={{
+            position: "sticky",
+            top: "0",
+            backgroundColor: "#eeeeee",
+            zIndex: 15000,
+          }}
+        >
           <tr>
             <td></td>
             <th scope="col" style={{ minWidth: "120px" }}>
@@ -131,26 +140,30 @@ const IncomesTable = (props) => {
                   <td style={{ backgroundColor: row.accountColor }}> </td>
                   <td>{row.account}</td>
                   <td>{row.description ? row.description : "N/A"}</td>
-                  <td><p className={id ? "mb-3" : "mb-0"}>$ {row.price}</p></td>
-                  {!id && <td>
-                    <Button
-                      variant="contained"
-                      size="large"
-                      color="warningColor"
-                      className="me-2"
-                      onClick={() => handleEdit(row.id)}
-                    >
-                      Editar
-                    </Button>
-                    <Button
-                      variant="contained"
-                      size="large"
-                      color="dangerColor"
-                      onClick={() => handleDelete(row.id)}
-                    >
-                      Eliminar
-                    </Button>
-                  </td>}
+                  <td>
+                    <p className={id ? "mb-3" : "mb-0"}>$ {row.price}</p>
+                  </td>
+                  {!id && (
+                    <td>
+                      <Button
+                        variant="contained"
+                        size="large"
+                        color="warningColor"
+                        className="me-2"
+                        onClick={() => handleEdit(row.id)}
+                      >
+                        Editar
+                      </Button>
+                      <Button
+                        variant="contained"
+                        size="large"
+                        color="dangerColor"
+                        onClick={() => handleDelete(row.id)}
+                      >
+                        Eliminar
+                      </Button>
+                    </td>
+                  )}
                 </tr>
               );
             })

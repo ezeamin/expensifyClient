@@ -8,7 +8,11 @@ import { Button } from "react-bootstrap";
 import { Skeleton } from "@mui/material";
 
 const PanelExpensesTable = () => {
-  let [month, setMonth] = React.useState(<Skeleton sx={{width: 50,display: "inline-block"}}/>);
+  const year = new Date().getFullYear(); //must be changed then to the year selected
+
+  let [month, setMonth] = React.useState(
+    <Skeleton sx={{ width: 50, display: "inline-block" }} />
+  );
 
   const params = useParams();
   const id = params?.id;
@@ -17,7 +21,7 @@ const PanelExpensesTable = () => {
 
   React.useEffect(() => {
     const fetchMonth = async () => {
-      const res = await getData("/api/periods/monthNum/" + id);
+      const res = await getData(`/api/periods/${year}/monthNum/${id}`);
       if (res.status !== 200) {
         Swal.fire({
           title: "Error",
@@ -32,7 +36,7 @@ const PanelExpensesTable = () => {
     };
     if (id) fetchMonth();
     else setMonth(getMonth(true));
-  }, [id]);
+  }, [id,year]);
 
   const handleFilter = () => {
     Swal.fire({
@@ -42,7 +46,7 @@ const PanelExpensesTable = () => {
       timer: 2500,
       showConfirmButton: false,
     });
-  }
+  };
 
   return (
     <div className="profile__resumen__box">
@@ -70,7 +74,7 @@ const PanelExpensesTable = () => {
           </div>
         )}
       </div>
-      <ExpensesTable id={id || null} />
+      <ExpensesTable id={id || null} year={year || null}/>
     </div>
   );
 };

@@ -11,10 +11,11 @@ import { Alert } from "@mui/material";
 
 const Old = () => {
   const [list, setList] = React.useState([]);
+  const year = new Date().getFullYear(); //must be changed then to the year selected
 
   const { isLoading, isError } = useQuery(
     ["categoriesChart"],
-    () => getData("/api/periods"),
+    () => getData(`/api/periods/${year}`),
     {
       onSuccess: (data) => {
         if (data.status === 200) {

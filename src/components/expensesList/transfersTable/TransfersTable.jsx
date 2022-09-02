@@ -15,9 +15,9 @@ const TransfersTable = (props) => {
   const navigate = useNavigate();
   const auth = useAuth();
 
-  const { id } = props;
+  const { id, year } = props;
   const link = id
-    ? `/api/transfers/listTransform/${id}`
+    ? `/api/transfers/listTransform/${year}/${id}`
     : "/api/transfers/listTransform";
 
   const { isLoading, isFetching } = useQuery(
@@ -49,7 +49,14 @@ const TransfersTable = (props) => {
         className="table bg-light mb-0"
         style={{ borderRadius: "20px", maxHeight: "50vh" }}
       >
-        <thead style={{position: "sticky",top:"0",backgroundColor:"#eeeeee",zIndex: 15000}} >
+        <thead
+          style={{
+            position: "sticky",
+            top: "0",
+            backgroundColor: "#eeeeee",
+            zIndex: 15000,
+          }}
+        >
           <tr>
             <td></td>
             <th>Fecha</th>
