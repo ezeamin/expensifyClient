@@ -42,23 +42,23 @@ const InfoList = () => {
 
   if (isLoading || (isFetching && Object.keys(info).length === 0))
     return (
-      <div>
+      <>
         <Navegation />
         <Loading />
-      </div>
+      </>
     );
   if ((isSuccess || isError) && data?.status !== 200)
     return (
-      <div>
+      <>
         <Navegation />
         <Error data={data} />
-      </div>
+      </>
     );
   return (
-    <div>
+    <>
       <Navegation />
       <PanelInfoList type={type} {...info} />
-    </div>
+    </>
   );
 };
 

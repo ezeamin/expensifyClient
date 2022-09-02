@@ -118,7 +118,7 @@ const DayChart = () => {
           categoryYField: "day",
           tooltip: am5.Tooltip.new(root1, {
             pointerOrientation: "horizontal",
-            labelText: "[bold]{name}[/]\n{categoryY}: {valueX}",
+            labelText: "{valueX}",
           }),
         })
       );
@@ -145,7 +145,7 @@ const DayChart = () => {
           sequencedInterpolation: true,
           tooltip: am5.Tooltip.new(root2, {
             pointerOrientation: "horizontal",
-            labelText: "[bold]{name}[/]\n{categoryY}: {valueX}",
+            labelText: "{valueX}",
           }),
         })
       );
@@ -165,6 +165,16 @@ const DayChart = () => {
 
       series1.data.setAll(data);
       series2.data.setAll(data);
+
+      let cursor1 = chart1.set("cursor", am5xy.XYCursor.new(root1, {
+        behavior: "none"
+      }));
+      cursor1.lineX.set("visible", false);
+
+      let cursor2 = chart2.set("cursor", am5xy.XYCursor.new(root2, {
+        behavior: "none"
+      }));
+      cursor2.lineX.set("visible", false);
 
       // Make stuff animate on load
       // https://www.amcharts.com/docs/v5/concepts/animations/

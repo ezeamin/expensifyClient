@@ -30,23 +30,23 @@ const Categories = () => {
 
   if (isLoading || (isFetching && categories.length === 0))
     return (
-      <div>
+      <>
         <Navegation />
         <Loading />
-      </div>
+      </>
     );
   if ((isSuccess || isError) && data.status !== 200)
     return (
-      <div>
+      <>
         <Navegation />
         <Error data={data} />
-      </div>
+      </>
     );
   return (
-    <div>
+    <>
       <Navegation />
       <PanelCategories list={categories} link="/categories/new" />
-    </div>
+    </>
   );
 };
 

@@ -128,10 +128,10 @@ const Income = (props) => {
 
   if (isLoading || isLoadingData || isFetchingData)
     return (
-      <div>
+      <>
         <Navegation />
         <Loading />
-      </div>
+      </>
     );
   return (
     <>

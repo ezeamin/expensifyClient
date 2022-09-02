@@ -117,7 +117,7 @@ const ExpensesTable = (props) => {
         className="table bg-light mb-0"
         style={{ borderRadius: "20px", maxHeight: "60vh" }}
       >
-        <thead style={{position: "sticky",top:"0",backgroundColor:"#eeeeee"}}>
+        <thead style={{position: "sticky",top:"0",backgroundColor:"#eeeeee",zIndex: 15000}}>
           <tr>
             <td></td>
             <td></td>

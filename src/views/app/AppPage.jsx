@@ -4,10 +4,10 @@ import Navegation from "../../components/navegation/Navegation";
 
 const AppPage = () => {
   return (
-    <div>
+    <>
       <Navegation />
       <PanelProfile />
-    </div>
+    </>
   );
 };
 

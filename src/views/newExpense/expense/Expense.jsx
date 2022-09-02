@@ -163,15 +163,15 @@ const Expense = (props) => {
 
   if (isLoadingCat || isLoadingAcc || isLoadingData || isFetchingData)
     return (
-      <div>
+      <>
         <Navegation />
         <div className="panel">
           <Loading />
         </div>
-      </div>
+      </>
     );
   if (categoriesList.length === 0 || accountsList.length === 0) {
-    <div>
+    <>
       <Navegation />
       <div className="panel"></div>
       <div className="container w-100 d-flex justify-content-center">
@@ -179,7 +179,7 @@ const Expense = (props) => {
           Carga tu primera categoria y/o cuenta antes de cargar un gasto!
         </h3>
       </div>
-    </div>;
+    </>;
   }
   return (
     <>

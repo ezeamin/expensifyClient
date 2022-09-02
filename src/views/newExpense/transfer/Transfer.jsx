@@ -73,10 +73,10 @@ const Transfer = () => {
 
   if (isLoading)
     return (
-      <div>
+      <>
         <Navegation />
         <Loading />
-      </div>
+      </>
     );
   return (
     <>

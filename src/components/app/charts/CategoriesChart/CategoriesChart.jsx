@@ -86,12 +86,19 @@ const CategoriesChart = () => {
         })
       );
 
+      let cursor = chart.set(
+        "cursor",
+        am5xy.XYCursor.new(root, {
+          behavior: "none",
+        })
+      );
+      cursor.lineX.set("visible", false);
+
       // Axis sorting
       function sortCategoryAxis() {
         // Sort by value
         series.dataItems.sort(function (x, y) {
           return x.get("valueX") - y.get("valueX"); // descending
-          //return y.get("valueY") - x.get("valueX"); // ascending
         });
 
         // Go through each axis item
