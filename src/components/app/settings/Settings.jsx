@@ -47,8 +47,7 @@ const Settings = () => {
     case 1:
       return (
         <div className="profile__resumen__box pt-1">
-          {/* <ChangePasswordForm /> */}
-          <EnConstruccion />
+          <ChangePasswordForm/>
           <BackLink action={setSelectedOption} />
         </div>
       );

@@ -84,7 +84,7 @@ const TabsSection = (props) => {
         </Tabs>
         <div className="container">
           <TabPanel index={0}>
-            <Resumen balance={props.balance}/>
+            <Resumen balance={props.balance} />
           </TabPanel>
           <TabPanel index={1}>
             <Charts />
@@ -180,7 +180,7 @@ const TabsSection = (props) => {
       </ThemeProvider>
     );
 
-    return null;
+  return null;
 };
 
 export default TabsSection;

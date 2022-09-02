@@ -1,6 +1,13 @@
 import { LoadingButton } from "@mui/lab";
-import { Alert, Button, TextField } from "@mui/material";
+import {
+  Alert,
+  Button,
+  FormControl,
+  TextField,
+  ThemeProvider,
+} from "@mui/material";
 import React from "react";
+import useTheme from "../../../hooks/useTheme";
 
 class RecPasswordCode extends React.Component {
   constructor(props) {
@@ -41,12 +48,6 @@ class RecPasswordCode extends React.Component {
 
     if (value.trim() === "") {
       return this.error(errores, name);
-    } else if (
-      name === "dni" &&
-      (!/^\d{7,8}$/i.test(this.state.dni) ||
-        Number.parseInt(this.state.dni) <= 0)
-    ) {
-      return this.error(errores, name);
     }
 
     return this.success(errores, name);
@@ -71,6 +72,10 @@ class RecPasswordCode extends React.Component {
     error[0] = this.verificar("password", this.state.password);
     error[1] = this.verificar("password2", this.state.password2);
 
+    if (this.state.password !== this.state.password2) {
+      errorGeneral = true;
+    }
+
     error.forEach((element) => {
       if (element) {
         errorGeneral = true;
@@ -82,6 +87,10 @@ class RecPasswordCode extends React.Component {
     } else {
       this.setState({
         loading: false,
+        PassError: {
+          error: true,
+          msg: "Datos no validos",
+        }
       });
     }
   };
@@ -94,47 +103,52 @@ class RecPasswordCode extends React.Component {
       },
     });
 
-    //post change pass
+    this.props.changePassword({ password: this.state.password });
   };
 
   render() {
     return (
-      <div>
+      <ThemeProvider theme={()=>useTheme()}>
         {this.state.PassError.error && (
           <Alert severity="error" className="mb-3">
-            {this.state.DNIError.msg}
+            {this.state.PassError.msg}
           </Alert>
         )}
         <form onSubmit={(e) => this.handleSubmit(e)}>
-          <TextField
-            error={this.state.errores.password}
-            fullWidth
-            label="Nueva contraseña"
-            helperText="La contraseña debe tener al menos 6 caracteres, una mayúscula,
-          una minúscula y un número"
-            variant="outlined"
-            type="password"
-            size="small"
-            value={this.state.password}
-            name="password"
-            onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
-            onBlur={(e) => this.handleBlur(e)}
-            className={this.props.rounded.round}
-          />
+          <FormControl fullWidth>
+            <TextField
+              error={this.state.errores.password}
+              label="Nueva contraseña"
+              helperText="La contraseña debe tener al menos 6 caracteres, una mayúscula,
+              una minúscula y un número"
+              variant="outlined"
+              type="password"
+              size="small"
+              value={this.state.password}
+              name="password"
+              onChange={(e) =>
+                this.setState({ [e.target.name]: e.target.value })
+              }
+              onBlur={(e) => this.handleBlur(e)}
+              className={this.props.rounded.round}
+            />
+          </FormControl>
           <div className="mt-2">
-          <TextField
-            error={this.state.errores.password2}
-            fullWidth
-            label="Repetir contraseña"
-            variant="outlined"
-            type="password2"
-            size="small"
-            value={this.state.password2}
-            name="password2"
-            onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
-            onBlur={(e) => this.handleBlur(e)}
-            className={this.props.rounded.round}
-          />
+            <TextField
+              error={this.state.errores.password2}
+              fullWidth
+              label="Repetir contraseña"
+              variant="outlined"
+              type="password"
+              size="small"
+              value={this.state.password2}
+              name="password2"
+              onChange={(e) =>
+                this.setState({ [e.target.name]: e.target.value })
+              }
+              onBlur={(e) => this.handleBlur(e)}
+              className={this.props.rounded.round}
+            />
           </div>
           <div className="mt-3">
             {!this.state.loading ? (
@@ -143,8 +157,7 @@ class RecPasswordCode extends React.Component {
                 color="mainColor"
                 type="submit"
                 fullWidth
-                
-            className={this.props.rounded.round}
+                className={this.props.rounded.round}
               >
                 Guardar
               </Button>
@@ -160,7 +173,7 @@ class RecPasswordCode extends React.Component {
             )}
           </div>
         </form>
-      </div>
+      </ThemeProvider>
     );
   }
 }

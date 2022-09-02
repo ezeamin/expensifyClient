@@ -129,6 +129,7 @@ const Resumen = ({ balance }) => {
         setNegativeBalance(true);
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit, spent]);
 
   const handleChangeLimit = async () => {
@@ -140,6 +141,10 @@ const Resumen = ({ balance }) => {
       inputValidator: (value) => {
         if (!value) {
           return "Debes ingresar un valor";
+        }
+
+        if (isNaN(value) || value < 0) {
+          return "Debes ingresar un valor valido";
         }
       },
     });
@@ -167,6 +172,7 @@ const Resumen = ({ balance }) => {
             <h2 className="mb-0">Estado</h2>
             <i
               className="fa-solid fa-pencil text-secondary"
+              style={{ cursor: "pointer" }}
               onClick={handleChangeLimit}
             ></i>
           </div>
