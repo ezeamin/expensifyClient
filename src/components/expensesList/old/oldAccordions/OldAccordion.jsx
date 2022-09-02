@@ -60,7 +60,7 @@ const OldAccordion = ({ item, index }) => {
           <br />
           Saldo restante: $ {item.balance}
           <br />
-          Limite mensual: $ {item.limit} ({perc}%)
+          {item.limit && `Limite mensual: $ {item.limit} ({perc}%)`}
           <hr />
           Promedio diario: $ {promDiario}
           <hr />

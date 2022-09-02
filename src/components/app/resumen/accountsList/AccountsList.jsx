@@ -9,10 +9,10 @@ const AccountsList = (props) => {
     <div className="profile__resumen__items">
       {props.accounts.map((cuenta, index) => {
         return (
-          <>
-            <AccountsListItem {...cuenta} key={index} />
+          <React.Fragment key={index}>
+            <AccountsListItem {...cuenta}/>
             {index !== total-1 && <hr className="my-1 hr__separateItems" />}
-          </>
+          </React.Fragment>
         );
       })}
     </div>

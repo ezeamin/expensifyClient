@@ -84,10 +84,12 @@
 
 .swal2-container {
   padding: 1.75rem !important;
+  z-index: 12356789 !important;
 }
 
 .swal2-popup {
   border-radius: 20px !important;
+  z-index: 12356789 !important;
 }
 
 /* Scrollbar styling */

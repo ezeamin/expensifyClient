@@ -26,7 +26,7 @@ const Resumen = ({ balance }) => {
   const currentDay = dt.getDate();
   const currentMonth = dt.getMonth();
   const currentYear = dt.getFullYear();
-  const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
+  const daysInMonth = new Date(currentYear, currentMonth+1, 0).getDate();
 
   React.useEffect(() => {
     if (stateValue >= 80) {
@@ -85,8 +85,6 @@ const Resumen = ({ balance }) => {
         if (data.status === 200) {
           setSpent(data.data.spent);
           setAccounts(data.data.accountsList);
-
-          const days = currentDay - 1;
 
           const means = data.data.accountsList.map((acc) => {
             const spent = Math.round(acc.spent / daysInMonth || acc.spent);

@@ -162,14 +162,16 @@ const ExpenseOldChart = () => {
   if (isLoading)
     return (
       <Box className="mt-3">
-        <h2 className="mb-0">Grafico histórico</h2>
+        <h2 className="mb-0">Gráfico histórico</h2>
+        <h6>Gastos vs ingresos</h6>
         <p className="mb-0 py-2 text-center">Cargando...</p>
       </Box>
     );
   if (isError)
     return (
       <Box className="mt-3">
-        <h2 className="mb-0">Grafico histórico</h2>
+        <h2 className="mb-0">Gráfico histórico</h2>
+        <h6>Gastos vs ingresos</h6>
         <p className="mb-0 py-2 text-center text-danger">
           Error cargando gráfico
         </p>
@@ -177,7 +179,8 @@ const ExpenseOldChart = () => {
     );
   return (
     <Box className="mb-3">
-      <h2 className="mb-0">Grafico histórico</h2>
+      <h2 className="mb-0">Gráfico histórico</h2>
+      <h6>Gastos vs ingresos</h6>
       {data && data.length > 0 ? (
         <div
           style={{
