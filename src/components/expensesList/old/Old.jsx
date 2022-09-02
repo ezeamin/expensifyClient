@@ -77,7 +77,7 @@ const Old = () => {
               </Select>
             </div>
             {list.map((item, index) => (
-              <OldAccordions key={index} index={index} item={item} />
+              <OldAccordions key={index} index={index} item={item} year={year} />
             ))}
           </div>
         )}

@@ -9,11 +9,11 @@ import Swal from "sweetalert2";
 import getMonth from "../../../../helpers/getMonth";
 import { useNavigate } from "react-router-dom";
 
-const OldAccordion = ({ item, index }) => {
+const OldAccordion = ({ item, index, year }) => {
   const navigate = useNavigate();
-  
+
   const handleClickDetalle = () => {
-    navigate(`/expenses/old/${item.id}`);
+    navigate(`/expenses/old/${year}/${item.id}`);
   };
 
   const handleClickGraficos = () => {
@@ -60,7 +60,7 @@ const OldAccordion = ({ item, index }) => {
           <br />
           Saldo restante: $ {item.balance}
           <br />
-          {item.limit && `Limite mensual: $ {item.limit} ({perc}%)`}
+          {item.limit && `Limite mensual: $ ${item.limit} (${perc}%)`}
           <hr />
           Promedio diario: $ {promDiario}
           <hr />

@@ -8,14 +8,13 @@ import { Button } from "react-bootstrap";
 import { Skeleton } from "@mui/material";
 
 const PanelTransfersTable = () => {
-  const year = new Date().getFullYear(); //must be changed then to the year selected
-
   let [month, setMonth] = React.useState(
     <Skeleton sx={{ width: 50, display: "inline-block" }} />
   );
 
   const params = useParams();
   const id = params?.id;
+  const year = params?.year;
 
   const navigate = useNavigate();
 
