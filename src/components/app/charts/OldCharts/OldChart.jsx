@@ -6,13 +6,19 @@ import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import { useQuery } from "react-query";
 import { getData } from "../../../../api/fetchingFunctions";
 import getMonth from "../../../../helpers/getMonth";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
-const ExpenseOldChart = () => {
+const OldChart = () => {
   const chartID = "spentAndIncomeOldDiv";
   const [data, setData] = React.useState([]);
-  const year = new Date().getFullYear(); // must be changed, to selected one
+  const [year, setYear] = React.useState(new Date().getFullYear());
 
-  const { isLoading, isError } = useQuery(
+  const yearList = [];
+  for (let i = 2022; i <= new Date().getFullYear(); i++) {
+    yearList.push(i);
+  }
+
+  const { isLoading, isError, refetch } = useQuery(
     ["spentAndIncomeOldChart"],
     () => getData(`/api/charts/spentAndIncomeOldChart/${year}`),
     {
@@ -26,6 +32,11 @@ const ExpenseOldChart = () => {
       },
     }
   );
+
+  React.useEffect(() => {
+    refetch();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [year]);
 
   React.useLayoutEffect(() => {
     if (data && data.length > 0) {
@@ -180,8 +191,27 @@ const ExpenseOldChart = () => {
     );
   return (
     <Box className="mb-3">
-      <h2 className="mb-0">Gráfico histórico</h2>
-      <h6>Gastos vs ingresos</h6>
+      <div className="d-flex justify-content-between">
+        <div>
+          <h2 className="mb-0">Gráfico histórico</h2>
+          <h6>Gastos vs ingresos</h6>
+        </div>
+        <FormControl>
+          <InputLabel id="label-anio">Año</InputLabel>
+          <Select
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+            label="Año"
+            labelId="label-anio"
+            id="select-anio"
+            name="year"
+          >
+            {yearList.map((year) => (
+              <MenuItem value={year}>{year}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </div>
       {data && data.length > 0 ? (
         <div
           style={{
@@ -198,4 +228,4 @@ const ExpenseOldChart = () => {
   );
 };
 
-export default ExpenseOldChart;
+export default OldChart;

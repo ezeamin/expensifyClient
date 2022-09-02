@@ -7,13 +7,24 @@ import { useQuery } from "react-query";
 import { getData } from "../../../api/fetchingFunctions";
 import Loading from "../../error and loading/Loading";
 import Box from "../../app/resumen/box/Box";
-import { Alert } from "@mui/material";
+import {
+  Alert,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 
 const Old = () => {
   const [list, setList] = React.useState([]);
-  const year = new Date().getFullYear(); //must be changed then to the year selected
+  const [year, setYear] = React.useState(new Date().getFullYear());
 
-  const { isLoading, isError } = useQuery(
+  const yearList = [];
+  for (let i = 2022; i <= new Date().getFullYear(); i++) {
+    yearList.push(i);
+  }
+
+  const { isLoading, isError, refetch } = useQuery(
     ["categoriesChart"],
     () => getData(`/api/periods/${year}`),
     {
@@ -24,6 +35,11 @@ const Old = () => {
       },
     }
   );
+
+  React.useEffect(() => {
+    refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [year]);
 
   return (
     <>
@@ -43,6 +59,23 @@ const Old = () => {
             <Alert severity="info" className="mb-2">
               Acá podes ver tus gastos e ingresos de periodos anteriores
             </Alert>
+            <div className="d-flex align-items-center my-2 w-100">
+              <p className="fw-bold text-light me-3 mb-0">Año</p>
+              <Select
+                value={year}
+                onChange={(e) => setYear(e.target.value)}
+                name="year"
+                fullWidth
+                sx={{
+                  "& .MuiSelect-outlined": { backgroundColor: "#fff" },
+                  "& .MuiOutlinedInput-notchedOutline": { display: "none" },
+                }}
+              >
+                {yearList.map((year) => (
+                  <MenuItem value={year}>{year}</MenuItem>
+                ))}
+              </Select>
+            </div>
             {list.map((item, index) => (
               <OldAccordions key={index} index={index} item={item} />
             ))}
