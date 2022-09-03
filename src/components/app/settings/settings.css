@@ -15,9 +15,13 @@
     color: #000;
 }
 
-.profile__settingGroup:last-child{
+.profile__settingGroup--danger{
     margin-bottom: 0;
     background-color: rgb(255, 181, 181);
+}
+
+.profile__settingGroup--danger:hover{
+    background-color: rgb(224, 163, 163);
 }
 
 .profile__backButton{

@@ -39,8 +39,7 @@ const Settings = () => {
     case 0:
       return (
         <div className="profile__resumen__box pt-1">
-          {/* <ChangeDataForm /> */}
-          <EnConstruccion />
+          <ChangeDataForm />
           <BackLink action={setSelectedOption} />
         </div>
       );
@@ -74,7 +73,7 @@ const Settings = () => {
             key={index}
             index={index}
             title={opcion.title}
-            link={opcion.link}
+            danger={index === 3}
             onclick={setSelectedOption}
           />
         );

@@ -56,7 +56,7 @@ const CuadroSaldo = ({ isSuccess, data }) => {
     }
   }, [user, isSuccess, data]);
 
-  const { mutate } = useMutation((info) => putData("/api/user/", info));
+  const { mutate } = useMutation((info) => putData("/api/user/seeStatus", info));
 
   const handleEye = () => {
     if (!showStatus) {
