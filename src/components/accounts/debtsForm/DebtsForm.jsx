@@ -303,7 +303,6 @@ const DebtsForm = (props) => {
       {priceError ? (
         <li className="mb-0 mt-3 text-danger fw-bold">Importe no valido</li>
       ) : null}
-      </div>
       {!loading ? (
         <Button
           variant="contained"
@@ -329,6 +328,7 @@ const DebtsForm = (props) => {
           </LoadingButton>
         </div>
       )}
+      </div>
     </form>
   );
 };
