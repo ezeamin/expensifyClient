@@ -79,6 +79,8 @@ const ChangeDataForm = () => {
       showCancelButton: true,
       cancelButtonText: "Cancelar",
       inputValidator: (value) => {
+        value.trim();
+        
         if (!value) {
           return "Debes ingresar un valor";
         }

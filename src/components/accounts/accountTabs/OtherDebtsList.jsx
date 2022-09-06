@@ -11,7 +11,7 @@ const OtherDebtsList = () => {
       <Button
         variant="contained"
         color="mainColor"
-        onClick={() => navigate("/payments/new")}
+        onClick={() => navigate("/debts/other/new")}
         className="mb-3"
         fullWidth
       >

@@ -39,6 +39,7 @@ const InfoList = lazy(() => import("./views/infoList/InfoList"));
 const Income = lazy(() => import("./views/newExpense/income/Income"));
 const Transfer = lazy(() => import("./views/newExpense/transfer/Transfer"));
 const Old = lazy(() => import("./components/expensesList/old/Old"));
+const NewDebt = lazy(() => import("./views/accounts/newDebt/NewDebt"));
 
 const App = () => {
   // Detect new period, and ping server if necessary
@@ -110,6 +111,8 @@ const App = () => {
                 path="/newExpense/transfer/:id"
                 element={<Transfer edit />}
               />
+              <Route path="/debts/other/new" element={<NewDebt type="other" />} />
+              <Route path="/debts/own/new" element={<NewDebt type="user" />} />
             </Route>
 
             {/* 404 Error route */}
