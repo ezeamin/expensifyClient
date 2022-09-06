@@ -9,7 +9,6 @@ import Loading from "../../../components/error and loading/Loading";
 import BackButton from "../../../components/backButton/BackButton";
 
 const NewDebt = (props) => {
-  const navigate = useNavigate();
   const [loadingPost, setLoadingPost] = React.useState(false);
   const [info, setInfo] = React.useState(null);
 
@@ -21,43 +20,6 @@ const NewDebt = (props) => {
 
   // const url = window.location.href;
   // const id = url.split("/")[url.split("/").length - 1];
-
-  const { mutate } = useMutation(
-    (info) => putData(`/api/debts/${props.type}`, info),
-    {
-      onSuccess: (data) => {
-        setLoadingPost(false);
-        if (!data || data.status !== 200) {
-          Swal.fire({
-            icon: "error",
-            title: "Error",
-            text: data.data.message
-              ? data.data.message
-              : "Error al crear la deuda",
-          });
-        } else {
-          Swal.fire({
-            title: "Exito",
-            text: "Deuda agregada, que carnero no?",
-            icon: "success",
-            showConfirmButton: false,
-            timer: 2500,
-          }).then(() => {
-            navigate("/accounts");
-          });
-        }
-      },
-      onError: (data) => {
-        setLoadingPost(false);
-        let msg = data.text();
-        Swal.fire({
-          title: "Error",
-          text: msg,
-          icon: "error",
-        });
-      },
-    }
-  );
 
   // const { mutate: edit } = useMutation(
   //   (info) => putData(`/api/debts/${props.type}/${data?.personId}/${data?.debtId}`, info),
@@ -95,16 +57,6 @@ const NewDebt = (props) => {
   //     },
   //   }
   // );
-
-  const newAccount = async (info) => {
-    mutate({
-      title: info.title,
-      icon: info.icon,
-      balance: info.balance,
-      accountType: info.accountType,
-      description: info.description,
-    });
-  };
 
   const editAccount = async (info) => {
     if (info.new.balance !== info.old.balance) {
@@ -180,7 +132,6 @@ const NewDebt = (props) => {
             refetchDebtors={refetchDebtors}
             loading={loadingPost}
             setLoadingPost={setLoadingPost}
-            newDebt={newAccount}
             editDebt={editAccount}
             data={info}
           />

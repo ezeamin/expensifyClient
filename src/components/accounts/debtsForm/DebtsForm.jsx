@@ -11,19 +11,19 @@ import {
   TextField,
 } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
-import Add from "@mui/icons-material/Add";
 import useRoundedBorder from "../../../hooks/useRoundedBorder";
 import ItemList from "../../expense/itemList/ItemList";
 import Swal from "sweetalert2";
 import { useMutation } from "react-query";
 import { putData } from "../../../api/fetchingFunctions";
+import { useNavigate } from "react-router-dom";
 
 const DebtsForm = (props) => {
   const rounded = useRoundedBorder(); //for style
 
   const [title, setTitle] = React.useState("");
   const [price, setPrice] = React.useState("");
-  const [debtorName, setDebtorName] = React.useState("");
+  const [debtorName, setDebtorName] = React.useState(null);
   const [account, setAccount] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [loading, setLoading] = React.useState(false);
@@ -32,6 +32,8 @@ const DebtsForm = (props) => {
   const [debtorNameError, setDebtorNameError] = React.useState(false);
   const [priceError, setPriceError] = React.useState(false);
   const [accountError, setAccountError] = React.useState(false);
+
+  const navigate = useNavigate();
 
   const validate = (type, value, setter) => {
     if (!value) {
@@ -89,6 +91,43 @@ const DebtsForm = (props) => {
     setPrice(e.target.value);
   };
 
+  const { mutate: createDebt } = useMutation(
+    (info) => putData(`/api/debt/${props.type}`, info),
+    {
+      onSuccess: (data) => {
+        setLoading(false);
+        if (!data || data.status !== 200) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: data.data.message
+              ? data.data.message
+              : "Error al crear la deuda",
+          });
+        } else {
+          Swal.fire({
+            title: "Exito",
+            text: "Deuda agregada, que carnero no?",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 2500,
+          }).then(() => {
+            navigate("/accounts");
+          });
+        }
+      },
+      onError: (data) => {
+        setLoading(false);
+        let msg = data.text();
+        Swal.fire({
+          title: "Error",
+          text: msg,
+          icon: "error",
+        });
+      },
+    }
+  );
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -102,11 +141,13 @@ const DebtsForm = (props) => {
       const data = {
         title,
         price,
-        account,
+        nameId: debtorName.id,
+        accountId: account,
         description,
         date: new Date(),
+        tzOffset: new Date().getTimezoneOffset(),
       };
-      props.onSubmit(data); //y que pasa con una cuenta credito?
+      createDebt(data); //y que pasa con una cuenta credito?
     }
   };
 
