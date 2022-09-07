@@ -17,14 +17,21 @@ const DebtAccordion = (props) => {
         expandIcon={<ExpandMoreIcon />}
         id={`panel-${name}-header`}
       >
-        <Typography variant="h6">
+        <Typography variant="h6" sx={{ fontFamily: "var(--font)" }}>
           Deudas de <span className="fw-bold">{name}</span>
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <DebtItem total={total}/>
+        <DebtItem total={total} />
         {debts.map((debt) => (
-          <DebtItem key={debt.id} name={name} {...debt} type={type} debtId={debt.id} personId={personId}/>
+          <DebtItem
+            key={debt.id}
+            name={name}
+            {...debt}
+            type={type}
+            debtId={debt.id}
+            personId={personId}
+          />
         ))}
       </AccordionDetails>
     </Accordion>

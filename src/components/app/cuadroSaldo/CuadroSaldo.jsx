@@ -79,7 +79,7 @@ const CuadroSaldo = ({ isSuccess, data }) => {
       </p>
       {user.totalOtherDebt ? (
         <p className="expense__priceBox__debt">
-          Te deben $ {user.totalOtherDebt}
+          Te deben $ {showStatus ? user.totalOtherDebt : "***"}
         </p>
       ) : null}
       {showImg && (

@@ -169,7 +169,7 @@ const DebtsForm = (props) => {
             text: "Deudor agregado",
             icon: "success",
             showConfirmButton: false,
-            timer: 2500,
+            timer: 1500,
           });
           props.refetchDebtors();
         }
