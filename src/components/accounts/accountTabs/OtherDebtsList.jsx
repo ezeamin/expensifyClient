@@ -3,11 +3,12 @@ import React from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { getData } from "../../../api/fetchingFunctions";
+import Loading from "../../error and loading/Loading";
 import DebtAccordion from "./DebtAccordion/DebtAccordion";
 
 const OtherDebtsList = () => {
   const navigate = useNavigate();
-  const [debts, setDebts] = React.useState([]);
+  const [debtors, setDebtors] = React.useState([]);
 
   const { isLoading } = useQuery(
     ["otherDebtsList"],
@@ -15,7 +16,7 @@ const OtherDebtsList = () => {
     {
       onSuccess: (data) => {
         if (data.status === 200) {
-          setDebts(data.data);
+          setDebtors(data.data);
         }
       },
     }
@@ -35,9 +36,26 @@ const OtherDebtsList = () => {
       <Alert severity="info" className="mb-2">
         Acá podes cargar las deudas de otros cornudos con vos
       </Alert>
-      {debts.map((debt) => (
-        <DebtAccordion name={debt?.name} debts={debt?.debts} />
-      ))}
+      <div className="listContainer listContainer--debts">
+        {debtors.length > 0 ? (
+          debtors.map((debtor) => (
+            <DebtAccordion
+              key={debtor.id}
+              name={debtor?.name}
+              debts={debtor?.debts || []}
+              total={debtor?.total}
+              personId={debtor.id}
+              type="other"
+            />
+          ))
+        ) : isLoading ? (
+          <Loading little />
+        ) : (
+          <p className="my-5 text-center text-light fw-bold">
+            Lamentablemente, no hay deudas para listar :(
+          </p>
+        )}
+      </div>
     </div>
   );
 };

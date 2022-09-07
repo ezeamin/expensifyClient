@@ -251,7 +251,11 @@ const DebtsForm = (props) => {
             options={props.debtorsList || []}
             getOptionLabel={(option) => option.name || ""}
             renderInput={(params) => (
-              <TextField {...params} label="Nombre del deudor" error={debtorNameError} />
+              <TextField
+                {...params}
+                label="Nombre del deudor"
+                error={debtorNameError}
+              />
             )}
             value={debtorName}
             onChange={(e, nv) => setDebtorName(nv)}
@@ -300,9 +304,10 @@ const DebtsForm = (props) => {
           onChange={(e) => setDescription(e.target.value)}
           className={rounded.round}
         />
-      {priceError ? (
-        <li className="mb-0 mt-3 text-danger fw-bold">Importe no valido</li>
-      ) : null}
+        {priceError ? (
+          <li className="mb-0 mt-3 text-danger fw-bold">Importe no valido</li>
+        ) : null}
+      </div>
       {!loading ? (
         <Button
           variant="contained"
@@ -328,7 +333,6 @@ const DebtsForm = (props) => {
           </LoadingButton>
         </div>
       )}
-      </div>
     </form>
   );
 };

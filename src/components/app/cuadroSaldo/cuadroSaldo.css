@@ -4,3 +4,9 @@
     right: 15px;
     color: #fff;
 }
+
+.expense__priceBox__debt{
+    position: absolute;
+    top: 4.5rem;
+    font-size: 1.25rem;
+}

@@ -9,7 +9,7 @@ import React from "react";
 import DebtItem from "./DebtItem";
 
 const DebtAccordion = (props) => {
-  const { name, debts } = props;
+  const { name, debts, total, type, personId } = props;
 
   return (
     <Accordion>
@@ -22,8 +22,9 @@ const DebtAccordion = (props) => {
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
+        <DebtItem total={total}/>
         {debts.map((debt) => (
-          <DebtItem {...debt} />
+          <DebtItem key={debt.id} name={name} {...debt} type={type} debtId={debt.id} personId={personId}/>
         ))}
       </AccordionDetails>
     </Accordion>

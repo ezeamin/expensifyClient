@@ -1,3 +1,7 @@
+.listContainer--debts{
+    max-height: calc(100vh - 400px);
+}
+
 .debtItem-container{
     border: 1px solid #e6e6e6;
     padding: 1rem;
@@ -32,4 +36,15 @@
 
 .debtItem-button:hover{
     background-color: #f0f0f0;
+}
+
+@media screen and (max-width: 768px) {
+    .debtItem-container{
+        flex-direction: column;
+    }
+
+    .debtItem-text{
+        text-align: center;
+        margin-bottom: 1rem;
+    }
 }
