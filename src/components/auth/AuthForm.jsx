@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { postLogin } from "../../api/fetchingFunctions";
 import "./authForm.css";
 import SaveIcon from "@mui/icons-material/Save";
+import { Link } from "react-router-dom";
 
 class AuthForm extends Component {
   constructor(props) {
@@ -195,12 +196,12 @@ class AuthForm extends Component {
             />
           </div>
           <div className="text-start mt-1">
-            <a
-              href="/auth/recPassword"
+            <Link
+              to="/auth/recPassword"
               className="auth__box__olvidasteContraseña"
             >
               ¿Olvidaste tu contraseña?
-            </a>
+            </Link>
           </div>
           <div className="d-flex flex-column">
             <label

@@ -10,7 +10,7 @@ import { getData, putData } from "../../../api/fetchingFunctions";
 import { useMutation, useQuery } from "react-query";
 import Swal from "sweetalert2";
 
-const Resumen = ({ balance }) => {
+const Resumen = ({ balance, hasDebts }) => {
   const [stateValue, setStateValue] = React.useState(0);
   const [limit, setLimit] = React.useState(0);
   const [progressColor, setProgressColor] = React.useState("successColor");
@@ -21,12 +21,17 @@ const Resumen = ({ balance }) => {
   const [dayMeanAccounts, setDayMeanAccounts] = React.useState([]);
   const [left, setLeft] = React.useState(0);
   const [negativeBalance, setNegativeBalance] = React.useState(false);
+  const [mainClassName, setMainClassName] = React.useState("listContainer--main");
 
   const dt = new Date();
   const currentDay = dt.getDate();
   const currentMonth = dt.getMonth();
   const currentYear = dt.getFullYear();
-  const daysInMonth = new Date(currentYear, currentMonth+1, 0).getDate();
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+  React.useEffect(() => {
+    hasDebts && setMainClassName("listContainer--main listContainer--main--hasDebts");
+  }, [hasDebts]);
 
   React.useEffect(() => {
     if (stateValue >= 80) {
@@ -129,7 +134,7 @@ const Resumen = ({ balance }) => {
         setNegativeBalance(true);
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit, spent]);
 
   const handleChangeLimit = async () => {
@@ -166,8 +171,9 @@ const Resumen = ({ balance }) => {
         <p className="mb-0">Por favor, volvé a intentar</p>
       </Box>
     );
+
   return (
-    <div className="listContainer--main">
+    <div className={mainClassName}>
       <div className="text-light paddingBottom">
         <Box>
           <div className="d-flex justify-content-between align-items-center">

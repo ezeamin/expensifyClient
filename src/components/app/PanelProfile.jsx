@@ -8,6 +8,7 @@ import Error from "../error and loading/Error";
 import CuadroSaldo from "./cuadroSaldo/CuadroSaldo";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import { Alert } from "@mui/material";
 
 const PanelProfile = () => {
   const [user, setUser] = React.useState({});
@@ -36,8 +37,9 @@ const PanelProfile = () => {
       <div className="container">
         <Title type="profile" name={user.name} />
         <CuadroSaldo isSuccess={isSuccess} data={data} />
+        {data?.data?.totalOtherDebt ? <Alert severity="error" className="fw-bold">Te deben $ {data.data.totalOtherDebt}</Alert> : null}
       </div>
-      <TabsSection page="profile" balance={data.data.saldo} />
+      <TabsSection page="profile" balance={data.data.saldo} hasDebts={data?.data?.totalOtherDebt}/>
     </>
   );
 };

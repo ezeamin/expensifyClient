@@ -1,7 +1,7 @@
 import { LoadingButton } from "@mui/lab";
 import { Alert, Button, TextField } from "@mui/material";
 import React, { Component } from "react";
-import { getData } from "../../../api/fetchingFunctions";
+import { putData } from "../../../api/fetchingFunctions";
 
 class RecPassword extends Component {
   constructor(props) {
@@ -17,6 +17,7 @@ class RecPassword extends Component {
       },
       loading: false,
       sent: false,
+      email: "",
     };
   }
 
@@ -79,13 +80,15 @@ class RecPassword extends Component {
         error: false,
         msg: "",
       },
+      sent: false,
     });
 
-    getData(`/api/email/${this.state.dni}`).then(async (res) => {
+    putData(`/api/email/${this.state.dni}`).then(async (res) => {
       if (res.status === 200) {
         this.setState({
           loading: false,
           sent: true,
+          email: res.data.email,
         });
       } else {
         let msg = res.data.message;
@@ -95,6 +98,7 @@ class RecPassword extends Component {
             error: true,
             msg: msg,
           },
+          sent: false,
           loading: false,
         });
       }
@@ -105,7 +109,7 @@ class RecPassword extends Component {
     return (
       <div>
         {this.state.DNIError.error && (
-          <Alert severity="error" className="mb-3">
+          <Alert severity="error" className="mb-3 text-start">
             {this.state.DNIError.msg}
           </Alert>
         )}
@@ -142,7 +146,11 @@ class RecPassword extends Component {
                 Enviar
               </LoadingButton>
             )}
-            {this.state.sent && <p className="mb-0 mt-2 text-success">Enviado</p>}
+            {this.state.sent && (
+              <p className="mb-0 mt-2 text-success">
+                Enviado a {this.state.email}
+              </p>
+            )}
           </div>
         </form>
       </div>

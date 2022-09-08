@@ -54,3 +54,7 @@
     overflow-y: scroll;
     border-radius: 10px;
 }
+
+.listContainer--main--hasDebts{
+    max-height: calc(100vh - 450px);
+}

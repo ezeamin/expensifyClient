@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import AuthForm from "../../components/auth/AuthForm";
 import SignUp from "../../components/auth/signup/SignUp";
 import useAuth from "../../hooks/useAuth";
@@ -113,9 +113,9 @@ const Auth = () => {
         <div className="auth__box mt-2">
           <p className="mb-0 auth__box__mensajeRegistro">
             ¿Sos nuevo?{" "}
-            <a href="/auth/signup" className="auth__box__mensajeRegistro__a">
+            <Link to="/auth/signup" className="auth__box__mensajeRegistro__a">
               Registrate acá
-            </a>
+            </Link>
           </p>
         </div>
       </div>
@@ -136,9 +136,9 @@ const Auth = () => {
             setInfo={setInfo}
             rounded={rounded}
           />
-          <a href="/auth/login" className="auth__box__volver">
+          <Link to="/auth/login" className="auth__box__volver">
             <p className="mt-3 mb-0">Volver</p>
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -160,9 +160,9 @@ const Auth = () => {
             </p>
             <RecPassword rounded={rounded} />
           </div>
-          <a href="/auth/login" className="auth__box__volver">
+          <Link to="/auth/login" className="auth__box__volver">
             <p className="mt-3 mb-0">Volver</p>
-          </a>
+          </Link>
         </div>
       </div>
     );

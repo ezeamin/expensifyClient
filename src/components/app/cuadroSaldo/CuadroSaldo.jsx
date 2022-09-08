@@ -77,11 +77,6 @@ const CuadroSaldo = ({ isSuccess, data }) => {
       <p className="expense__priceBox__dollarSign">
         Saldo: ${showStatus ? user.saldo : " ***"}
       </p>
-      {user.totalOtherDebt ? (
-        <p className="expense__priceBox__debt">
-          Te deben $ {showStatus ? user.totalOtherDebt : "***"}
-        </p>
-      ) : null}
       {showImg && (
         <div className="profile__totalBox__meme">
           <img src="/img/profile/this-is-fine.png" alt="this is fine" />
