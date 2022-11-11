@@ -83,4 +83,10 @@ export const categorias = [
       limit: 0,
       description: "",
     },
+    {
+      title: "Regalos",
+      icon: "fa-solid fa-gift",
+      limit: 0,
+      description: "",
+    },
   ];

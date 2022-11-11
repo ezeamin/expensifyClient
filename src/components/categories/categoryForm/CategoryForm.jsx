@@ -28,6 +28,7 @@ class CategoryForm extends Component {
         accountType: false,
       },
       loading: false,
+      showCurrency: false,
       data: {},
     };
   }
@@ -45,6 +46,7 @@ class CategoryForm extends Component {
         limit: limit + "",
         description: this.props.data.description,
         data: this.props.data,
+        showCurrency: this.props.data?.accountType === "Caja de ahorros en moneda extranjera",
       });
     }
   }
@@ -67,6 +69,7 @@ class CategoryForm extends Component {
           limit: limit + "",
           description: this.props.data.description,
           data: this.props.data,
+          showCurrency: this.props.data?.accountType === "Caja de ahorros en moneda extranjera",
         });
       }
     }
@@ -75,8 +78,14 @@ class CategoryForm extends Component {
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
 
-    if (e.target.name === "accountType" && e.target.value === "Credito") {
-      this.setState({ limit: "0" });
+    if (e.target.name === "accountType"){
+      if(e.target.value === "Credito") {
+        this.setState({ limit: "0", showCurrency: false });
+      } else if (e.target.value === "Caja de ahorros en moneda extranjera"){
+        this.setState({showCurrency: true});
+      } else {
+        this.setState({showCurrency: false});
+      }
     }
   };
 
