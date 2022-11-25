@@ -4,7 +4,6 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { es } from "date-fns/locale";
-import { parseISO } from "date-fns";
 import { FormHelperText } from "@mui/material";
 
 export default function BasicDatePicker(props) {
@@ -12,14 +11,14 @@ export default function BasicDatePicker(props) {
   const month = dt.getMonth() + 1;
   const year = dt.getFullYear();
 
-  const firstDate = `01/${month}/${year}`;
+  const firstDate = new Date(year,month-1,1);
 
   return (
     <LocalizationProvider adapterLocale={es} dateAdapter={AdapterDateFns}>
       <DatePicker
         label="Fecha"
         disableFuture
-        minDate={parseISO(firstDate)}
+        minDate={firstDate}
         value={props.value}
         default
         onChange={(newDate) =>
