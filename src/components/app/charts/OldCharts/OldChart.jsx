@@ -1,15 +1,15 @@
-import React from "react";
-import Box from "../../resumen/box/Box";
-import * as am5 from "@amcharts/amcharts5";
-import * as am5xy from "@amcharts/amcharts5/xy";
-import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
-import { useQuery } from "react-query";
-import { getData } from "../../../../api/fetchingFunctions";
-import getMonth from "../../../../helpers/getMonth";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import React from 'react';
+import Box from '../../resumen/box/Box';
+import * as am5 from '@amcharts/amcharts5';
+import * as am5xy from '@amcharts/amcharts5/xy';
+import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
+import { useQuery } from 'react-query';
+import { getData } from '../../../../api/fetchingFunctions';
+import getMonth from '../../../../helpers/getMonth';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 const OldChart = () => {
-  const chartID = "spentAndIncomeOldDiv";
+  const chartID = 'spentAndIncomeOldDiv';
   const [data, setData] = React.useState([]);
   const [year, setYear] = React.useState(new Date().getFullYear());
 
@@ -19,7 +19,7 @@ const OldChart = () => {
   }
 
   const { isLoading, isError, refetch } = useQuery(
-    ["spentAndIncomeOldChart"],
+    ['spentAndIncomeOldChart'],
     () => getData(`/api/charts/spentAndIncomeOldChart/${year}`),
     {
       onSuccess: (data) => {
@@ -35,7 +35,7 @@ const OldChart = () => {
 
   React.useEffect(() => {
     refetch();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [year]);
 
   React.useLayoutEffect(() => {
@@ -52,21 +52,21 @@ const OldChart = () => {
         am5xy.XYChart.new(root, {
           panX: false,
           panY: false,
-          wheelX: "none",
-          wheelY: "none",
+          wheelX: 'none',
+          wheelY: 'none',
         })
       );
 
       // We don't want zoom-out button to appear while animating, so we hide it
-      chart.zoomOutButton.set("forceHidden", true);
+      chart.zoomOutButton.set('forceHidden', true);
 
       var cursor = chart.set(
-        "cursor",
+        'cursor',
         am5xy.XYCursor.new(root, {
-          behavior: "none",
+          behavior: 'none',
         })
       );
-      cursor.lineY.set("visible", false);
+      cursor.lineY.set('visible', false);
 
       let xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
       xRenderer.labels.template.setAll({
@@ -79,7 +79,7 @@ const OldChart = () => {
       let xAxis = chart.xAxes.push(
         am5xy.CategoryAxis.new(root, {
           maxDeviation: 0.5,
-          categoryField: "month",
+          categoryField: 'month',
           renderer: xRenderer,
           tooltip: am5.Tooltip.new(root, {}),
         })
@@ -96,16 +96,16 @@ const OldChart = () => {
       // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
       let series1 = chart.series.push(
         am5xy.SmoothedXLineSeries.new(root, {
-          name: "Gastado",
+          name: 'Gastado',
           xAxis: xAxis,
           yAxis: yAxis,
-          valueYField: "spent",
-          categoryXField: "month",
-          stroke: "#e85454",
-          fill: "#e85454",
+          valueYField: 'spent',
+          categoryXField: 'month',
+          stroke: '#e85454',
+          fill: '#e85454',
           tooltip: am5.Tooltip.new(root, {
-            pointerOrientation: "left",
-            labelText: "{valueY}",
+            pointerOrientation: 'left',
+            labelText: '{valueY}',
           }),
         })
       );
@@ -119,25 +119,25 @@ const OldChart = () => {
           locationY: 0,
           sprite: am5.Circle.new(root, {
             radius: 4,
-            stroke: root.interfaceColors.get("background"),
+            stroke: root.interfaceColors.get('background'),
             strokeWidth: 2,
-            fill: "#e85454",
+            fill: '#e85454',
           }),
         });
       });
 
       let series2 = chart.series.push(
         am5xy.SmoothedXLineSeries.new(root, {
-          name: "Ingreso",
+          name: 'Ingreso',
           xAxis: xAxis,
           yAxis: yAxis,
-          valueYField: "income",
-          categoryXField: "month",
-          stroke: "#32a852",
-          fill: "#32a852",
+          valueYField: 'income',
+          categoryXField: 'month',
+          stroke: '#32a852',
+          fill: '#32a852',
           tooltip: am5.Tooltip.new(root, {
-            pointerOrientation: "left",
-            labelText: "{valueY}",
+            pointerOrientation: 'left',
+            labelText: '{valueY}',
           }),
         })
       );
@@ -151,9 +151,9 @@ const OldChart = () => {
           locationY: 0,
           sprite: am5.Circle.new(root, {
             radius: 4,
-            stroke: root.interfaceColors.get("background"),
+            stroke: root.interfaceColors.get('background'),
             strokeWidth: 2,
-            fill: "#32a852",
+            fill: '#32a852',
           }),
         });
       });
@@ -173,41 +173,43 @@ const OldChart = () => {
 
   if (isLoading)
     return (
-      <Box className="mt-3">
-        <h2 className="mb-0">Gráfico histórico</h2>
+      <Box className='mt-3'>
+        <h2 className='mb-0'>Gráfico histórico</h2>
         <h6>Gastos vs ingresos</h6>
-        <p className="mb-0 py-2 text-center">Cargando...</p>
+        <p className='mb-0 py-2 text-center'>Cargando...</p>
       </Box>
     );
   if (isError)
     return (
-      <Box className="mt-3">
-        <h2 className="mb-0">Gráfico histórico</h2>
+      <Box className='mt-3'>
+        <h2 className='mb-0'>Gráfico histórico</h2>
         <h6>Gastos vs ingresos</h6>
-        <p className="mb-0 py-2 text-center text-danger">
+        <p className='mb-0 py-2 text-center text-danger'>
           Error cargando gráfico
         </p>
       </Box>
     );
   return (
-    <Box className="mb-3">
-      <div className="d-flex justify-content-between">
+    <Box className='mb-3'>
+      <div className='d-flex justify-content-between'>
         <div>
-          <h2 className="mb-0">Gráfico histórico</h2>
+          <h2 className='mb-0'>Gráfico histórico</h2>
           <h6>Gastos vs ingresos</h6>
         </div>
         <FormControl>
-          <InputLabel id="label-anio">Año</InputLabel>
+          <InputLabel id='label-anio'>Año</InputLabel>
           <Select
             value={year}
             onChange={(e) => setYear(e.target.value)}
-            label="Año"
-            labelId="label-anio"
-            id="select-anio"
-            name="year"
+            label='Año'
+            labelId='label-anio'
+            id='select-anio'
+            name='year'
           >
             {yearList.map((year) => (
-              <MenuItem value={year}>{year}</MenuItem>
+              <MenuItem value={year} key={year}>
+                {year}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -215,14 +217,14 @@ const OldChart = () => {
       {data && data.length > 0 ? (
         <div
           style={{
-            overflowX: "scroll",
-            overflowY: "hidden",
+            overflowX: 'scroll',
+            overflowY: 'hidden',
           }}
         >
-          <div id={chartID} style={{ width: "150%", height: `400px` }}></div>
+          <div id={chartID} style={{ width: '150%', height: `400px` }}></div>
         </div>
       ) : (
-        <p className="text-center mb-0 py-2">Sin datos</p>
+        <p className='text-center mb-0 py-2'>Sin datos</p>
       )}
     </Box>
   );
