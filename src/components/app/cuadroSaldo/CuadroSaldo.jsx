@@ -1,15 +1,22 @@
-import React from "react";
-import { useMutation } from "react-query";
-import { putData } from "../../../api/fetchingFunctions";
-import "./cuadroSaldo.css";
+import React from 'react';
+import { useMutation } from 'react-query';
+import { putData } from '../../../api/fetchingFunctions';
+import { formatNumber } from '../../../helpers/formatNumber';
+import './cuadroSaldo.css';
 
-const CuadroSaldo = ({ isSuccess, data }) => {
+const CuadroSaldo = ({ isSuccess, data, dataDollar, isErrorDollar }) => {
   const cuadroSaldo = React.useRef();
   const user = data.data;
+  const dollarValue = dataDollar?.data?.blue?.value_avg || 0;
+  console.log(
+    '🚀 ~ file: CuadroSaldo.jsx:10 ~ CuadroSaldo ~ dataDollar:',
+    dataDollar
+  );
 
   const [showImg, setShow] = React.useState(false);
   const [showStatus, setShowStatus] = React.useState(false);
-  const [eyeClass, setEyeClass] = React.useState("fa-regular fa-eye eye");
+  const [eyeClass, setEyeClass] = React.useState('fa-regular fa-eye eye');
+  const [totalBalance, setTotalBalance] = React.useState(0);
 
   const dt = new Date();
   const currentDay = dt.getDate();
@@ -20,9 +27,9 @@ const CuadroSaldo = ({ isSuccess, data }) => {
   React.useEffect(() => {
     if (isSuccess && data.status === 200) {
       if (user.shouldSeeStatus) {
-        setEyeClass("fa-regular fa-eye eye");
+        setEyeClass('fa-regular fa-eye eye');
       } else {
-        setEyeClass("fa-regular fa-eye-slash eye");
+        setEyeClass('fa-regular fa-eye-slash eye');
       }
       setShowStatus(user.shouldSeeStatus);
 
@@ -30,41 +37,45 @@ const CuadroSaldo = ({ isSuccess, data }) => {
       const remainingDays = daysInMonth - currentDay + 1;
       const left = Math.round(user.saldo - remainingDays * dayMeanSpent);
 
+      if (dollarValue) {
+        setTotalBalance(formatNumber(Math.round(user.dollars * dollarValue)));
+      }
+
       let status;
 
       if (left <= 0) {
-        status = "danger";
+        status = 'danger';
       } else {
         // const remaining = Math.round(user.saldo - left);
         const remainingPerc = Math.round((left / user.saldo) * 100);
 
         if (remainingPerc <= 20) {
-          status = "warning";
+          status = 'warning';
         } else {
-          status = "ok";
+          status = 'ok';
         }
       }
 
-      if (status === "ok") {
-        cuadroSaldo.current.className = "expense__priceBox successBox";
-      } else if (status === "warning") {
-        cuadroSaldo.current.className = "expense__priceBox warningBox";
+      if (status === 'ok') {
+        cuadroSaldo.current.className = 'expense__priceBox successBox';
+      } else if (status === 'warning') {
+        cuadroSaldo.current.className = 'expense__priceBox warningBox';
       } else {
-        cuadroSaldo.current.className = "expense__priceBox dangerBox";
+        cuadroSaldo.current.className = 'expense__priceBox dangerBox';
         setShow(true);
       }
     }
   }, [user, isSuccess, data]);
 
   const { mutate } = useMutation((info) =>
-    putData("/api/user/seeStatus", info)
+    putData('/api/user/seeStatus', info)
   );
 
   const handleEye = () => {
     if (!showStatus) {
-      setEyeClass("fa-regular fa-eye-slash eye");
+      setEyeClass('fa-regular fa-eye-slash eye');
     } else {
-      setEyeClass("fa-regular fa-eye eye");
+      setEyeClass('fa-regular fa-eye eye');
     }
 
     mutate({ shouldSeeStatus: !showStatus });
@@ -72,14 +83,30 @@ const CuadroSaldo = ({ isSuccess, data }) => {
   };
 
   return (
-    <div className="expense__priceBox" ref={cuadroSaldo}>
+    <div className='expense__priceBox' ref={cuadroSaldo}>
       <i className={eyeClass} onClick={handleEye}></i>
-      <p className="expense__priceBox__dollarSign">
-        Saldo: ${showStatus ? user.saldo : " ***"}
-      </p>
+      <div style={{ textAlign: 'center' }}>
+        <p
+          className={`expense__priceBox__dollarSign ${
+            totalBalance === 0 ? 'expense__priceBox__dollarSign__unique' : ''
+          }`}
+        >
+          Saldo: ${showStatus ? user.saldo : ' ***'}
+        </p>
+        {totalBalance !== 0 && !isErrorDollar && (
+          <p className='mb-0' style={{ lineHeight: '0.75rem', color: 'white' }}>
+            Ahorro: U$S ${showStatus ? user.dollars : ' ***'} -{'>'} ARS ${showStatus ? totalBalance : ' ***'} 
+          </p>
+        )}
+        {totalBalance !== 0 && !isErrorDollar && (
+          <p className='mb-0' style={{ lineHeight: '0.75rem', color: 'white', marginTop: "0.5rem" }}>
+            Dolar hoy: ${dollarValue} 
+          </p>
+        )}
+      </div>
       {showImg && (
-        <div className="profile__totalBox__meme">
-          <img src="/img/profile/this-is-fine.png" alt="this is fine" />
+        <div className='profile__totalBox__meme'>
+          <img src='/img/profile/this-is-fine.png' alt='this is fine' />
         </div>
       )}
     </div>

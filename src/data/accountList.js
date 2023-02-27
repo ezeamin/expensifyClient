@@ -4,6 +4,6 @@ export const accountList = [
   "Debito",
   "Billetera electronica",
   "Criptomoneda",
-  "Caja de ahorros en moneda extranjera",
+  "Caja de ahorros en dolares",
   "Otro",
 ];

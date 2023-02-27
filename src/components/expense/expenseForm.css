@@ -11,7 +11,7 @@
 
 .expense__priceBox{
     margin: 1rem 0;
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
     border-radius: 20px;
     display: flex;
     justify-content: center;
@@ -22,7 +22,11 @@
 .expense__priceBox__dollarSign{
     font-size: 2rem;
     color: #fff;
-    margin: 0 0.5rem 0 0;
+    margin: 0;
+}
+
+.expense__priceBox__dollarSign__unique{
+    padding: 0.5rem 1rem
 }
 
 .expense__priceBox__input{
