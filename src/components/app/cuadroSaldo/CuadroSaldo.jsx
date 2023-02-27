@@ -7,11 +7,8 @@ import './cuadroSaldo.css';
 const CuadroSaldo = ({ isSuccess, data, dataDollar, isErrorDollar }) => {
   const cuadroSaldo = React.useRef();
   const user = data.data;
-  const dollarValue = dataDollar?.data?.blue?.value_avg || 0;
-  console.log(
-    '🚀 ~ file: CuadroSaldo.jsx:10 ~ CuadroSaldo ~ dataDollar:',
-    dataDollar
-  );
+  const dollarValue = dataDollar?.data?.blue?.value_buy || 0;
+  const dollarValueSell = dataDollar?.data?.blue?.value_sell || 0;
 
   const [showImg, setShow] = React.useState(false);
   const [showStatus, setShowStatus] = React.useState(false);
@@ -91,16 +88,27 @@ const CuadroSaldo = ({ isSuccess, data, dataDollar, isErrorDollar }) => {
             totalBalance === 0 ? 'expense__priceBox__dollarSign__unique' : ''
           }`}
         >
-          Saldo: ${showStatus ? user.saldo : ' ***'}
+          Saldo: ${showStatus ? formatNumber(user.saldo) : ' ***'}
         </p>
         {totalBalance !== 0 && !isErrorDollar && (
           <p className='mb-0' style={{ lineHeight: '0.75rem', color: 'white' }}>
-            Ahorro: U$S ${showStatus ? user.dollars : ' ***'} -{'>'} ARS ${showStatus ? totalBalance : ' ***'} 
+            Ahorro: U$S{' '}
+            <span style={{ fontWeight: 'bold' }}>
+              ${showStatus ? formatNumber(user.dollars) : ' ***'}
+            </span>{' '}
+            -{'>'} ARS ${showStatus ? totalBalance : ' ***'}
           </p>
         )}
         {totalBalance !== 0 && !isErrorDollar && (
-          <p className='mb-0' style={{ lineHeight: '0.75rem', color: 'white', marginTop: "0.5rem" }}>
-            Dolar hoy: ${dollarValue} 
+          <p
+            className='mb-0'
+            style={{
+              lineHeight: '0.75rem',
+              color: 'white',
+              marginTop: '0.65rem',
+            }}
+          >
+            Dolar B hoy (C-V): ${dollarValue} - ${dollarValueSell}
           </p>
         )}
       </div>
