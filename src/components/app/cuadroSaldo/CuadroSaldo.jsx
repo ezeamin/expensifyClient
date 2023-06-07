@@ -62,7 +62,7 @@ const CuadroSaldo = ({ isSuccess, data, dataDollar, isErrorDollar }) => {
         setShow(true);
       }
     }
-  }, [user, isSuccess, data]);
+  }, [user, isSuccess, data, dollarValue]);
 
   const { mutate } = useMutation((info) =>
     putData('/api/user/seeStatus', info)
@@ -96,7 +96,10 @@ const CuadroSaldo = ({ isSuccess, data, dataDollar, isErrorDollar }) => {
             <span style={{ fontWeight: 'bold' }}>
               ${showStatus ? formatNumber(user.dollars) : ' ***'}
             </span>{' '}
-            -{'>'} ARS ${showStatus ? totalBalance : ' ***'}
+            -{'>'} ARS{' '}
+            <span style={{ fontWeight: 'bold' }}>
+              ${showStatus ? totalBalance : ' ***'}
+            </span>
           </p>
         )}
         {totalBalance !== 0 && !isErrorDollar && (
