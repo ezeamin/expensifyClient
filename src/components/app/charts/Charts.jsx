@@ -11,7 +11,7 @@ const Charts = () => {
         }}>
             <CategoriesChart />
             <DayChart />
-            <WeekChart />  
+            {/* <WeekChart />   */}
             <OldChart />  
         </div>
     );
