@@ -84,7 +84,7 @@ class ExpenseForm extends Component {
   verificar(name, value) {
     const errores = this.state.errores;
 
-    if (value.trim() === "" || value.length < 2) {
+    if (value.trim() === "" || value.length < 1) {
       return this.error(errores, name);
     } else if (
       name === "price" &&
