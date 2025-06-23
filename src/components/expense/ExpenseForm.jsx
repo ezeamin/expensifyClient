@@ -171,6 +171,7 @@ class ExpenseForm extends Component {
             placeholder="xx.xx"
             value={this.state.price}
             name="price"
+            inputmode="numeric"
             type="number"
             step="0.01"
             onChange={(e) => this.handleChange(e)}
